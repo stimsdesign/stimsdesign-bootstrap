@@ -1,4 +1,4 @@
-# STIMS Design Bootstrap
+# Test STIMS Design Bootstrap
 
 A streamlined, blazing fast frontend-only skeleton for building Astro 6.0 marketing websites. This template provides a clean slate with Tailwind CSS and Netlify deployment pre-configured.
 
