@@ -1,0 +1,950 @@
+---
+import Template from "../layouts/BaseLayout.astro";
+import Button from "../components/elements/Button.astro";
+import Main from "../components/layout/Main.astro";
+import CrossIcon from "../icons/cross.svg"
+import GoogleIcon from "../icons/google.svg"
+import TwitterXIcon from "../icons/twitter-x.svg"
+import EyeIcon from "../icons/eye.svg"
+import EyeOffIcon from "../icons/eye-off.svg"
+
+export const prerender = false;
+
+// Redirect to dashboard if already logged in
+if (Astro.locals.session) {
+    return Astro.redirect("/dashboard");
+}
+---
+<Template title="Client Portal | STIMSDESIGN">
+    <Main>
+        <input type="checkbox" id="register-toggle" class="form-toggle-checkbox"/>
+        <div class="portal-wrapper">
+            <section class="portal-card fancy-border">
+                <div class="portal-container">
+                    <div class="portal-content">
+                        <label for="register-toggle" class="close-registration" aria-label="Close registration form">
+                            <CrossIcon />
+                        </label>
+                        <div class="login-column">
+                            <div class="portal-header">
+                                <h1>Hello!</h1>
+                                <p>Login to your account to manage your projects.</p>
+                            </div>
+                            <form class="login-form" method="POST" action="/api/login">
+                                <div class="form-message" id="login-message"></div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" placeholder="••••••••" required/>
+                                </div>
+                                <div class="form-options">
+                                    <label class="remember-me">
+                                        <input type="checkbox" name="remember"/>
+                                        <span class="checkmark"></span>
+                                        <span>Remember me</span>
+                                    </label>
+                                    <a href="#" class="forgot-password">Forgot password?</a>
+                                </div>
+                                <Button type="submit">Sign In</Button>
+                                <label for="register-toggle" class="button">Register</label>
+                            </form>
+                        </div>
+
+                        <div class="divider-vertical"></div>
+
+                        <div class="social-column">
+                            <div class="divider-mobile">
+                                <span>Or Sign In with</span>
+                            </div>
+                            <h3 class="social-heading desktop-only">Or Sign In with</h3>
+                            <div class="social-logins">
+                                <button class="social-btn google" aria-label="Login with Google">
+                                    <GoogleIcon />
+                                    <span>Authenticate with Google</span>
+                                </button>
+                                <button class="social-btn twitter" aria-label="Login with X">
+                                    <TwitterXIcon />
+                                    <span>Authenticate with X</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="registration-column">
+                            <div class="portal-header">
+                                <h1>Register</h1>
+                                <p>Create a new account to start your journey.</p>
+                            </div>
+                            <div class="form-message" id="reg-message"></div>
+
+                            <form class="registration-form" method="POST" action="/api/register">
+                                <div class="credential-column">
+                                    <div class="form-group">
+                                        <label for="reg-name">Full Name</label>
+                                        <input type="text" id="reg-name" name="name" placeholder="Your Name" autocomplete="name" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-email">Email Address</label>
+                                        <input type="email" id="reg-email" name="email" placeholder="you@example.com" autocomplete="email" required />
+                                    </div>
+                                </div>
+                                <div class="divider-vertical"></div>
+                                <div class="password-column">
+                                    <div class="form-group">
+                                        <label for="reg-password">Password</label>
+                                        <div class="password-input-wrapper">
+                                            <input type="password" id="reg-password" name="password" placeholder="••••••••" required />
+                                            <button type="button" class="toggle-password" tabindex="-1" aria-label="Toggle password visibility">
+                                                <span class="eye-open"><EyeIcon /></span>
+                                                <span class="eye-closed"><EyeOffIcon /></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-confirm-password">Confirm Password</label>
+                                        <div class="password-input-wrapper">
+                                            <input type="password" id="reg-confirm-password" name="confirm-password" placeholder="••••••••" required />
+                                            <button type="button" class="toggle-password" tabindex="-1" aria-label="Toggle password visibility">
+                                                <span class="eye-open"><EyeIcon /></span>
+                                                <span class="eye-closed"><EyeOffIcon /></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="password-requirements small">
+                                    Passwords must be <span class="req-characters">8 characters minimum</span>, <span class="req-uppercase">include an uppercase character</span>, <span class="req-number">include a number</span>, and <span class="req-special">include a special character</span>.
+                                </div>
+                                <Button type="submit" margin="0 auto">Create Account</Button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </Main>
+</Template>
+
+<style>
+    .portal-card {
+        margin-bottom: 2rem;
+    }
+
+    .portal-content {
+        padding: 1rem 1rem;
+        background: var(--color-primary-darker);
+        border-radius: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Toggle Logic */
+    .form-toggle-checkbox {
+        display: none;
+    }
+
+    .registration-column,
+    .close-registration {
+        display: none;
+    }
+
+    #register-toggle:checked ~ .portal-wrapper .login-column,
+    #register-toggle:checked ~ .portal-wrapper .portal-content > .divider-vertical,
+    #register-toggle:checked ~ .portal-wrapper .social-column,
+    #register-toggle:checked ~ .portal-wrapper .divider-mobile,
+    #register-toggle:checked ~ .portal-wrapper .register-prompt {
+        display: none;
+    }
+
+    #register-toggle:checked ~ .portal-wrapper .registration-column {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        animation: fadeIn 0.4s ease forwards;
+    }
+
+
+
+    #register-toggle:checked ~ .portal-wrapper .close-registration {
+        display: flex;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .close-registration {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: var(--color-foreground-dark);
+        transition: all 0.3s ease;
+        z-index: 10;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+        .close-registration {
+            top: 1rem;
+            right: 1rem;
+        }
+    }
+
+    .close-registration:hover {
+        color: var(--color-secondary);
+        background: rgba(255, 255, 255, 0.1);
+        transform: rotate(90deg);
+    }
+
+    .close-registration svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .registration-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .portal-header {
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+
+    .portal-header h1 {
+        margin-bottom: 0.5rem;
+        color: var(--color-foreground);
+        text-shadow: 0 0 10px var(--color-secondary);
+    }
+
+    @keyframes gradientBounce {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .portal-header p {
+        font-size: var(--size-med);
+        color: var(--color-foreground-dark);
+        margin-bottom: 0;
+    }
+
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .registration-form .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .registration-form .form-group:last-child {
+        margin-bottom: 0;
+    }
+    
+    .password-requirements {
+        flex-basis: 100%;
+        text-align: center;
+        margin:0;
+    }
+
+    .form-group label {
+        font-size: var(--size-lg);
+        font-weight: var(--weight-medium);
+        color: var(--color-foreground);
+    }
+
+    .form-group input {
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: white;
+        transition: all 0.3s ease;
+        font-size: var(--size-med);
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--color-secondary);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 15px rgba(2, 76, 170, 0.3);
+    }
+
+    /* Password Toggle Styling */
+    .password-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .password-input-wrapper input {
+        width: 100%;
+        padding-right: 3.5rem;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 0.75rem;
+        background: none;
+        border: none;
+        color: var(--color-foreground-dark);
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.3s ease;
+        z-index: 2;
+    }
+
+    .toggle-password:hover {
+        color: var(--color-secondary);
+    }
+
+    .toggle-password svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .eye-closed {
+        display: none;
+    }
+
+    .password-input-wrapper.show-password .eye-open {
+        display: none;
+    }
+
+    .password-input-wrapper.show-password .eye-closed {
+        display: block;
+    }
+
+    .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: var(--size-med);
+    }
+
+    /* Custom Fancy Checkbox */
+    .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        color: var(--color-foreground-dark);
+        user-select: none;
+        position: relative;
+    }
+
+    .remember-me input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .checkmark {
+        position: relative;
+        height: 28px;
+        width: 28px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .remember-me:hover input ~ .checkmark {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: var(--color-secondary);
+    }
+
+    .remember-me input:checked ~ .checkmark {
+        background-color: var(--color-secondary);
+        border-color: var(--color-secondary);
+    }
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 4px;
+        top: 4px;
+        width: 20px;
+        height: 20px;
+        background-color: var(--color-primary-darker);
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M469.402,35.492C334.09,110.664,197.114,324.5,197.114,324.5L73.509,184.176L0,254.336l178.732,222.172 l65.15-2.504C327.414,223.414,512,55.539,512,55.539L469.402,35.492z'/%3E%3C/svg%3E");
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M469.402,35.492C334.09,110.664,197.114,324.5,197.114,324.5L73.509,184.176L0,254.336l178.732,222.172 l65.15-2.504C327.414,223.414,512,55.539,512,55.539L469.402,35.492z'/%3E%3C/svg%3E");
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+    }
+
+    .remember-me input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Form Messages (Success/Error) */
+    .form-message {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: var(--size-sm);
+        display: none;
+        animation: slideDown 0.3s ease forwards;
+        line-height: 1.4;
+    }
+
+    .form-message.error {
+        display: block;
+        background: rgba(220, 38, 38, 0.1);
+        border: 1px solid rgba(220, 38, 38, 0.3);
+        color: #fca5a5;
+    }
+
+    .form-message.success {
+        display: block;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #6ee7b7;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .forgot-password {
+        color: var(--color-secondary-lighter);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: var(--size-med);
+    }
+
+    .forgot-password:hover {
+        color: var(--color-secondary-evenlighter);
+    }
+
+    .divider-mobile {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 0 0 1.5rem 0;
+        color: var(--color-foreground-darker);
+    }
+
+    .divider-mobile::before,
+    .divider-mobile::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .divider-mobile span {
+        padding: 0 1rem;
+        font-size: var(--size-xs);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .divider-vertical {
+        display: none;
+    }
+
+    .social-heading {
+        display: none;
+    }
+
+    .social-logins {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        gap: 0.75rem;
+        color: white;
+        font-size: var(--size-med);
+        font-weight: var(--weight-medium);
+        width: 100%;
+    }
+
+    .social-btn svg {
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+    }
+
+    .social-btn span {
+        display: none;
+    }
+
+    .social-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .icon-white {
+        filter: brightness(0) invert(1);
+    }
+
+    .register-prompt {
+        text-align: center;
+        font-size: var(--size-med);
+        color: var(--color-text);
+    }
+
+    .register-prompt a {
+        color: var(--color-accent);
+        font-weight: var(--weight-bold);
+        text-decoration: none;
+        margin-left: 0.5rem;
+    }
+
+    .register-prompt a:hover {
+        text-decoration: underline;
+        color: var(--color-accent-light);
+    }
+
+    /* Desktop Redesign */
+    @media (min-width: 1080px) {
+        .portal-wrapper {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+        }
+
+        .portal-content {
+            flex-direction: row;
+            padding: 4rem;
+            gap: 4rem;
+        }
+
+        .login-column,
+        .social-column,
+        .credential-column,
+        .password-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .divider-vertical {
+            display: block;
+            width: 1px;
+            align-self: stretch;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(255, 255, 255, 0.1) 80%,
+                transparent
+            );
+        }
+
+        .divider-mobile {
+            display: none;
+        }
+
+        .social-heading {
+            display: block;
+            text-align: center;
+            font-size: var(--size-xl);
+            margin-bottom: 2rem;
+            color: var(--color-foreground);
+            font-family: var(--family-heading);
+            text-transform: uppercase;
+        }
+
+        .social-logins {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            padding: 1rem 1.5rem;
+            font-size: var(--size-med);
+            justify-content: flex-start;
+        }
+
+        .social-btn span {
+            display: inline;
+        }
+
+        /* Typography Boost */
+        .portal-header h1 {
+            font-size: var(--size-4xl);
+        }
+
+        .portal-header p {
+            font-size: var(--size-lg);
+        }
+
+        .form-group label {
+            font-size: var(--size-lg);
+        }
+
+        .form-group input {
+            padding: 1.25rem;
+            font-size: var(--size-lg);
+        }
+
+        .register-prompt {
+            font-size: var(--size-lg);
+        }
+
+        /* 2-Column Registration */
+        #register-toggle:checked ~ .portal-wrapper .registration-column {
+            max-width: none;
+        }
+
+        .registration-form {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 4rem;
+            row-gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .registration-form :global(.button) {
+            margin-top: 1rem;
+            width: 100% !important;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .portal-wrapper {
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .social-btn span {
+            display: none;
+        }
+
+        .social-logins {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
+
+<script>
+    import { authClient } from "@stimsdesign/backend/utils/auth-client";
+    import { actions } from "astro:actions";
+
+    document.addEventListener("astro:page-load", () => {
+        const loginForm = document.querySelector(".login-form") as HTMLFormElement;
+        const registrationForm = document.querySelector(".registration-form") as HTMLFormElement;
+        const passwordInput = document.getElementById("reg-password") as HTMLInputElement;
+        const confirmPasswordInput = document.getElementById("reg-confirm-password") as HTMLInputElement;
+
+        const googleBtn = document.querySelector(".social-btn.google");
+        const twitterBtn = document.querySelector(".social-btn.twitter");
+
+        // Forgot Password UI Elements
+        const loginPasswordField = loginForm?.querySelector(".form-group:nth-child(3)") as HTMLElement;
+        const forgotPasswordLink = document.querySelector(".forgot-password") as HTMLAnchorElement;
+        const formOptions = document.querySelector(".form-options") as HTMLElement;
+        const signInBtn = loginForm?.querySelector("button[type='submit']") as HTMLButtonElement;
+        const registerLabel = loginForm?.querySelector("label[for='register-toggle']") as HTMLLabelElement;
+        
+        let isForgotPasswordMode = false;
+        let submitHandler: ((e: SubmitEvent) => Promise<void>) | null = null;
+
+        function showMessage(type: 'login' | 'reg', message: string, isError = true) {
+            // Remove [body.field] prefix if present
+            message = message.replace(/^\[body\.[^\]]+\]\s*/, "");
+            
+            const container = document.getElementById(`${type}-message`);
+            if (container) {
+                container.textContent = message;
+                container.className = `form-message ${isError ? 'error' : 'success'}`;
+                container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function clearMessages() {
+            document.querySelectorAll('.form-message').forEach(el => {
+                el.textContent = '';
+                el.className = 'form-message';
+            });
+        }
+
+        // Toggle Forgot Password Mode
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                isForgotPasswordMode = true;
+                clearMessages();
+
+                // UI Changes
+                if (loginPasswordField) loginPasswordField.style.display = 'none';
+                if (formOptions) formOptions.style.display = 'none';
+                if (registerLabel) registerLabel.style.display = 'none';
+                
+                // Change Button Text
+                if (signInBtn) {
+                    signInBtn.textContent = 'Send Link';
+                    // Visually reset password validation requirements if we needed to, but none exist on login form
+                    const pwdInput = document.getElementById("password") as HTMLInputElement;
+                    if(pwdInput) pwdInput.removeAttribute("required");
+                }
+            });
+        }
+
+        // Main Login/Reset Handler
+        if (loginForm) {
+            // Check for unverified redirect from middleware
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorType = urlParams.get('error');
+            const unverifiedEmail = urlParams.get('email');
+            
+            if (errorType === 'unverified') {
+                showMessage('login', `Your email is not verified yet. Your verification link has been sent to ${unverifiedEmail || 'your email'}.`, false);
+            } else if (errorType === 'invalid_token' || errorType === 'token_expired') {
+                const storedEmail = localStorage.getItem('last_reg_email');
+                const displayEmail = unverifiedEmail || storedEmail || 'your email';
+                showMessage('login', `Your verification link has expired and your email is not verified yet. Another link has been sent to ${displayEmail}.`, false);
+                
+                // Trigger actual resend if we have an email
+                if (displayEmail !== 'your email') {
+                    authClient.sendVerificationEmail({
+                        email: displayEmail,
+                        callbackURL: "/dashboard"
+                    });
+                }
+            }
+            
+            submitHandler = async (e) => {
+                e.preventDefault();
+                clearMessages();
+                const formData = new FormData(loginForm);
+                const email = formData.get("email") as string;
+                
+                if (isForgotPasswordMode) {
+                    // Send Password Reset Link Flow
+                    if (!email) {
+                        showMessage('login', "Please enter your email address", true);
+                        return;
+                    }
+
+                    signInBtn.textContent = 'Sending...';
+                    signInBtn.disabled = true;
+
+                    // Check if email exists first (user requirement for specific feedback)
+                    const { data: existResult, error: existError } = await actions.users.checkEmail({ email: email });
+                    
+                    if (existError || !existResult?.exists) {
+                        showMessage('login', "No account found for this email address.", true);
+                        signInBtn.textContent = 'Send Link';
+                        signInBtn.disabled = false;
+                        return;
+                    }
+
+                    // @ts-ignore
+                    const { error } = await authClient.requestPasswordReset({
+                        email: email,
+                        redirectTo: `/password-reset?email=${encodeURIComponent(email)}`
+                    });
+
+                    signInBtn.textContent = 'Send Link';
+                    signInBtn.disabled = false;
+
+                    if (error) {
+                        showMessage('login', error.message || "Failed to send reset link", true);
+                    } else {
+                        showMessage('login', `A password reset link has been sent to ${email}`, false);
+                    }
+
+                } else {
+                    // Standard Login Flow
+                    const password = formData.get("password") as string;
+                    const remember = formData.get("remember") === "on";
+
+                    const { error } = await authClient.signIn.email({
+                        email,
+                        password,
+                        rememberMe: remember,
+                        callbackURL: "/dashboard"
+                    });
+
+                    if (error) {
+                        if (error.code === "EMAIL_NOT_VERIFIED") {
+                            showMessage('login', `Your email is not verified yet. A verification link has been sent to ${email}. Please check your inbox.`, false);
+                        } else {
+                            showMessage('login', error.message || "Login failed");
+                        }
+                    }
+                }
+            };
+            
+            // Need to remove previous listeners if re-binding on view transitions
+            loginForm.addEventListener("submit", submitHandler);
+        }
+
+        // Registration Handler
+        if (registrationForm && passwordInput && confirmPasswordInput) {
+            registrationForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                clearMessages();
+
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordInput.setCustomValidity("Passwords do not match");
+                    confirmPasswordInput.reportValidity();
+                    return;
+                }
+
+                const formData = new FormData(registrationForm);
+                const name = formData.get("name") as string;
+                const email = formData.get("email") as string;
+                const password = formData.get("password") as string;
+                
+                const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+                if (!passwordRegex.test(password)) {
+                    showMessage('reg', "Password must be at least 8 characters long and include an uppercase letter, a number, and a special character.");
+                    return;
+                }
+
+                const { error } = await authClient.signUp.email({
+                    email,
+                    password,
+                    name,
+                    callbackURL: "/dashboard"
+                });
+
+                if (error) {
+                    //console.error("Registration error:", error);
+                    showMessage('reg', error.message || "Registration failed");
+                } else {
+                    // Manually trigger verification since we disabled sendOnSignUp in auth.ts
+                    await authClient.sendVerificationEmail({
+                        email,
+                        callbackURL: "/dashboard"
+                    });
+                    
+                    localStorage.setItem('last_reg_email', email);
+                    showMessage('reg', `Please verify your email address. A verification link has been sent to ${email}.`, false);
+                    registrationForm.reset();
+                    // Reset requirements
+                    document.querySelectorAll('.req-characters, .req-uppercase, .req-number, .req-special').forEach(el => el.classList.remove('active'));
+                }
+            });
+
+            // Real-time Password Validation
+            const validatePassword = (value: string) => {
+                const reqs = {
+                    characters: value.length >= 8,
+                    uppercase: /[A-Z]/.test(value),
+                    number: /\d/.test(value),
+                    special: /[@$!%*?&#]/.test(value)
+                };
+
+                Object.entries(reqs).forEach(([key, valid]) => {
+                    const el = document.querySelector(`.req-${key}`);
+                    if (el) {
+                        el.classList.toggle('active', valid);
+                    }
+                });
+            };
+
+            passwordInput.addEventListener('input', (e) => {
+                validatePassword((e.target as HTMLInputElement).value);
+            });
+
+
+            [passwordInput, confirmPasswordInput].forEach((input) => {
+                input.addEventListener("input", () => {
+                    confirmPasswordInput.setCustomValidity("");
+                });
+            });
+        }
+
+        // Password Visibility Toggle
+        const toggleButtons = document.querySelectorAll(".toggle-password");
+        toggleButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const wrapper = button.closest(".password-input-wrapper");
+                const input = wrapper?.querySelector("input");
+                if (input && wrapper) {
+                    const isPassword = input.type === "password";
+                    input.type = isPassword ? "text" : "password";
+                    wrapper.classList.toggle("show-password", isPassword);
+                }
+            });
+        });
+
+        // Passkey & Social Logins
+        if (googleBtn) {
+            googleBtn.addEventListener("click", async () => {
+                clearMessages();
+                await authClient.signIn.social({
+                    provider: "google",
+                    callbackURL: "/dashboard"
+                });
+            });
+        }
+
+        if (twitterBtn) {
+            twitterBtn.addEventListener("click", async () => {
+                clearMessages();
+                await authClient.signIn.social({
+                    provider: "twitter",
+                    callbackURL: "/dashboard"
+                });
+            });
+        }
+
+    });
+</script>

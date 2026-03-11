@@ -1,0 +1,14 @@
+---
+interface Props {
+    color?: string;
+}
+const { color = 'default' } = Astro.props;
+---
+
+<article class="sticky-cards__item" data-color={color}>
+    <div class="fancy-border">
+        <div>
+            <slot />
+        </div>
+    </div>
+</article>

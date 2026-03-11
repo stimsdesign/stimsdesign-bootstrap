@@ -1,0 +1,53 @@
+---
+interface Props {
+    id? : string;
+    style?: string;
+}
+const {
+    id = "",
+    style = ""
+} = Astro.props;
+---
+
+
+<section id={id || undefined} class={style || undefined} data-zoom>
+    <div class="zoom-content">
+        <slot />
+    </div>
+</section>
+
+<style>
+    section {
+        min-height: 100dvh;
+        margin: 0 1rem;
+        background-color: var(--color-secondary-dark);
+        border-left: solid 1px var(--color-accent);
+        border-right: solid 1px var(--color-accent);
+    }   
+
+    .zoom-content {
+        width: 100%;
+        height: 100%;
+        transform-origin: center top;
+        will-change: transform;
+        animation: zoomer linear;
+        animation-timeline: view();
+        animation-range-start: cover;
+        animation-range-end: 80dvh;
+    }
+
+    
+    section.stucco {
+        background-image: url('/stucco.jpg');
+        background-repeat: repeat-x;
+        background-position: center;
+        background-size: contain;
+    }
+
+
+
+    @keyframes zoomer {
+        from {scale: .5;}
+        to {scale: 1;}
+    }
+</style>

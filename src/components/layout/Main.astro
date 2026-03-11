@@ -1,0 +1,28 @@
+<main>
+    <slot>
+        <p>No content provided. This is the default content.</p>
+    </slot>
+</main>
+
+<style is:global>
+    body > main {
+        margin: 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        background-color: var(--color-secondary-dark);
+    }
+
+    @media (min-width: 769px) {
+        body > main {
+            margin: 0 auto;
+            border-left: solid 1px var(--color-accent);
+            border-right: solid 1px var(--color-accent);
+        }
+    }
+    @media (max-width: 768px) {
+        body > main {
+            padding-top: 2rem;
+        }
+    }
+</style>

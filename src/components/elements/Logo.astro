@@ -1,0 +1,43 @@
+---
+interface Props {
+    src?: string;
+    company?: string;
+    height?: string;
+    maxHeight?: string;
+    width?: string;
+    maxWidth?: string;
+    margin?: string;
+}
+
+const {
+    src = "/stimsdesign-logo.svg",
+    company = "STIMS Design",
+    height = "auto",
+    maxHeight = "100%",
+    width = "auto",
+    maxWidth = "100%",
+    margin = "0",
+} = Astro.props;
+---
+
+<a href="/" aria-label={`${company} Home Page`} class="logo" style={`height: ${height}; max-height: ${maxHeight}; width: ${width}; max-width: ${maxWidth}; margin: ${margin};`}>
+    <object data={src} type="image/svg+xml" aria-label="Logo" role="img" title={`${company} Logo`} aria-labelledby="logo-title">
+        <title id="logo-title">{company}</title>
+    </object>
+</a>
+
+<style is:global>
+    a.logo {
+        display: block;
+    }
+
+    object {
+        display: block;
+        height: 100%;
+        width: auto;
+        max-width: 100%;
+        max-height: 100%;
+        pointer-events: none;
+        transition: height 0.3s ease;
+    }
+</style>

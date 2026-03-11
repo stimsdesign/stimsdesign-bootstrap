@@ -1,0 +1,6 @@
+User-agent: *
+# Block API routes from being crawled
+# Disallow: /api/
+
+# Point crawlers to your sitemap
+# Sitemap: https://stimsdesign.com/sitemap.xml

@@ -1,0 +1,367 @@
+---
+import { Image } from "astro:assets";
+import codeScreen from "/src/assets/images/codescreen.jpg";
+import TwentyYears from "/src/assets/images/20years.png";
+import FutureReady from "/src/assets/images/future-ready.png";
+import ConversionFocused from "/src/assets/images/conversion-focused.png";
+---
+
+<section id="why-choose">
+    <div class="content-container">
+        <div class="grid">
+            <div class="content-column reveal-slide-up">
+                <hgroup>
+                    <h1 class="gradient-text">Why Choose STIMS Design?</h1>
+                    <p>Websites that don’t just exist — they go to work for your business.</p>
+                </hgroup>
+                <div class="paragraph-content">
+                    <p>Your website shouldn’t be a digital brochure — <span class="bold">it should be your hardest-working employee</span>. <span class="bold fire nobreak">With 20+ years of experience</span>, I build websites that are wired directly into how your business actually runs: generating leads, booking appointments, capturing resumes, educating customers, and supporting your team behind the scenes.</p>
+                    <p>I stay on top of modern standards, best practices, and emerging trends so your site isn’t just <span class="nobreak">“up to date”</span> at launch — it’s built to last. From clean UX and fast performance to smart integrations with your CRM, booking tools, or internal systems, every project is designed to be future-proofed as much as possible, so you’re not rebuilding from scratch every few years. If you’re a small or mid-sized business looking to improve not just your online presence, but the performance and impact of that presence, <span class="bold">STIMS Design is built around exactly that goal.</span></p>
+                </div>
+                <ul class="badges">
+                    <li class="reveal-fade-in">
+                        <Image src={ConversionFocused} alt="Strategy-Led, Conversion-Focused"/>
+                    </li>
+                    <li class="reveal-fade-in">
+                        <Image src={TwentyYears} alt="20+ Years Experience" />
+                    </li>
+                    <li class="reveal-fade-in">
+                        <Image src={FutureReady} alt="Future-Ready Builds" />
+                    </li>
+                </ul>
+            </div>
+            <div class="cta-column reveal-slide-left">
+                <div class="cta-image-wrapper">
+                    <div class="cta-image-bg" style={`background-image: url(${codeScreen.src});`}></div>
+                    <a href="/estimate.html" class="button">Let's Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    #why-choose {
+        background-color: var(--color-secondary-dark);
+        /* overflow: hidden; Removed to allow view() to track main scrollbar */
+    }
+
+    .content-container {
+        width: clamp(94%, 100% - 10cqi, 1440px);
+        margin: 0 auto;
+        border-radius: 12rem;
+        padding: 6rem;
+        background-color: var(--color-background);
+        transition: all 0.5s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #why-choose div.grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        justify-content: center;
+        align-items: center;
+        gap: 6rem;
+    }
+
+    .gradient-text {
+        display: block;
+        background: linear-gradient(
+            to right,
+            #fff 0%,
+            var(--color-foreground-dark) 50%,
+            #fff 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: gradientBounce 3s linear infinite;
+        filter: drop-shadow(1px 1px 4px rgba(255, 255, 255, 0.2));
+    }
+
+    @keyframes gradientBounce {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    h1 + p {
+        text-transform: capitalize;
+        color: var(--color-secondary-lighter);
+        font-size: var(--size-xl);
+    }
+
+    .badges {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+        list-style: none;
+        padding: 0;
+    }
+
+    .badges li img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .badges li:hover img {
+        transform: translateY(-5px);
+    }
+
+    .cta-image-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        border-radius: 5rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 1800px) {
+        .cta-image-wrapper {
+            aspect-ratio: 4 / 6;
+        }
+    }
+
+    .cta-image-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: transform 0.5s ease;
+    }
+
+    .cta-image-wrapper:hover .cta-image-bg {
+        transform: scale(1.05);
+    }
+
+    .cta-image-wrapper::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at center,
+            transparent 30%,
+            rgba(4, 6, 35, 0.4) 100%
+        );
+        pointer-events: none;
+    }
+
+    .cta-image-wrapper .button {
+        position: relative;
+        z-index: 1;
+        font-size: var(--size-xl);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Reveal Animations Triggered by .revealed class */
+    .reveal-slide-up,
+    .reveal-slide-left,
+    .reveal-fade-in {
+        opacity: 0;
+        will-change: transform, opacity;
+    }
+
+    #why-choose.revealed .reveal-slide-up {
+        animation: revealSlideUp 0.8s ease-out forwards;
+    }
+
+    #why-choose.revealed .reveal-slide-left {
+        animation: revealSlideLeft 0.8s ease-out forwards;
+    }
+
+    #why-choose.revealed .cta-image-wrapper .button {
+        animation: revealBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    #why-choose.revealed .badges li:nth-child(1) {
+        animation: revealPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s
+            forwards;
+    }
+    #why-choose.revealed .badges li:nth-child(2) {
+        animation: revealPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s
+            forwards;
+    }
+    #why-choose.revealed .badges li:nth-child(3) {
+        animation: revealPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s
+            forwards;
+    }
+
+    /* Keep keyframes but adjust for duration-based use */
+    @keyframes revealSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes revealSlideLeft {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes revealPopIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.3) translateY(20px);
+        }
+        60% {
+            opacity: 1;
+            transform: scale(1.15) translateY(-10px);
+        }
+        80% {
+            transform: scale(0.95) translateY(5px);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes revealBounce {
+        0% {
+            opacity: 0;
+            transform: scale(0.3);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        70% {
+            transform: scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* No longer need individual nth-child animation-range overrides from before */
+
+    @media (max-width: 1400px) {
+        .content-container {
+            padding: 4rem;
+            border-radius: 6rem;
+        }
+
+        #why-choose div.grid {
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        .content-column {
+            order: 1;
+        }
+
+        .cta-column {
+            order: 2;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .cta-image-wrapper {
+            aspect-ratio: 4 / 1;
+            max-width: 100%;
+            border-radius: 3rem;
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .content-container {
+            margin: 0 1rem 2rem;
+            border-radius: 3rem;
+            padding: 2rem;
+        }
+
+        h1 + p {
+            font-size: var(--size-lg);
+        }
+
+        #why-choose div.grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .cta-image-wrapper {
+            border-radius: 2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .content-container {
+            margin: 0 1rem 2rem;
+            border-radius: 2rem;
+            padding: 2rem 1rem;
+        }
+
+        .cta-image-wrapper {
+            border-radius: 1rem;
+        }
+    }
+</style>
+
+<script>
+    const observerOptions = {
+        root: null,
+        rootMargin: "-10% 0px -10% 0px", // Roughly 10dvh trigger from top/bottom
+        threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                // Optional: Stop observing after reveal
+                // observer.unobserve(entry.target);
+            } else {
+                // Optional: Remove class when scrolling away to allow re-animation
+                entry.target.classList.remove("revealed");
+            }
+        });
+    }, observerOptions);
+
+    document.addEventListener("astro:page-load", () => {
+        const section = document.querySelector("#why-choose");
+        if (section) {
+            observer.observe(section);
+        }
+    });
+</script>

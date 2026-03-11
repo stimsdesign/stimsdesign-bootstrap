@@ -1,0 +1,177 @@
+---
+import { Image } from "astro:assets";
+import HandyManImg from "/src/assets/images/handyman.jpg";
+import HandyManImgSm from "/src/assets/images/handyman-sm.jpg";
+---
+<div id="handyman-card" class="slide">
+    <div class="card-image">
+        <div class="fuzzy-load" style={`--background: url('${HandyManImgSm.src}')`}>
+            <Image src={HandyManImg} alt="HandyMan" loading="lazy" />
+        </div>
+    </div>
+    <div class="card-inner">
+        <div class="header-row">
+            <hgroup>
+                <h3>Handyman for Hire</h3>
+                <p>Transform your business from manaual chaos to a streamlined, income-generating machine with integrated appointment setting.</p>
+            </hgroup>
+            <div class="stinger">
+                <p>A Path to <span>Automated</span> Growth</p>
+            </div>
+        </div>
+        <div class="body-row">
+            <ul>
+                <li>1. The Old Way: <span>Chaos &amp; Lost Income</span></li>
+                <li class="cross">Endless Phone Tag</li>
+                <li class="cross">Lost Leads</li>
+                <li class="cross">Double Bookings</li>
+            </ul>
+            <ul>
+                <li>2. The Smart Way: <span>Seamless Integration</span></li>
+                <li class="check">Instand Calendar Sync</li>
+                <li class="check">Client Self-Booking</li>
+                <li class="check">Automated Reminders</li>
+            </ul>
+            <ul>
+                <li>3. The Result: <span>More Jobs &amp; Revenue</span></li>
+                <li class="check">Focus on Billable Work</li>
+                <li class="check">Reduce No-Shows</li>
+                <li class="check">Eliminate Head-Aches</li>
+            </ul>
+        </div>
+        <div class="footer-row">
+            Stop Chasing Leads. Start Building Your Future.
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* HandyMan Card */
+    #handyman-card .body-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+        gap: 2cqi;
+        padding:2rem;
+    }
+
+    #handyman-card .body-row ul {
+        flex: 1;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border: solid 1px var(--color-accent);
+        border-radius: 25px;
+        background: color-mix(
+            in srgb,
+            var(--color-secondary-darker),
+            transparent 40%
+        );
+    }
+
+    #handyman-card .body-row ul li {
+        display: block;
+        border-left: solid 1px var(--color-accent);
+        border-right: solid 1px var(--color-accent);
+        font-size: var(--size-lg);
+        font-weight: var(--weight-bold);
+        padding: 0 clamp(1rem, 3vw, 4rem);
+    }
+
+    #handyman-card .body-row ul li:first-child {
+        background: linear-gradient(
+            to right,
+            var(--color-accent) 0%,
+            var(--color-accent-lighter) 50%,
+            var(--color-accent) 100%
+        );
+        padding: 1rem;
+        border-radius: 25px 25px 0 0;
+        text-align: center;
+        font-weight: var(--weight-bold);
+        font-size: var(--size-lg);
+        font-family: var(--family-heading);
+        text-transform: uppercase;
+        color: var(--color-secondary-darker);
+    }
+
+    #handyman-card .body-row ul li:first-child span {
+        display: block;
+    }
+
+    #handyman-card .body-row ul li:nth-of-type(2) {
+        padding: calc(2rem + 40%) clamp(1rem, 3vw, 4rem) 0.5rem;
+    }
+
+    #handyman-card .body-row ul li:last-child {
+        border-radius: 0 0 25px 25px;
+        padding: 0.5rem clamp(1rem, 3vw, 4rem) 1rem;
+    }
+
+    #handyman-card .body-row ul:nth-of-type(1) li:nth-of-type(2) {
+        background: url("images/oldway.svg") no-repeat center 1rem / calc(40%) auto;
+    }
+    #handyman-card .body-row ul:nth-of-type(2) li:nth-of-type(2) {
+        background: url("images/smartway.svg") no-repeat center 1rem / calc(40%) auto;
+    }
+    #handyman-card .body-row ul:nth-of-type(3) li:nth-of-type(2) {
+        background: url("images/theresults.svg") no-repeat center 1rem / calc(40%)
+            auto;
+    }
+
+    @media (orientation: portrait), (width < 768px) {
+        #handyman-card .body-row {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 0.75rem;
+            justify-content: flex-start;
+        }
+
+        #handyman-card .body-row ul {
+            width: 100%;
+            display: grid;
+            flex: none;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            padding: 0 0 1rem;
+        }
+
+
+
+        #handyman-card .body-row ul li:first-child span {
+            display: inline;
+            font-weight: var(--weight-medium);
+        }
+        #handyman-card .body-row ul li:not(:first-child) {
+            width: 100%;
+            padding: 1rem 1rem 0;
+            background: none !important;
+            border: none;
+
+            /* vertically center the text */
+            display: flex;
+            align-items: center;
+            text-align: center;
+            min-height: 2.5rem; /* ensures there's height to center within */
+        }
+    }
+
+        @media (width < 768px) {
+            #handyman-card .body-row {
+                padding: 0 0.25rem 1rem;
+            }
+            #handyman-card .body-row ul {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #handyman-card .body-row ul li:first-child {
+                padding: .5rem;
+            }
+            #handyman-card .body-row ul li:first-child span {
+                display: block;
+            }
+        }
+</style>

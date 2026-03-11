@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+import AutoDetailImg from "/src/assets/images/auto-detail.jpg";
+import AutoDetailImgSm from "/src/assets/images/auto-detail-sm.jpg";
+---
+<div id="auto-detail-card" class="slide">
+    <div class="card-image">
+        <div class="fuzzy-load">
+            <Image src={AutoDetailImgSm} class="blur-layer" alt="Auto Detail" loading="eager" />
+            <Image src={AutoDetailImg} alt="Auto Detail" loading="lazy" />
+        </div>
+    </div>
+    <div class="card-inner">
+        <div class="header-row">
+            <hgroup>
+                <h3>Mobile Auto Detail</h3>
+                <p>Shift from a "one-off" hustle to a stable membership model that drives consistent revenue.</p>
+            </hgroup>
+            <div class="stinger">
+                <p>Build <span>Predictable</span> and</p>
+                <p>Recurring <span>Revenue</span></p>
+            </div>
+        </div>
+        <div class="body-row">
+            <ul>
+                <li>The One-Off Trap</li>
+                <li>Feast or Famine Cash Flow</li>
+                <li>High Client Acquisition Cost</li>
+            </ul>
+            <ul>
+                <li>The Membership Engine</li>
+                <li>Set-It/Forget-It Billing</li>
+                <li>Reliable Monthly Income</li>
+            </ul>
+            <ul>
+                <li>A Scalable Future</li>
+                <li>Higher Business Valuation</li>
+                <li>Client Loyalty &amp; Retention</li>
+            </ul>
+        </div>
+        <div class="footer-row">
+            Stop Chasing Jobs. Start Building a Business.
+        </div>
+    </div>
+</div>

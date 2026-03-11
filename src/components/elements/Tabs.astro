@@ -1,0 +1,85 @@
+---
+interface Props {
+    id?: string;
+}
+
+const { id } = Astro.props;
+
+let finalContent = '';
+if (Astro.slots.has('default')) {
+    const slotContent = await Astro.slots.render('default') ?? '';
+    let tabCounter = 0;
+    let contentCounter = 0;
+    const modifiedSlotContent = slotContent.replace(/<([a-z][a-z0-9-]*)/ig, (_match, tag) => {
+        if (tag.toLowerCase() === 'input') {
+            tabCounter++;
+            if (tabCounter === 1) {
+                return `<${tag} id="${id}-tab-${tabCounter}" checked`;
+            }
+            return `<${tag} id="${id}-tab-${tabCounter}"`;
+        }  else if (tag.toLowerCase() === 'label') {
+            return `<${tag} for="${id}-tab-${tabCounter}"`;
+        }  else if (tag.toLowerCase() === 'div') {
+            contentCounter++;
+            return `<${tag} class="content-${contentCounter}"`;
+        } else {
+            return `<${tag}`; 
+        }
+    });
+    finalContent = modifiedSlotContent
+        .replace(/\s*data-astro-source-file="[^"]*"/g, '')
+        .replace(/\s*data-astro-source-loc="[^"]*"/g, '');
+
+}
+---
+
+<div id={id || undefined} class="tabs" set:html={finalContent}></div>
+
+<style is:global>
+
+    /* Functional Styles */
+
+    .tabs input[type=radio],
+    .tabs > div {
+        display: none;
+    }
+
+    .tabs input[type=radio]:nth-of-type(1):checked ~ .content-1,
+    .tabs input[type=radio]:nth-of-type(2):checked ~ .content-2,
+    .tabs input[type=radio]:nth-of-type(3):checked ~ .content-3,
+    .tabs input[type=radio]:nth-of-type(4):checked ~ .content-4,
+    .tabs input[type=radio]:nth-of-type(5):checked ~ .content-5,
+    .tabs input[type=radio]:nth-of-type(6):checked ~ .content-6,
+    .tabs input[type=radio]:nth-of-type(7):checked ~ .content-7,
+    .tabs input[type=radio]:nth-of-type(8):checked ~ .content-8,
+    .tabs input[type=radio]:nth-of-type(9):checked ~ .content-9,
+    .tabs input[type=radio]:nth-of-type(10):checked ~ .content-10 {
+        display: block;
+    }
+
+    /* Custom Styles */
+
+    #services .tabs label {
+        transform: translateY(-100%);
+        display: inline-block;
+        background-color: var(--color-foreground-dark);
+        font-size: var(--size-2xl);
+        padding: 1rem 2rem;
+        border-radius: 25px 25px 0 0;
+        cursor: pointer;
+        margin-right: .5rem;
+        color: var(--color-foreground-darker);
+        font-weight: var(--weight-medium);
+    }
+
+    #services .tabs input[type=radio]:checked + label {
+        background-color: var(--color-foreground);
+        color: var(--color-secondary);
+        text-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    
+    #service-tabs > div {
+        text-align: left !important;
+    }
+
+</style>

@@ -1,0 +1,588 @@
+---
+interface Props {
+    arrows?: boolean;
+    pagination?: boolean;
+    bullets?: number;
+    bulletColor?: string;
+    headers?: string[];
+    continuous?: boolean;
+    autoplay?: boolean;
+}
+
+const {
+    arrows = false,
+    pagination = false,
+    bullets = 3,
+    bulletColor = "white",
+    continuous = false,
+    autoplay = false,
+} = Astro.props;
+---
+
+<div class:list={["slider", { continuous }, { autoplay: autoplay }]}>
+    {
+        continuous ? (
+            <div class="track">
+                <slot />
+            </div>
+        ) : (
+            <slot />
+        )
+    }
+    {
+        arrows && (
+            <div class="slider-navigation">
+                <span class="slider-arrow left-arrow" />
+                <span class="slider-arrow right-arrow" />
+            </div>
+        )
+    }
+    {
+        pagination && (
+            <div class="slider-pagination">
+                {Array.from({ length: bullets }).map((_, i) => (
+                    <span class="pagination-bullet" data-index={i} style={`color: ${bulletColor};`} />
+                ))}
+            </div>
+        )
+    }
+</div>
+
+<style is:global>
+    .slider {
+        position: relative;
+        user-select: none;
+        display: grid;
+        height: auto;
+        width: 100%;
+    }
+
+    .slide {
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        grid-area: 2 / 1;
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    .slide.active {
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .slider-navigation {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(calc(-50% - 40px));
+        transition: opacity 0.3s ease;
+        z-index: 100;
+        user-select: none;
+    }
+    .slider-arrow {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+            background-color 0.3s,
+            fill 0.3s,
+            transform 0.3s ease;
+    }
+    .slider .left-arrow {
+        transform: translateX(10px);
+    }
+    .slider .right-arrow {
+        transform: translateX(-10px);
+    }
+
+    .slider .left-arrow {
+        margin-left: 0;
+    }
+    .slider .left-arrow::after {
+        content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 12 12" width="22" height="22"><path fill="white" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>');
+        transition: fill 0.3s ease;
+        margin-top: 5px;
+    }
+    .slider .right-arrow {
+        margin-right: 0;
+    }
+    .slider .right-arrow::after {
+        content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 12 12" width="22" height="22"><path fill="white" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>');
+        transition: fill 0.3s ease;
+        margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .slider-navigation {
+            display: none;
+        }
+    }
+
+    .slider-pagination {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        z-index: 100;
+    }
+
+    .pagination-bullet {
+        border-radius: 50%;
+        cursor: pointer;
+        display: block;
+        height: 25px;
+        width: 25px;
+        opacity: 1;
+        position: relative;
+        text-align: center;
+        user-select: none;
+    }
+    .pagination-bullet::before {
+        content: "";
+        display: block;
+        box-sizing: border-box;
+        width: 25px;
+        height: 25px;
+        opacity: 0;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 50%;
+        border: 1px solid currentColor;
+        transform: scale(0.3);
+        transition: all 0.4s;
+    }
+    .pagination-bullet.active::before {
+        color: currentColor;
+        opacity: 1;
+        transform: scale(1);
+    }
+    .pagination-bullet::after {
+        content: "";
+        display: block;
+        border-radius: 50%;
+        background-color: currentColor;
+        cursor: pointer;
+        width: 5px;
+        height: 5px;
+        opacity: 1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+    }
+    .pagination-bullet.active::after {
+        opacity: 1;
+    }
+
+    .continuous {
+        position: relative;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        overflow: hidden;
+        padding: 0 0 80px; /* space for shadow */
+        --slide-width: 70vw;
+        --slide-gap: 0.25rem;
+        --total-slide-width: calc(var(--slide-width) + (var(--slide-gap) * 2));
+    }
+
+    @media (width < 768px) {
+        .continuous {
+            padding: 0 0 40px; /* space for shadow */
+        }
+    }
+
+    .continuous .slider-arrow {
+        backdrop-filter: none;
+        background-color: var(--color-accent);
+    }
+
+    .continuous .slider-arrow:hover {
+        background-color: var(--color-accent-light);
+    }
+
+    .continuous .left-arrow {
+        transform: translateX(40px);
+    }
+    .continuous .right-arrow {
+        transform: translateX(-40px);
+    }
+
+    .continuous .slider-pagination {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .continuous .slider-pagination {
+            display: flex;
+        }
+        .continuous {
+            --slide-width: 90vw;
+        }
+    }
+
+    .continuous .track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        will-change: transform;
+        padding: 0;
+        transform: translateX(
+            calc(
+                50vw -
+                    ((var(--current-index, 1) + 0.5) * var(--total-slide-width))
+            )
+        );
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .continuous .slide {
+        flex: 0 0 var(--slide-width);
+        margin: 0 var(--slide-gap);
+        background: transparent;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        opacity: 0.3;
+        transform: scale(0.9);
+        display: flex;
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        .continuous .slide {
+            transform: scale(0.95);
+        }
+    }
+
+    @media (max-width: 500px) {
+        .continuous .slide {
+            transform: scale(1);
+        }
+    }
+
+    .continuous .slide.active {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+        z-index: 2;
+    }
+
+    .slider.no-transition .track,
+    .slider.no-transition .slide {
+        transition: none !important;
+    }
+</style>
+
+<script>
+    class Slider {
+        root: HTMLElement;
+        track: HTMLElement | null;
+        slides: HTMLElement[];
+        allSlides: HTMLElement[] = [];
+        isContinuous: boolean;
+        isAutoplay: boolean;
+        headers: HTMLElement[];
+        bullets: HTMLElement[];
+        leftArrow: HTMLElement | null;
+        rightArrow: HTMLElement | null;
+        currentIndex: number;
+        originalCount: number;
+        autoPlayTimer: any | null;
+        autoPlayInterval: number;
+        isTransitioning: boolean;
+        isPaused: boolean;
+
+        constructor(root: Element) {
+            this.root = root as HTMLElement;
+            this.track = root.querySelector(".track") as HTMLElement | null;
+            this.slides = Array.from(
+                root.querySelectorAll(".slide"),
+            ) as HTMLElement[];
+            this.isContinuous = root.classList.contains("continuous");
+            this.isAutoplay = root.classList.contains("autoplay");
+            this.headers = Array.from(
+                root.querySelectorAll(".slide-headers > *"),
+            ) as HTMLElement[];
+            this.bullets = Array.from(
+                root.querySelectorAll(".pagination-bullet"),
+            ) as HTMLElement[];
+            this.leftArrow = root.querySelector(
+                ".left-arrow",
+            ) as HTMLElement | null;
+            this.rightArrow = root.querySelector(
+                ".right-arrow",
+            ) as HTMLElement | null;
+            this.currentIndex = 0;
+            this.originalCount = this.slides.length;
+            this.autoPlayTimer = null;
+            this.autoPlayInterval = 5000;
+            this.isTransitioning = false;
+            this.isPaused = false;
+
+            if (!this.slides.length) return;
+
+            if (this.isContinuous && this.track) {
+                this.setupContinuous();
+            }
+
+            this.bindEvents();
+            this.update(false);
+            if (this.isAutoplay) {
+                this.startAutoPlay();
+            }
+        }
+
+        setupContinuous() {
+            if (!this.track) return;
+            this.originalCount = this.slides.length;
+            if (this.originalCount === 0) return;
+
+            // Find which slide was marked 'active' in the HTML
+            const initialActiveIndex = this.slides.findIndex((s) =>
+                s.classList.contains("active"),
+            );
+            const activeIndexOffset =
+                initialActiveIndex !== -1 ? initialActiveIndex : 0;
+
+            // Set logical index on original slides for identification
+            this.slides.forEach(
+                (s, i) => (s.dataset.logicalIndex = i.toString()),
+            );
+
+            // Clone first 2 and last 2 slides for infinite loop coverage (peeks)
+            const firstClones = this.slides
+                .slice(0, 2)
+                .map((s) => s.cloneNode(true) as HTMLElement);
+            const lastClones = this.slides
+                .slice(-2)
+                .map((s) => s.cloneNode(true) as HTMLElement);
+
+            firstClones.forEach((clone) => {
+                clone.classList.remove("active");
+                clone.classList.add("clone");
+                this.track!.appendChild(clone);
+            });
+            lastClones.reverse().forEach((clone) => {
+                clone.classList.remove("active");
+                clone.classList.add("clone");
+                this.track!.insertBefore(clone, this.track!.firstChild);
+            });
+
+            // Update slides array to include clones and set starting index
+            this.allSlides = Array.from(
+                this.track.querySelectorAll(".slide"),
+            ) as HTMLElement[];
+
+            // Sync currentIndex with the active slide:
+            // (number of clones at start) + (index of the active slide)
+            this.currentIndex = 2 + activeIndexOffset;
+        }
+
+        update(animate = true) {
+            if (this.isContinuous && this.track) {
+                if (!animate) this.root.classList.add("no-transition");
+                else this.root.classList.remove("no-transition");
+
+                // Update the CSS variable used for TranslateX in the Astro file
+                this.track.style.setProperty(
+                    "--current-index",
+                    this.currentIndex.toString(),
+                );
+
+                const logicalIndex =
+                    (this.currentIndex - 2 + this.originalCount) %
+                    this.originalCount;
+
+                this.allSlides.forEach((s, _i) => {
+                    const sLogic = parseInt(s.dataset.logicalIndex || "0");
+                    s.classList.toggle("active", sLogic === logicalIndex);
+                });
+
+                if (!animate) {
+                    // Force reflow
+                    (this.root as HTMLElement).offsetHeight;
+                    this.root.classList.remove("no-transition");
+                }
+
+                if (this.bullets.length) {
+                    this.bullets.forEach((b, i) =>
+                        b.classList.toggle("active", i === logicalIndex),
+                    );
+                }
+                if (this.headers.length) {
+                    this.headers.forEach((h, i) =>
+                        h.classList.toggle("active", i === logicalIndex),
+                    );
+                }
+
+                if (!animate) {
+                    (this.track as HTMLElement).offsetHeight; // force reflow
+                }
+            } else {
+                // Standard Slider Logic
+                this.slides.forEach((s, i) =>
+                    s.classList.toggle("active", i === this.currentIndex),
+                );
+                if (this.bullets.length)
+                    this.bullets.forEach((b, i) =>
+                        b.classList.toggle("active", i === this.currentIndex),
+                    );
+                if (this.headers.length)
+                    this.headers.forEach((h, i) =>
+                        h.classList.toggle("active", i === this.currentIndex),
+                    );
+            }
+        }
+
+        next() {
+            if (this.isTransitioning) return;
+
+            if (this.isContinuous && this.track) {
+                this.isTransitioning = true;
+                this.currentIndex++;
+                this.update(true);
+
+                this.track.addEventListener(
+                    "transitionend",
+                    () => {
+                        this.isTransitioning = false;
+                        if (this.currentIndex >= this.originalCount + 2) {
+                            this.currentIndex = 2;
+                            this.update(false);
+                        }
+                    },
+                    { once: true },
+                );
+            } else {
+                this.goTo(this.currentIndex + 1);
+            }
+        }
+
+        prev() {
+            if (this.isTransitioning) return;
+
+            if (this.isContinuous && this.track) {
+                this.isTransitioning = true;
+                this.currentIndex--;
+                this.update(true);
+
+                this.track.addEventListener(
+                    "transitionend",
+                    () => {
+                        this.isTransitioning = false;
+                        if (this.currentIndex < 2) {
+                            this.currentIndex = this.originalCount + 1;
+                            this.update(false);
+                        }
+                    },
+                    { once: true },
+                );
+            } else {
+                this.goTo(this.currentIndex - 1);
+            }
+        }
+
+        goTo(index: number) {
+            if (this.isTransitioning) return;
+
+            if (this.isContinuous) {
+                this.currentIndex = index + 2;
+                this.update(true);
+            } else {
+                this.currentIndex =
+                    (index + this.slides.length) % this.slides.length;
+                this.update();
+            }
+        }
+
+        bindEvents() {
+            if (this.rightArrow)
+                this.rightArrow.addEventListener("click", () => {
+                    this.stopAutoPlay();
+                    this.next();
+                    this.startAutoPlay();
+                });
+            if (this.leftArrow)
+                this.leftArrow.addEventListener("click", () => {
+                    this.stopAutoPlay();
+                    this.prev();
+                    this.startAutoPlay();
+                });
+            if (this.bullets.length) {
+                this.bullets.forEach((b, i) =>
+                    b.addEventListener("click", () => {
+                        this.stopAutoPlay();
+                        this.goTo(i);
+                    }),
+                );
+            }
+            if (this.headers.length) {
+                this.headers.forEach((h, i) =>
+                    h.addEventListener("click", () => {
+                        this.stopAutoPlay();
+                        this.goTo(i);
+                    }),
+                );
+            }
+
+            // Swipe events
+            this.root.addEventListener("swipeLeft", () => {
+                this.stopAutoPlay();
+                this.next();
+            });
+            this.root.addEventListener("swipeRight", () => {
+                this.stopAutoPlay();
+                this.prev();
+            });
+
+            // Pause on hover
+            this.root.addEventListener("mouseenter", () => {
+                this.isPaused = true;
+                this.stopAutoPlay();
+            });
+
+            this.root.addEventListener("mouseleave", () => {
+                this.isPaused = false;
+                this.startAutoPlay();
+            });
+        }
+
+        startAutoPlay() {
+            if (!this.isAutoplay || this.autoPlayTimer || this.isPaused) return;
+            this.autoPlayTimer = setInterval(
+                () => this.next(),
+                this.autoPlayInterval,
+            );
+        }
+
+        stopAutoPlay() {
+            if (this.autoPlayTimer) {
+                clearInterval(this.autoPlayTimer as any);
+                this.autoPlayTimer = null;
+            }
+        }
+    }
+    document.addEventListener(
+        "astro:page-load",
+        () => {
+            const sliders = document.querySelectorAll(".slider");
+            sliders.forEach((slider) => new Slider(slider));
+        },
+        { passive: true },
+    );
+</script>

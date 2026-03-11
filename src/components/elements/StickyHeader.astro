@@ -1,0 +1,96 @@
+---
+
+---
+
+<script is:inline astro:page-load>
+    class StickyHeader {
+        constructor(header) {
+            this.header = header;
+            this.headerHeight = this.header.offsetHeight;
+            this.spacer = null;
+            this.isSticky = false;
+            this.ticking = false;
+
+            this.onScroll = this.onScroll.bind(this);
+            this.onResize = this.onResize.bind(this);
+
+            this.measure();
+            this.apply(true); // initial pass
+
+            window.addEventListener("scroll", this.onScroll, { passive: true });
+            window.addEventListener("resize", this.onResize);
+        }
+
+        measure() {
+            this.headerHeight = this.header.offsetHeight;
+            this.headerBottom =
+                this.header.getBoundingClientRect().bottom + window.scrollY;
+            if (this.isSticky && this.spacer) {
+                this.spacer.style.height = this.headerHeight + "px";
+            }
+        }
+
+        makeSticky() {
+            if (this.isSticky) return;
+            this.isSticky = true;
+            if (!this.spacer) {
+                this.spacer = document.createElement("div");
+                this.spacer.setAttribute("aria-hidden", "true");
+                this.spacer.style.width = "100%";
+                this.spacer.style.height = this.headerHeight + "px";
+                this.spacer.style.pointerEvents = "none";
+                this.header.insertAdjacentElement("afterend", this.spacer);
+            }
+            this.header.classList.add("sticky-header");
+        }
+
+        removeSticky() {
+            if (!this.isSticky) return;
+            this.isSticky = false;
+            this.header.classList.remove("sticky-header");
+            if (this.spacer) {
+                this.spacer.remove();
+                this.spacer = null;
+            }
+        }
+
+        apply(initial = false) {
+            const shouldStick = window.scrollY >= this.headerBottom;
+            const shouldRemoveSticky = window.scrollY === 0;
+
+            if (shouldStick) {
+                this.makeSticky();
+            } else if (shouldRemoveSticky) {
+                this.removeSticky();
+            }
+
+            // If page loaded scrolled down (e.g. anchor) ensure spacer height correct
+            if (initial && this.isSticky && this.spacer) {
+                this.spacer.style.height = this.headerHeight + "px";
+            }
+        }
+
+        onScroll() {
+            if (this.ticking) return;
+            this.ticking = true;
+            requestAnimationFrame(() => {
+                this.apply();
+                this.ticking = false;
+            });
+        }
+
+        onResize() {
+            this.measure();
+            this.apply();
+        }
+    }
+
+    document.addEventListener(
+        "astro:page-load",
+        () => {
+            const bar = document.getElementById("sticky-header");
+            if (bar) new StickyHeader(bar);
+        },
+        { passive: true },
+    );
+</script>

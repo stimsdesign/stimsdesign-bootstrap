@@ -1,0 +1,31 @@
+---
+import Template from '../layouts/BaseLayout.astro';
+import Main from '../components/layout/Main.astro';
+---
+
+<Template title="503 - Service Unavailable | STIMS Design" description="">
+	<Main>
+		<div id="fiveothree">
+			<h1>503 - Service Unavailable</h1>
+			<p>We're currently experiencing some technical difficulties. Please try again later.</p>
+		</div>
+	</Main>
+</Template>
+
+<style>
+	#fiveothree {
+		text-align: center;
+		padding: 6rem 2rem;
+	}
+
+	#fiveothree h1 {
+		margin-bottom: 1rem;
+		filter: drop-shadow(1px 1px 4px rgba(255, 255, 255, 0.4));
+	}
+
+	#fiveothree p {
+		font-size: 1.5rem;
+		margin: 0 auto;
+		color: var(--color-text-secondary);
+	}
+</style>

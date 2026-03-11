@@ -1,0 +1,396 @@
+---
+import { getRomanYear } from "../../utils/roman";
+import MobileNav from "../../components/navigation/MobileNav.astro";
+import LinkedInIcon from "../../icons/linkedin-solid.svg"
+import FacebookIcon from "../../icons/facebook-solid.svg"
+import InstagramIcon from "../../icons/instagram-solid.svg"
+---
+
+<footer>
+    <!-- Main Footer Content -->
+    <div class="main-footer">
+        <div class="footer-grid">
+            <!-- Brand Column -->
+            <div class="footer-col brand-col">
+                <div class="logo-area">
+                    <img src="/stimsdesign-logo-alt.svg" alt="STIMSDESIGN Logo" height="60px"/>
+                </div>
+                <p class="brand-mission">Merging high-performance engineering with world-class aesthetics. Transcending standard web development to engineer digital assets that accelerate business growth.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/stephen-tims/" target="_blank" aria-label="LinkedIn" class="social-icon">
+                        <LinkedInIcon />
+                    </a>
+                    <a href="https://www.facebook.com/stephenmtims" target="_blank" aria-label="Facebook" class="social-icon">
+                        <FacebookIcon />
+                    </a>
+                    <a href="https://www.instagram.com/stephenmtims/" target="_blank" aria-label="Instagram" class="social-icon">
+                        <InstagramIcon />
+                    </a>
+                </div>
+            </div>
+
+            <!-- Links Columns -->
+            <div class="footer-col link-col">
+                <h6 class="col-title electric">Services</h6>
+                <ul class="footer-links">
+                    <li><a href="/services.html#web-dev">Web Development</a></li>
+                    <li><a href="/services.html#digital-solutions">Digital Solutions</a></li>
+                    <li><a href="/services.html#graphic-design">Graphic Design</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col link-col">
+                <h6 class="col-title electric">Collective</h6>
+                <ul class="footer-links">
+                    <li><a href="https://stephentims.com" target="_blank">Resume/Portfolio</a></li>
+                    <li><a href="https://github.com/stimsdesign" target="_blank">Github</a></li>
+                    <li><a href="/portal">Client Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Pulse Column -->
+            <div class="footer-col pulse-col">
+                <div class="pulse-container">
+                    <div class="pulse-item">
+                        <span class="pulse-label electric">System Status</span>
+                        <div class="pulse-status">
+                            <span class="status-text">Fully Operational</span>
+                            <span class="status-dot green"></span>
+                        </div>
+                    </div>
+                    <div class="pulse-item">
+                        <span class="pulse-label electric">Local Time</span>
+                        <div class="pulse-status">
+                            <span id="footer-time" class="status-text">--:-- --</span>
+                            <span class="status-tz">(MST)</span>
+                        </div>
+                    </div>
+                    <div class="pulse-item">
+                        <span class="pulse-label electric">Studio Vibe</span>
+                        <div class="pulse-status">
+                            <span class="status-text">Creating the Future</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+        <div class="bottom-content">
+            <p class="copyright">© {getRomanYear()} STIMS Design LLC. Engineered for Excellence.</p>
+            <div class="origin">
+                <span>HAND-CRAFTED IN PHOENIX, AZ</span>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="mobile-nav">
+    <MobileNav />
+</div>
+
+<script is:inline>
+    function updateFooterTime() {
+        const timeElement = document.getElementById("footer-time");
+        if (timeElement) {
+            const now = new Date();
+            timeElement.textContent = now.toLocaleTimeString("en-US", {
+                hour12: true,
+                hour: "numeric",
+                minute: "2-digit",
+            });
+        }
+    }
+
+    // Update every second
+    setInterval(updateFooterTime, 1000);
+    updateFooterTime();
+</script>
+
+<style is:global>
+    footer {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-secondary-dark);
+        color: var(--color-foreground-light);
+        position: relative;
+    }
+
+    @media (min-width: 769px) {
+        footer {
+            margin: 0 auto 1rem;
+            border-left: solid 1px var(--color-accent);
+            border-right: solid 1px var(--color-accent);
+            border-bottom: solid 1px var(--color-accent);
+            border-radius: 0 0 15px 15px;
+        }
+    }
+
+    /* Main Footer */
+    .main-footer {
+        padding: 6rem 0 4rem;
+        position: relative;
+        z-index: 2;
+        color: var(--color-foreground);
+    }
+
+    .footer-grid {
+        width: clamp(94%, 100% - 10cqi, 1440px);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 4rem;
+    }
+
+    /* Brand Column */
+    .brand-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .logo-area {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .brand-mission {
+        font-size: var(--size-sm);
+        line-height: 1.6;
+        max-width: 35ch;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1.25rem;
+        text-align: center;
+    }
+
+    .social-icon {
+        color: var(--color-accent);
+        transition:
+            color 0.3s ease,
+            transform 0.3s ease;
+        width: 35px;
+        height: 35px;
+    }
+
+    .social-icon:hover {
+        color: var(--color-accent-light);
+        transform: translateY(-3px);
+    }
+
+    /* Column Titles */
+    .col-title {
+        font-weight: var(--weight-bold);
+        text-transform: uppercase;
+        font-size: var(--size-base);
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+    }
+
+    /* Links */
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .footer-links a {
+        color: var(--color-foreground);
+        text-decoration: none;
+        transition:
+            color 0.3s ease,
+            padding-left 0.3s ease;
+        font-size: var(--size-sm);
+        display: block;
+    }
+
+    .footer-links a:hover {
+        color: var(--color-secondary-evenlighter);
+        padding-left: 5px;
+    }
+
+    /* Pulse Column */
+    .pulse-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .pulse-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .pulse-label {
+        font-weight: var(--weight-bold);
+        text-transform: uppercase;
+        font-size: var(--size-base);
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+        font-family: var(--family-heading);
+    }
+
+    @media (max-width: 769px) {
+        .pulse-label {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .pulse-status {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: var(--size-sm);
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .status-dot.green {
+        background-color: #00ff88;
+        box-shadow: 0 0 10px #00ff88;
+        animation: pulse 2s infinite;
+    }
+
+    .status-tz {
+        color: var(--color-foreground-dark);
+        font-size: var(--size-xs);
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.5);
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* Bottom Bar */
+    .bottom-bar {
+        border-top: solid 1px var(--color-secondary-light);
+        padding: 1.5rem 0;
+        font-size: var(--size-xs);
+        z-index: 2;
+        background-color: transparent;
+    }
+
+    .bottom-content {
+        width: clamp(94%, 100% - 10cqi, 1440px);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .bottom-content p {
+        margin: 0;
+    }
+
+    .origin {
+        font-weight: var(--weight-bold);
+        letter-spacing: 1px;
+    }
+
+    /* Mobile Nav Compatibility */
+    #mobile-nav {
+        display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .footer-grid {
+            grid-template-columns: 1.5fr 1fr 1fr;
+        }
+        .pulse-col {
+            grid-column: span 3;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .pulse-container {
+            flex-direction: row;
+            grid-column: span 3;
+            justify-content: space-between;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            text-align: center;
+        }
+
+        .logo-area {
+            width: auto;
+        }
+
+        .brand-col {
+            grid-column: span 2;
+        }
+
+        .brand-mission {
+            max-width: 100%;
+        }
+
+        .pulse-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        .pulse-col {
+            grid-column: span 2;
+        }
+
+        .social-links,
+        .pulse-status {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .main-footer {
+            padding: 2rem 1.5rem;
+        }
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        .brand-col,
+        .link-col,
+        .pulse-col {
+            grid-column: span 1;
+        }
+        .bottom-content {
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: center;
+        }
+        #mobile-nav {
+            display: block;
+        }
+        .cta-title {
+            font-size: var(--size-2xl);
+        }
+    }
+</style>

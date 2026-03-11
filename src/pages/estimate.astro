@@ -1,0 +1,702 @@
+---
+import Template from "../layouts/BaseLayout.astro";
+import Main from "../components/layout/Main.astro";
+---
+
+<Template title="Estimate | STIMS Design" description="Get a personalized estimate for your web design and development project with STIMS Design. Fill out our form to receive a detailed quote tailored to your specific needs.">
+	<Main>
+		<div id="estimate">
+			<div class="estimate-header">
+				<h1>Estimate Request</h1>
+				<p>Use the form below to get an initial estimate for your project. Get a response within 48 hours. Detailed Quotes will be made alongside your full Project Scope.</p>
+			</div>
+			<form id="intake-form" class="contact-form" name="Estimate Form" data-netlify="true" netlify-honeypot="question-field">
+				<input type="hidden" name="form-name" value="Estimate Form" />
+				<input type="hidden" name="subject" value="Estimate Request from stimsdesign.com" />
+				<input type="text" id="question-field" name="question-field" />
+				<div class="form-inner">
+					<!-- SECTION 1: THE BASICS -->
+					<div class="form-section">
+						<h4>The Basics</h4>
+						<div class="form-grid">
+							<div class="form-group">
+								<label for="name">Name</label>
+								<input type="text" id="name" name="name" placeholder="Your name" required />
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="email" id="email" name="email" placeholder="you@example.com" required />
+							</div>
+							<div class="form-group">
+								<label for="business-name">Business Name</label>
+								<input type="text" id="business-name" name="business-name" placeholder="Your business" required />
+							</div>
+							<div class="form-group">
+								<label for="website-url">Current Website (or Future Domain)</label>
+								<input type="text" id="website-url" name="website-url" placeholder="www.yourbusiness.com" required />
+							</div>
+							<div class="form-group">
+								<label for="business-desc">Describe Your Business</label>
+								<textarea id="business-desc" name="business-desc" placeholder="e.g., We are a single location coffee shop, home of the worlds best coffee" required></textarea>
+							</div>
+							<div class="form-group">
+								<label>What is your estimated budget?</label>
+								<div class="radio-group">
+									<label class="radio-option">
+										<input type="radio" name="budget" value="$2k - $5k" required />
+										<span class="radio-custom"></span>
+										<span>$2k - $5k</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="budget" value="$5k - $10k" />
+										<span class="radio-custom"></span>
+										<span>$5k - $10k</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="budget" value="$10k+" />
+										<span class="radio-custom"></span>
+										<span>$10k+</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="budget" value="Monthly Retainer Budget" />
+										<span class="radio-custom"></span>
+										<span>Monthly Retainer</span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- SECTION 2: PROJECT TYPE -->
+					<div class="form-section">
+						<h4>Project Type</h4>
+						<p>What are we building? (Select all that apply)</p>
+						<div class="checkbox-group">
+							<label class="checkbox-option">
+								<input type="checkbox" name="project-type" value="website" data-trigger="website-logic" id="website-checkbox" />
+								<span class="checkmark"></span><span>New Website or Redesign</span>
+							</label>
+							<label class="checkbox-option">
+								<input type="checkbox" name="project-type" value="digital-solution" data-trigger="digital-logic" /><span class="checkmark"></span><span>Digital Business Solution (Automations, Portals, Systems)</span>
+							</label>
+							<label class="checkbox-option">
+								<input type="checkbox" name="project-type" value="graphic-design" data-trigger="design-logic" /><span class="checkmark"></span><span>Graphic Design</span>
+							</label>
+						</div>
+					</div>
+
+					<!-- SECTION 3: CONDITIONAL LOGIC -->
+					<div class="conditional-sections">
+						<!-- Website Logic -->
+						<div id="website-logic" class="form-section conditional-section">
+							<h5>New Website or Redesign</h5>
+							<div class="form-group">
+								<label>What Would you Like Done?</label>
+								<div class="radio-group">
+									<label class="radio-option">
+										<input type="radio" name="website-job" value="new" /><span class="radio-custom"></span><span>New Website Build</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="website-job" value="redesign" /><span class="radio-custom"></span><span>Redesign but Keep my Content</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="website-job" value="modernize" /><span class="radio-custom"></span><span>Modernize my Site for Mobile Views</span>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Do you have the text and photos ready for the site?</label>
+								<div class="radio-group">
+									<label class="radio-option">
+										<input type="radio" name="content-ready" value="yes" /><span class="radio-custom"></span><span>Yes</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="content-ready" value="no" /><span class="radio-custom"></span><span>No</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="content-ready" value="help" /><span class="radio-custom"></span><span>We need help creating them</span>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Do you have a high-quality version of a logo/branding for your business?</label>
+								<div class="radio-group">
+									<label class="radio-option">
+										<input type="radio" name="branding-ready" value="yes" /><span class="radio-custom"></span><span>Yes</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="branding-ready" value="no" /><span class="radio-custom"></span><span>No</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="branding-ready" value="help" /><span class="radio-custom"></span><span>We need help creating them</span>
+									</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="vision">What kind of website are you looking for?</label>
+								<textarea id="pain-point" name="pain-point" placeholder="e.g., Online Store, Lead Generating, Online Menu Ordering, Internal Dashboard..."></textarea>
+							</div>
+							<div class="form-group">
+								<label for="pain-point">If your website could solve a major pain point for your business, what would it be?</label>
+								<textarea id="pain-point" name="pain-point" placeholder="e.g., Not getting enough leads, site feels outdated..."></textarea>
+							</div>
+							<div class="form-group">
+								<label for="web-additional">Any additional information?</label>
+								<textarea id="web-additional" name="web-additional" placeholder="e.g., I need to get this site done this month..."></textarea>
+							</div>
+						</div>
+
+						<!-- Digital Solution Logic -->
+						<div id="digital-logic" class="form-section conditional-section">
+							<h5>Digital Business Solution</h5>
+							<div class="form-group">
+								<label for="project-type">What kind of project does you business need done?</label>
+								<textarea id="project-type" name="project-type" placeholder="e.g., CRM Integration, Workflow Automation, Customer Support, Staff Support, Internal Operations..."></textarea>
+							</div>
+							<div class="form-group">
+								<label for="automation">Is there a boring, repetitive task you or your team does every day that you want to automate?</label>
+								<textarea id="automation" name="automation" placeholder="e.g., Copying emails to a spreadsheet..."></textarea>
+							</div>
+							<div class="form-group">
+								<label for="software-stack">What software tools (if any) is your business already that you want to fold into this project?</label>
+								<textarea id="software-stack" name="software-stack" placeholder="e.g., Mailchimp, QuickBooks, Salesforce"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Will people need to log in? If yes, who?</label>
+								<div class="checkbox-group">
+									<label class="checkbox-option">
+										<input type="checkbox" name="access" value="administrators"/><span class="checkmark"></span><span>Administrators</span>
+									</label>
+									<label class="checkbox-option">
+										<input type="checkbox" name="access" value="staff"/><span class="checkmark"></span><span>Staff</span>
+									</label>
+									<label class="checkbox-option">
+										<input type="checkbox" name="access" value="customers"/><span class="checkmark"></span><span>Customers</span>
+									</label>
+									<label class="checkbox-option">
+										<input type="checkbox" name="access" value="members"/><span class="checkmark"></span><span>Students/Members</span>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="solutions-additional">Any additional information?</label>
+								<textarea id="solutions-additional" name="solutions-additional" placeholder="e.g., I want my website to integrate with the backend of my inventory management"></textarea>
+							</div>
+						</div>
+
+						<!-- Branding Logic -->
+						<div id="design-logic" class="form-section conditional-section">
+							<h5>Graphic Design</h5>
+							<div class="form-group">
+								<label>Are you looking for a digital or print project?</label>
+								<div class="radio-group">
+									<label class="radio-option">
+										<input type="radio" name="design-print-digital" value="digital"/><span class="radio-custom"></span><span>Digital</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="design-print-digital" value="print"/><span class="radio-custom"></span><span>Print</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="design-print-digital" value="both"/><span class="radio-custom"></span><span>Both</span>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="design-type">What kind of design project are you looking for?</label>
+								<input type="text" id="design-type" name="design-type" placeholder="e.g., Logo, Social Media, Print Flyers..." required/>
+							</div>
+							<div class="form-group">
+								<label>Do you have high-quality digital assets you want used for your project?</label>
+								<div class="radio-group">
+									<label class="radio-option">
+										<input type="radio" name="design-ready" value="yes"/><span class="radio-custom"></span><span>Yes</span>
+									</label>
+									<label class="radio-option">
+										<input type="radio" name="design-ready" value="no"/><span class="radio-custom"></span><span>No</span>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="design-goal">What is your goal for this design?</label>
+								<textarea id="design-goal" name="design-goal" placeholder="e.g., look more trustworthy, grab attention, explain a product"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="design-additional">Any additional information?</label>
+								<textarea id="design-additional" name="design-additional" placeholder="e.g., I really like the design style of... "></textarea>
+							</div>
+						</div>
+					</div>
+
+					<!-- SECTION 4: ONGOING SUCCESS -->
+					<div class="form-section">
+						<h4>Ongoing Success</h4>
+						<div class="form-group">
+							<label>Once the site is live, how do you want to handle updates and security?</label>
+							<div class="radio-group vertical">
+								<label class="radio-option">
+									<input type="radio" name="maintenance" value="self" required/><span class="radio-custom"></span><span>I'll handle updates/security myself.</span>
+								</label>
+								<label class="radio-option">
+									<input type="radio" name="maintenance" value="technical"/><span class="radio-custom"></span><span>I want you to handle technical safety and maintenance.</span>
+								</label>
+								<label class="radio-option">
+									<input type="radio" name="maintenance" value="partner"/><span class="radio-custom"></span><span>I want a partner for ongoing growth and new features.</span>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-footer">
+						<button type="submit" class="button submit-btn">
+							<span class="btn-text">Get My Estimate</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- THANK YOU MODAL -->
+		<div class="form-modal-overlay">
+			<div class="form-modal-content fancy-border">
+				<div class="form-modal-inner">
+					<h2>Request Received</h2>
+					<p>Keep an eye on your inbox for your estimate delivery within <strong>48 hours</strong>.</p>
+					<button class="close-modal button">Click to Return</button>
+				</div>
+			</div>
+		</div>
+	</Main>
+</Template>
+
+<style>
+	#estimate {
+		margin: 0 auto;
+		max-width: clamp(94%, 100% - 10cqi, 1440px);
+	}
+
+	.estimate-header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.estimate-header h1 {
+		margin-bottom: 1rem;
+		filter: drop-shadow(1px 1px 4px rgba(255, 255, 255, 0.4));
+	}
+
+	.estimate-header p {
+		font-size: var(--size-lg);
+		margin: 0 auto;
+	}
+
+	#intake-form {
+		background: var(--color-primary-darker);
+		border-radius: 15px;
+	}
+
+	.form-inner {
+		padding: 4rem;
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+		overflow: hidden;
+		position: relative;
+	}
+
+	.form-inner::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(
+			circle at 50% 0%,
+			rgba(2, 76, 170, 0.15) 0%,
+			transparent 70%
+		);
+		z-index: 1;
+		pointer-events: none;
+		filter: blur(60px);
+	}
+
+	@media (max-width: 768px) {
+		.form-inner::after {
+			display: none;
+		}
+	}
+
+	.form-section h4 {
+		margin-bottom: 1.5rem;
+		font-family: var(--font-base);
+		color: var(--color-secondary-lighter);
+		border-bottom: 1px solid var(--color-primary-dark);
+		padding-bottom: 0.5rem;
+	}
+
+	.form-section h5 {
+		margin-bottom: 1.5rem;
+		font-family: var(--font-base);
+		color: var(--color-primary-lighter);
+		border-bottom: 1px solid var(--color-primary-dark);
+		padding-bottom: 0.5rem;
+		text-transform: none;
+	}
+
+	.form-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2cqi;
+	}
+
+	@media (max-width: 1100px) {
+		.form-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.form-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.conditional-section .form-group {
+		margin-bottom: 4rem;
+	}
+
+	.form-group label {
+		font-weight: var(--weight-bold);
+	}
+
+	.form-group input,
+	.form-group textarea {
+		padding: 1rem;
+		background: var(--color-primary-darker);
+		border: 1px solid var(--color-primary-lighter);
+		border-radius: 10px;
+		color: white;
+		transition: all 0.3s ease;
+	}
+
+	.form-group textarea {
+		border-radius: 10px 10px 0 10px;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: var(--color-secondary);
+		background: rgba(0, 0, 0, 0.3);
+		box-shadow: 0 0 15px var(--color-primary);
+	}
+
+	/* Autofill Styling Overrides */
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover,
+	textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:hover,
+	select:-webkit-autofill:focus {
+		-webkit-box-shadow: 0 0 0px 1000px var(--color-primary-darker) inset !important;
+		-webkit-text-fill-color: white !important;
+		color: white !important;
+		border: 1px solid var(--color-primary-lighter) !important;
+		transition: background-color 5000s ease-in-out 0s;
+	}
+
+	.form-group textarea {
+		min-height: 120px;
+		resize: vertical;
+	}
+
+	/* Radio & Checkbox Styling - Consistent with Portal */
+	.radio-group,
+	.checkbox-group {
+		display: flex;
+		flex-wrap: wrap;
+		row-gap: 1rem;
+		column-gap: 2rem;
+		margin-top: 1rem;
+		font-weight: var(--weight-medium);
+	}
+
+	.radio-group label,
+	.checkbox-group label {
+		font-weight: var(--weight-medium);
+	}
+
+	.radio-option:has(input:checked),
+	.checkbox-option:has(input:checked) {
+		font-weight: var(--weight-bold);
+		color: var(--color-accent-light);
+	}
+
+	.radio-group.vertical {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.radio-option,
+	.checkbox-option {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		cursor: pointer;
+		user-select: none;
+		position: relative;
+		transition: color 0.3s ease;
+	}
+
+	.radio-option:hover,
+	.checkbox-option:hover {
+		color: var(--color-foreground);
+	}
+
+	.radio-option input,
+	.checkbox-option input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.checkmark,
+	.radio-custom {
+		display: block;
+		height: 24px;
+		width: 24px;
+		background-color: rgba(0, 0, 0, 0.3);
+		border: 1px solid var(--color-primary-lighter);
+		transition: all 0.3s ease;
+		position: relative;
+		flex-shrink: 0;
+	}
+
+	.checkmark {
+		border-radius: 5px;
+	}
+	.radio-custom {
+		border-radius: 50%;
+	}
+
+	.radio-option:hover input ~ .radio-custom,
+	.checkbox-option:hover input ~ .checkmark {
+		background-color: var(--color-primary);
+		border-color: var(--color-secondary);
+	}
+
+	.radio-option input:checked ~ .radio-custom,
+	.checkbox-option input:checked ~ .checkmark {
+		background-color: var(--color-secondary);
+		border-color: var(--color-secondary);
+	}
+
+	/* Checkmark icon */
+	.checkmark:after,
+	.radio-custom:after {
+		content: "";
+		position: absolute;
+		display: none;
+		background-color: white;
+	}
+
+	.checkmark:after {
+		left: 50%;
+		top: 50%;
+		width: 7px;
+		height: 13px;
+		border: solid 1px var(--color-foreground);
+		border-width: 0 2px 2px 0;
+		transform: translate(-50%, -60%) rotate(45deg);
+		background-color: transparent;
+	}
+
+	.radio-custom:after {
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--color-foreground);
+	}
+
+	.checkbox-option input:checked ~ .checkmark:after,
+	.radio-option input:checked ~ .radio-custom:after {
+		display: block;
+	}
+
+	/* Conditional Rendering */
+	.conditional-section {
+		display: none;
+		opacity: 0;
+		transform: translateY(10px);
+		transition: all 0.4s ease;
+	}
+
+	/* Using JS for these as multiple checkboxes can trigger them */
+	.conditional-section.visible {
+		display: block;
+		opacity: 1;
+		transform: translateY(0);
+		animation: slideFadeIn 0.4s ease forwards;
+	}
+
+	@keyframes slideFadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.form-footer {
+		text-align: center;
+		margin-top: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		#estimate {
+			padding: 0;
+		}
+		.estimate-header {
+			margin-bottom: 2rem;
+		}
+		.form-inner {
+			padding: 1rem 1rem;
+		}
+
+		.form-group {
+			margin: 0 0 1.5rem 0;
+		}
+
+		.conditional-section .form-group {
+			margin: 0 0 3rem;
+		}
+		.radio-group,
+		.checkbox-group {
+			flex-direction: column;
+			gap: 1rem;
+		}
+		.form-footer {
+			margin: 1rem 0;
+		}
+	}
+	.form-group input:user-invalid,
+	.form-group textarea:user-invalid {
+		border-color: #ff4d4d;
+		background: rgba(255, 77, 77, 0.05);
+		box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+		animation: shake 0.4s ease-in-out 0.5s;
+	}
+
+	@keyframes shake {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		20%,
+		60% {
+			transform: translateX(-6px);
+		}
+		40%,
+		80% {
+			transform: translateX(6px);
+		}
+	}
+</style>
+
+<script>
+	import { ContactFormHandler } from "../scripts/ContactFormHandler.js";
+	document.addEventListener("astro:page-load", () => {
+		document.querySelectorAll(".contact-form").forEach((formEl) => {
+			new ContactFormHandler(formEl);
+		});
+		const checkboxes = document.querySelectorAll<HTMLInputElement>(
+			'input[name="project-type"]',
+		);
+
+		checkboxes.forEach((checkbox) => {
+			const targetId = checkbox.getAttribute("data-trigger");
+			if (targetId) {
+				const targetSection = document.getElementById(targetId);
+				// Initialize: if not checked on load, disable all children
+				if (targetSection && !checkbox.checked) {
+					targetSection
+						.querySelectorAll("input, textarea, select")
+						.forEach((el) => {
+							(
+								el as
+									| HTMLInputElement
+									| HTMLTextAreaElement
+									| HTMLSelectElement
+							).disabled = true;
+						});
+				}
+			}
+
+			checkbox.addEventListener("change", () => {
+				const targetId = checkbox.getAttribute("data-trigger");
+				if (targetId) {
+					const targetSection = document.getElementById(targetId);
+
+					if (targetSection) {
+						if (checkbox.checked) {
+							targetSection.classList.add("visible");
+							// Enable inputs so they are validated and submitted
+							targetSection
+								.querySelectorAll("input, textarea, select")
+								.forEach((el) => {
+									(
+										el as
+											| HTMLInputElement
+											| HTMLTextAreaElement
+											| HTMLSelectElement
+									).disabled = false;
+								});
+						} else {
+							targetSection.classList.remove("visible");
+							// Disable inputs so they are ignored by the browser
+							targetSection
+								.querySelectorAll("input, textarea, select")
+								.forEach((el) => {
+									(
+										el as
+											| HTMLInputElement
+											| HTMLTextAreaElement
+											| HTMLSelectElement
+									).disabled = true;
+								});
+						}
+					}
+				}
+			});
+		});
+
+		const hashMapping: Record<string, string> = {
+			"#web-dev": "website-logic",
+			"#digital-solutions": "digital-logic",
+			"#graphic-design": "design-logic",
+		};
+		const targetTrigger = hashMapping[window.location.hash];
+
+		if (targetTrigger) {
+			const checkbox = document.querySelector<HTMLInputElement>(
+				`input[data-trigger="${targetTrigger}"]`,
+			);
+			if (checkbox) {
+				checkbox.checked = true;
+				checkbox.dispatchEvent(new Event("change"));
+			}
+		}
+	});
+</script>

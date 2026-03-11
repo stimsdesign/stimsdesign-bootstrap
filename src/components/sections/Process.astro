@@ -1,0 +1,648 @@
+---
+import MicrophoneOutline from "../../icons/microphone-outline.svg";
+import StrategyIcon from "../../icons/strategy.svg";
+import PlanningIcon from "../../icons/planning.svg";
+import CodeIcon from "../../icons/code.svg";
+import ShieldOutline from "../../icons/shield-outline.svg";
+import StarOutline from "../../icons/star-outline.svg";
+---
+
+<section id="process">
+    <div class="process-outer">
+        <div class="background-glow"></div>
+        <div class="content-container" id="process-content">
+            <div class="process-wrapper">
+                <div class="section-header reveal-slide-up">
+                    <hgroup>
+                        <h1 class="gradient-text">The Process</h1>
+                        <p>Turning operational hurdles into competitive advantages through a refined, six-stage evolution.</p>
+                    </hgroup>
+                </div>
+                <div id="timeline" class="timeline-viewport">
+                    <div class="timeline-track" id="process-track">
+                        <!-- Stage 1: Listening -->
+                        <div class="process-node" data-index="1">
+                            <div class="node-num fire">01</div>
+                            <div class="node-visual">
+                                <div class="icon-orb">
+                                    <MicrophoneOutline />
+                                </div>
+                                <div class="node-line"></div>
+                            </div>
+                            <div class="node-content">
+                                <h3>Deep Listening</h3>
+                                <p>I start by asking the right questions and truly listening. We dive deep into your unique business operations, analyzing your current tech stack to identify where real impact happens.</p>
+                                <div class="monologue-bubble">
+                                    <span class="monologue">"I need someone who actually understands the gears of my business..."</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2: Strategy -->
+                        <div class="process-node" data-index="2">
+                            <div class="node-num fire">02</div>
+                            <div class="node-visual">
+                                <div class="icon-orb">
+                                    <StrategyIcon />
+                                </div>
+                                <div class="node-line"></div>
+                            </div>
+                            <div class="node-content">
+                                <h3>Vision Synergy</h3>
+                                <p>Figuring out exactly what you want to achieve. We brainstorm solutions that leverage your web presence to bridge the gap between where you are and where you want to be.</p>
+                                <div class="monologue-bubble">
+                                    <span class="monologue">"Imagine if our website actually solved these daily headaches..."</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 3: Planning -->
+                        <div class="process-node" data-index="3">
+                            <div class="node-num fire">03</div>
+                            <div class="node-visual">
+                                <div class="icon-orb">
+                                    <PlanningIcon />
+                                </div>
+                                <div class="node-line"></div>
+                            </div>
+                            <div class="node-content">
+                                <h3>Architecture</h3>
+                                <p>Designing the roadmap. I create a plan that blends your existing tech stack with new, high-performance solutions to fill the holes and hit your targeted goals.</p>
+                                <div class="monologue-bubble">
+                                    <span class="monologue">"A clear plan that makes our legacy systems finally feel modern..."</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 4: Implementation -->
+                        <div class="process-node" data-index="4">
+                            <div class="node-num fire">04</div>
+                            <div class="node-visual">
+                                <div class="icon-orb">
+                                    <CodeIcon />
+                                </div>
+                                <div class="node-line"></div>
+                            </div>
+                            <div class="node-content">
+                                <h3>Precision Build</h3>
+                                <p>Implementation through high-end web development, clean design, and DevOps. I architect the technical foundation so your business can scale without friction.</p>
+                                <div class="monologue-bubble">
+                                    <span class="monologue">"Everything is coming together exactly how it was promised."</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 5: Support -->
+                        <div class="process-node" data-index="5">
+                            <div class="node-num fire">05</div>
+                            <div class="node-visual">
+                                <div class="icon-orb">
+                                    <ShieldOutline />
+                                </div>
+                                <div class="node-line"></div>
+                            </div>
+                            <div class="node-content">
+                                <h3>Guard & Measure</h3>
+                                <p>Supporting you beyond the launch. I measure and monitor the execution to ensure we're hitting the metrics and providing the ROI your business demands.</p>
+                                <div class="monologue-bubble">
+                                    <span class="monologue">"I've got an expert watching the data so I don't have to."</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 6: Evolution -->
+                        <div class="process-node" data-index="6">
+                            <div class="node-num fire">06</div>
+                            <div class="node-visual">
+                                <div class="icon-orb">
+                                    <StarOutline />
+                                </div>
+                                <div class="node-line"></div>
+                            </div>
+                            <div class="node-content">
+                                <h3>Continuous Peak</h3>
+                                <p>Refining and discovering new ways to improve business performance. Our partnership evolves, turning your website into a perpetual engine for expansion and success.</p>
+                                <div class="monologue-bubble">
+                                    <span class="monologue">"We just unlocked a whole new revenue stream I didn't see coming..."</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-footer">
+                        <div class="loading-bar-container">
+                            <div class="loading-bar" id="process-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    :root {
+        --node-width: 500px;
+        --track-gap: 120px;
+        --anim-duration: 35s;
+    }
+
+    #process {
+        background-color: var(--color-secondary-dark);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .process-outer {
+        background-color: var(
+            --color-secondary-dark
+        ); /* Match background for illusion */
+        width: 100%;
+        position: relative;
+    }
+
+    .content-container {
+        margin: 0; /* Gutters removed */
+        border-radius: 14vw 0 0 0; /* Adjusted right side to be flat to match gutters removal? Or match previous sections */
+        background-color: var(--color-primary-darker);
+        transition: transform 0.5s ease;
+        padding: 8rem 0 0;
+        position: relative;
+        z-index: 10;
+        overflow: hidden;
+    }
+
+    .background-glow {
+        position: absolute;
+        top: 20%;
+        left: 30%;
+        width: 40vw;
+        height: 40vw;
+        background: radial-gradient(
+            circle,
+            var(--color-secondary) 0%,
+            transparent 70%
+        );
+        opacity: 0.1;
+        filter: blur(80px);
+        pointer-events: none;
+    }
+
+    .process-wrapper {
+        container-type: inline-size;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .section-header {
+        text-align: left;
+        max-width: 1200px;
+        margin: 0 6.5rem 6rem;
+    }
+
+    .section-header h1 {
+        margin-bottom: 0.5rem;
+        font-size: var(--size-4xl);
+        font-weight: var(--weight-book);
+        /* Gradient text fix */
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+    }
+
+    .section-header h1 + p {
+        text-transform: capitalize;
+        color: var(--color-secondary-lighter);
+        font-size: var(--size-xl);
+        max-width: 50ch;
+        margin: 0;
+    }
+
+    .gradient-text {
+        display: block;
+        background: linear-gradient(
+            to right,
+            #fff 0%,
+            var(--color-foreground-dark) 50%,
+            #fff 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: gradientBounce 3s linear infinite;
+        filter: drop-shadow(1px 1px 4px rgba(255, 255, 255, 0.2));
+    }
+
+    @keyframes gradientBounce {
+        0% {
+            background-position: 0% center;
+        }
+        50% {
+            background-position: 100% center;
+        }
+        100% {
+            background-position: 0% center;
+        }
+    }
+
+    .timeline-viewport {
+        position: relative;
+        width: 100%;
+        padding-bottom: 2rem;
+        transition: opacity 1s ease;
+        opacity: 1;
+    }
+
+    .timeline-track {
+        display: flex;
+        gap: var(--track-gap);
+        width: max-content;
+        /* Animation edges: 0 to flush right */
+        padding: 0 6.5rem; /* Keep side padding for the nodes, but animation handles the edges */
+        transform: translateX(0);
+        opacity: 1;
+        /* transition: transform removed to avoid conflict with JS rAF */
+    }
+
+    /* JavaScript will add the 'playing' class to trigger animations */
+    .timeline-track.playing {
+        /* JS handles the transform mapping for more control over loop/pause */
+    }
+
+    @keyframes smoothLoopLogic {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(calc(-100% + 100cqw));
+        }
+    }
+
+    .process-node {
+        width: var(--node-width);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: relative;
+        pointer-events: auto; /* Ensure hover is captured */
+        z-index: 20;
+        cursor: default;
+        transition: transform 0.5s ease;
+    }
+
+    .process-node:hover {
+        transform: scale(1.05);
+    }
+
+    .node-num {
+        font-family: var(--family-heading);
+        font-size: var(--size-4xl);
+        font-weight: 900;
+        position: absolute;
+        top: -1rem;
+        right: -2rem; /* Moved to right side */
+        left: auto;
+        z-index: 0;
+        line-height: 1;
+        transition: all 0.5s ease;
+    }
+
+    .node-visual {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .icon-orb {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-accent);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .process-node:hover .icon-orb {
+        background: var(--color-secondary);
+        color: #fff;
+        border-color: var(--color-secondary-lighter);
+    }
+
+    .icon-orb svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .node-line {
+        height: 2px;
+        flex-grow: 1;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.1),
+            transparent
+        );
+        margin-left: -5px;
+    }
+
+    .node-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .node-content h3 {
+        font-size: var(--size-xl);
+        color: var(--color-foreground);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        font-weight: var(--weight-book);
+    }
+
+    .node-content p {
+        color: var(--color-foreground);
+        line-height: 1.5;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+    }
+
+    .monologue-bubble {
+        background: var(--color-primary-dark);
+        border-left: 4px solid var(--color-accent);
+        padding: 1.5rem 2rem;
+        border-radius: 0 20px 20px 0;
+    }
+
+    .monologue {
+        display: block;
+        font-family: var(--family-base);
+        font-style: italic;
+        color: var(--color-accent-lighter);
+        line-height: 1.4;
+    }
+
+    .timeline-footer {
+        max-width: 100%;
+        margin: 4rem 6.5rem 0;
+    }
+
+    .loading-bar-container {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .loading-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(
+            to right,
+            var(--color-secondary),
+            var(--color-accent)
+        );
+        /* transition: width removed to avoid conflict with JS rAF */
+    }
+
+    .loading-bar.playing {
+        /* animation: barProgressLogic var(--anim-duration) linear forwards; */
+    }
+
+    @keyframes barProgressLogic {
+        from {
+            width: 0%;
+        }
+        to {
+            width: 100%;
+        }
+    }
+
+    /* Scroll Reveal */
+    .reveal-slide-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+
+    .revealed .reveal-slide-up {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Mobile */
+    @media (max-width: 1400px) {
+        .content-container {
+            border-radius: 0;
+        }
+        .section-header {
+            margin-left: 4rem;
+        }
+        .timeline-track {
+            padding-left: 4rem;
+        }
+        .timeline-footer {
+            margin-left: 4rem;
+            margin-right: 4rem;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        :root {
+            --node-width: 450px;
+        }
+        .content-container {
+            padding: 3rem 0 0;
+        }
+        .section-header {
+            margin-left: 2rem;
+            margin-bottom: 4rem;
+        }
+        .timeline-track {
+            padding-left: 2rem;
+        }
+        .timeline-footer {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+        .node-num {
+            font-size: var(--size-3xl);
+            top: 0;
+            right: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .section-header {
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 2rem 2rem;
+        }
+
+        /* Scroll Reveal */
+        .reveal-slide-up {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-track {
+            flex-direction: column;
+            width: 100%;
+            transition: none !important;
+            padding: 0 1rem;
+            gap: 2rem;
+            transform: none !important;
+        }
+        .process-node {
+            width: 100%;
+        }
+        .node-line {
+            display: none;
+        }
+        .loading-bar-container {
+            display: none;
+        }
+        .node-num {
+            font-size: var(--size-4xl);
+            top: 0;
+            right: 1rem;
+        }
+    }
+</style>
+
+<script is:inline astro:page-load>
+    class Timeline {
+        constructor(root) {
+            this.root = root; // The .timeline-viewport element
+            this.track = root.querySelector(".timeline-track");
+            this.bar = root.querySelector(".loading-bar");
+            this.nodes = root.querySelectorAll(".process-node");
+            this.section = root.closest("section");
+
+            if (!this.track || !this.bar) return;
+
+            this.isPaused = false;
+            this.startTime = null;
+            this.elapsed = 0;
+            this.duration = 14000;
+            this.animationFrame = null;
+
+            this.init();
+        }
+
+        init() {
+            this.bindEvents();
+
+            // Intersection Observer to start loop
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            this.section?.classList.add("revealed");
+                            setTimeout(() => this.start(), 2000);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.2 },
+            );
+
+            if (this.section) observer.observe(this.section);
+        }
+
+        bindEvents() {
+            this.nodes.forEach((node) => {
+                node.addEventListener(
+                    "mouseenter",
+                    () => (this.isPaused = true),
+                );
+                node.addEventListener(
+                    "mouseleave",
+                    () => (this.isPaused = false),
+                );
+            });
+        }
+
+        update(timestamp) {
+            // Guard: Don't run animation logic on mobile
+            if (window.innerWidth <= 768) {
+                this.root.style.opacity = "1"; // Ensure it's never stuck invisible
+                this.animationFrame = requestAnimationFrame((t) =>
+                    this.update(t),
+                );
+                return;
+            }
+
+            if (!this.startTime) this.startTime = timestamp - this.elapsed;
+
+            if (!this.isPaused) {
+                this.elapsed = timestamp - this.startTime;
+                let progress = this.elapsed / this.duration;
+
+                if (progress >= 1) {
+                    this.stop();
+                    this.handleComplete();
+                    return;
+                }
+
+                const viewportWidth = this.root.clientWidth;
+                const trackWidth = this.track.scrollWidth;
+                const maxMove = Math.max(0, trackWidth - viewportWidth);
+                const currentMove = progress * maxMove;
+
+                this.track.style.transform = `translateX(-${currentMove}px)`;
+                this.bar.style.width = `${progress * 100}%`;
+            } else {
+                this.startTime = timestamp - this.elapsed;
+            }
+
+            this.animationFrame = requestAnimationFrame((t) => this.update(t));
+        }
+
+        start() {
+            if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
+            this.animationFrame = requestAnimationFrame((t) => this.update(t));
+        }
+
+        stop() {
+            if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
+        }
+
+        handleComplete() {
+            if (window.innerWidth <= 768) return;
+
+            setTimeout(() => {
+                this.root.style.opacity = "0";
+
+                setTimeout(() => {
+                    this.elapsed = 0;
+                    this.startTime = null;
+                    this.track.style.transform = `translateX(0)`;
+                    this.bar.style.width = `0%`;
+                    this.root.style.opacity = "1";
+
+                    setTimeout(() => this.start(), 1000);
+                }, 1000);
+            }, 2000);
+        }
+    }
+    document.addEventListener(
+        "astro:page-load",
+        () => {
+            const timelines = document.querySelectorAll(".timeline-viewport");
+            timelines.forEach((timeline) => new Timeline(timeline));
+        },
+        { passive: true },
+    );
+</script>

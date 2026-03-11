@@ -1,0 +1,11 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", ".astro/actions.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "paths": {
+      "@stimsdesign/core/*": ["./packages/core/src/*"],
+      "@stimsdesign/backend/*": ["./packages/backend/src/*"]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import CafeImg from "/src/assets/images/cafe.jpg";
+import CafeImgSm from "/src/assets/images/cafe-sm.jpg";
+---
+<div id="cafe-card" class="slide">
+    <div class="card-image">
+        <div class="fuzzy-load">
+            <Image src={CafeImgSm} class="blur-layer" alt="Cafe" loading="eager" />
+            <Image src={CafeImg} alt="Cafe" loading="lazy" />
+        </div>
+    </div>
+    <div class="card-inner">
+        <div class="header-row">
+            <hgroup>
+                <h3>A Corner Cafe</h3>
+                <p>Stop relaying on chance. Build a loyal comminity that keeps coming back for more with a digital rewards program.</p>
+            </hgroup>
+            <div class="stinger">
+                <p>Turn <span>One-Time</span> Sippers</p>
+                <p>Into <span>Lifetime</span> Regulars</p>
+            </div>
+        </div>
+        <div class="body-row">
+            <ul>
+                <li>The Broken Cycle <span>(Anonymous Customers)</span></li>
+                <li>No Re-Engagment</li>
+                <li>Wasted Marketing</li>
+                <li>Inconsistent Foot Traffic</li>
+            </ul>
+            <ul>
+                <li><span>1. Capture</span> Data at Checkout</li>
+                <li><span>2. Engage</span> Send Offers</li>
+                <li><span>3. Reward</span> Perks &amp; Points</li>
+                <li><span>4. Repeat</span> Increase Visits</li>
+            </ul>
+        </div>
+        <div class="footer-row">
+            Don't Just Serve Coffee. Serve a Loyal Community.
+        </div>
+    </div>
+</div>

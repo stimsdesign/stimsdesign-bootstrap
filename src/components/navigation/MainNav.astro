@@ -1,0 +1,121 @@
+---
+import PortalEntryIcon from "../../icons/portal-entry.svg";
+const links = [
+    { name: "Services", href: "/services.html" },
+    { name: "Pricing", href: "/services.html#pricing" },
+    { name: "Contact", href: "/contact.html" },
+    { name: 'Get a "Quote"', href: "/estimate.html" },
+    { name: "Client Portal", href: "/portal", icon: PortalEntryIcon },
+];
+---
+
+<nav id="main-nav-observer" class="main-nav">
+    <ul>
+        {
+            links.map((link) => (
+                <li><a href={link.href}>{link.name}{link.icon && <link.icon />}</a></li>
+            ))
+        }
+    </ul>
+</nav>
+
+<style is:global>
+    nav.main-nav {
+        display: flex;
+        position: absolute;
+        top: 0.5rem;
+        left: 0;
+        right: 0;
+        width: clamp(94%, 100% - 10cqi, 1440px);
+        margin: 0.5rem auto 0;
+        height: clamp(50px, 5cqi, 70px);
+        z-index: 1000;
+
+        /* Smooth Fade Transition */
+        transition:
+            opacity 0.4s ease,
+            visibility 0.4s ease,
+            transform 0.4s ease;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Target this class via JS in MobileNav or here if scroll logic exists */
+    nav.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        pointer-events: none;
+    }
+
+    @media (max-width: 769px) {
+        nav.main-nav {
+            display: none !important;
+        }
+    }
+
+    nav.main-nav ul {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        gap: 1cqi;
+    }
+
+    nav.main-nav ul > li:last-child {
+        margin-left: auto;
+    }
+
+    nav.main-nav a {
+        display: block;
+        color: var(--color-foreground);
+        text-decoration: none;
+        font-weight: var(--weight-thin);
+        text-transform: uppercase;
+        margin: 0.5rem;
+        text-align: center;
+        padding: 1rem 1cqi;
+        border-radius: 10px;
+        white-space: nowrap;
+        font-size: var(--size-lg);
+        transition:
+            color 0.3s ease,
+            background-color 0.3s ease,
+            border-bottom 0.3s ease,
+            background-image 0.3s ease;
+        border-bottom: solid 4px transparent;
+        position: relative;
+    }
+
+    nav.main-nav ul > li:first-child a {
+        margin-left: -1rem; /* Optical adjustment to match Logo wave edge */
+    }
+
+    nav.main-nav ul > li:last-child a {
+        padding-right: min(4.5cqi, 3rem); /* Space for the icon */
+        margin-right: -1rem;
+    }
+
+    nav.main-nav ul > li:last-child a[href="/"] {
+        padding-right: 1cqi;
+    }
+
+    nav.main-nav a svg {
+        display: inline-block;
+        width: 1.2cqi;
+        min-width: 1rem;
+        height: 1.2cqi;
+        min-height: 1rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1rem;
+        line-height: 1rem;
+    }
+
+    nav.main-nav ul > li > a:hover {
+        color: white;
+        text-decoration: none;
+        background-color: var(--color-secondary);
+        border-bottom: solid 4px var(--color-secondary-dark);
+    }
+</style>

@@ -1,0 +1,34 @@
+---
+interface Props {
+    href?: string;
+    id?: string;
+    margin?: string;
+    bookmark?: boolean;
+    type?: string;
+    alt?: string;
+}
+
+const { href = "#", id = "", margin = "", bookmark = false, type = "anchor", alt } = Astro.props;
+
+const resolvedHref = href.trim() === "" ? "#" : href;
+
+const altClass = alt?.trim() ? ` ${alt.trim()}` : "";
+---
+
+{
+    type === "anchor" ? (
+        bookmark ? (
+            <a href={resolvedHref} id={id} class={`button bookmark-button${altClass}`} style={margin ? `margin: ${margin};` : ""}>
+                <slot />
+            </a>
+        ) : (
+            <a href={resolvedHref} id={id} class={`button${altClass}`} style={margin ? `margin: ${margin};` : ""}>
+                <slot />
+            </a>
+        )
+    ) : (
+        <button type={type === "submit" ? "submit" : "button"} class={`button${altClass}`}>
+            <slot />
+        </button>
+    )
+}

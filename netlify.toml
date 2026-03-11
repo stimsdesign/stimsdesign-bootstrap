@@ -1,0 +1,13 @@
+# Netlify Configuration File
+# This file allows you to configure builds, redirects, and functions.
+# https://docs.netlify.com/build/configure-builds/file-based-configuration/
+
+[functions]
+  # Ensure EJS templates are included in the serverless functions bundle
+  # This is required for the email utility to find templates when running on Netlify.
+  included_files = ["./packages/backend/src/utils/templates/**.ejs"]
+
+[build.processing.html]
+  # Disable Netlify's automatic trailing slash injection
+  # See astro.config.mjs for more information on trailing slash and build format
+  pretty_urls = false

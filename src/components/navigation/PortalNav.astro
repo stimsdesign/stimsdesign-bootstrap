@@ -1,0 +1,18 @@
+---
+const links = [
+    { name: "Services", href: "/services.html" },
+    { name: "Pricing", href: "/services.html#pricing" },
+    { name: "Contact", href: "/contact.html" },
+    { name: 'Get a "Quote"', href: "/estimate.html" },
+    { name: "Return to Website", href: "/"},
+];
+---
+<nav id="portal-nav-observer" class="main-nav">
+    <ul>
+        {
+            links.map((link) => (
+                <li><a href={link.href}>{link.name}</a></li>
+            ))
+        }
+    </ul>
+</nav>

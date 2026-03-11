@@ -1,0 +1,430 @@
+---
+import PhoneOutline from "../../icons/phone-outline.svg";
+import MailOutline from "../../icons/mail-outline.svg";
+---
+
+<section id="contact">
+    <div class="contact-container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <hgroup>
+                    <h1>Let's build something <span>extraordinary.</span></h1>
+                    <p>Have an idea or a project in mind? Reach out and let's discuss how we can grow your business with cutting-edge digital solutions.</p>
+                </hgroup>
+
+                <div class="contact-cards">
+                    <div class="info-card">
+                        <div class="icon">
+                            <PhoneOutline />
+                        </div>
+                        <div class="text">
+                            <span>Call or Text</span>
+                            <a href="tel:+14807085204">(480) 708-5204</a>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="icon">
+                            <MailOutline />
+                        </div>
+                        <div class="text">
+                            <span>Email</span>
+                            <a href="mailto:stimsdesign@gmail.com">stimsdesign@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <span class="form-label fire">Fill Me Out</span>
+                <div class="glass-form-card">
+                    <form id="intake-form" class="contact-form" name="Home Contact Form" data-netlify="true" netlify-honeypot="question-field">
+                        <input type="hidden" name="form-name" value="Home Contact Form" />
+                        <input type="hidden" name="subject" value="Home Contact Submission from stimsdesign.com" />
+                        <input type="text" id="question-field" name="question-field" />
+                        <div class="form-row">
+                            <div class="input-group">
+                                <input type="text" id="name" name="name" placeholder=" " required />
+                                <label for="name">Your Name</label>
+                                <div class="focus-line"></div>
+                            </div>
+                            <div class="input-group">
+                                <input type="email" id="email" name="email" placeholder=" " required />
+                                <label for="email">Email Address</label>
+                                <div class="focus-line"></div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input type="tel" id="phone" name="phone" placeholder=" " />
+                            <label for="phone">Phone Number (Optional)</label>
+                            <div class="focus-line"></div>
+                        </div>
+                        <div class="input-group">
+                            <label class="hidden" for="service">Service</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a Service</option>
+                                <option value="web-dev">Web Development</option>
+                                <option value="digital-solutions">Digital Solutions</option>
+                                <option value="graphic-design">Graphic Design</option>
+                                <option value="other">Other Inquiry</option>
+                            </select>
+                            <div class="focus-line"></div>
+                        </div>
+                        <div class="input-group">
+                            <textarea id="message" name="message" placeholder=" " required rows="4"></textarea>
+                            <label for="message">Your Message</label>
+                            <div class="focus-line"></div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-glow"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- THANK YOU MODAL -->
+<div class="form-modal-overlay">
+    <div class="form-modal-content fancy-border">
+        <div class="form-modal-inner">
+            <h2>Message Received</h2>
+            <p>Keep an eye on your inbox for a reply within <strong>48 hours</strong>.</p>
+            <button class="close-modal button">Click to Return</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    #contact {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: top;
+        justify-content: center;
+        background: var(--color-secondary-dark);
+    }
+
+    .contact-container {
+        width: 100%;
+        z-index: 2;
+        background: var(--color-background);
+        padding: 4rem 0 6rem;
+        overflow: hidden;
+    }
+
+    .contact-grid {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        max-width: clamp(94%, 100% - 10cqi, 1440px);
+        margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+    }
+
+    /* Typography */
+    .contact-info h2 {
+        color: var(--color-accent);
+        font-size: var(--size-xl);
+        font-weight: var(--weight-bold);
+        margin-bottom: 1rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .contact-info h1 {
+        font-size: var(--size-3xl);
+        margin-bottom: 2rem;
+        line-height: 1.1;
+        text-transform: uppercase;
+        font-weight: var(--weight-black);
+    }
+
+    .contact-info h1 span {
+        display: block;
+        background: linear-gradient(
+            to right,
+            var(--color-accent-lighter),
+            var(--color-accent)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .contact-info p {
+        font-size: var(--size-lg);
+        color: var(--color-foreground);
+        max-width: 500px;
+        margin-bottom: 3rem;
+    }
+
+    /* Contact Cards */
+    .contact-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .info-card {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: var(--color-primary-dark);
+        border: 1px solid var(--color-primary-light);
+        border-radius: 12px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+        background: var(--color-primary-darker);
+        border-color: var(--color-accent);
+        transform: translateX(10px);
+    }
+
+    .info-card .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--color-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .info-card .text span {
+        display: block;
+        font-size: var(--size-sm);
+        color: var(--color-foreground-dark);
+        margin-bottom: 0.25rem;
+    }
+
+    .info-card .text a {
+        font-size: var(--size-lg);
+        font-weight: var(--weight-bold);
+        color: var(--color-text);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .info-card .text a:hover {
+        color: var(--color-accent);
+    }
+
+    /* Glass Form Card */
+    .contact-form-wrapper {
+        position: relative;
+    }
+
+    .form-label {
+        position: absolute;
+        top: -1.5rem;
+        left: -1rem;
+        font-size: var(--size-xl);
+        font-weight: var(--weight-black);
+        text-transform: uppercase;
+        transform: rotate(-5deg);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    .glass-form-card {
+        background: var(--color-primary-dark);
+        border: 1px solid var(--color-primary-light);
+        border-radius: 24px;
+        padding: 3rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+        .form-label {
+            left: 0;
+        }
+
+        .contact-container {
+            padding: 0rem 0 6rem;
+        }
+        .glass-form-card {
+            padding: 2rem 1.5rem;
+        }
+    }
+
+    /* Form Elements */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .input-group {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        width: 100%;
+        padding: 1rem 0;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        color: var(--color-text);
+        font-size: var(--size-med);
+        transition: all 0.3s ease;
+        border-radius: 0;
+    }
+
+    /* Autofill Styling Overrides */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px #0c0e2a inset !important;
+        -webkit-text-fill-color: white !important;
+        color: white !important;
+        border: none !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    .input-group select {
+        padding-top: 1.5rem;
+        cursor: pointer;
+        appearance: none;
+        background-color: transparent;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right center;
+    }
+
+    .input-group select option {
+        color: black;
+    }
+
+    .input-group label {
+        position: absolute;
+        left: 0;
+        top: 1rem;
+        color: var(--color-foreground-dark);
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus,
+    .input-group select:focus {
+        outline: none;
+    }
+
+    .input-group input:focus ~ label,
+    .input-group textarea:focus ~ label,
+    .input-group input:not(:placeholder-shown) ~ label,
+    .input-group textarea:not(:placeholder-shown) ~ label {
+        top: -12px;
+        font-size: var(--size-xs);
+        color: var(--color-accent);
+        font-weight: var(--weight-bold);
+    }
+
+    .focus-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--color-accent);
+        transition: all 0.3s ease;
+    }
+
+    .input-group input:focus ~ .focus-line,
+    .input-group textarea:focus ~ .focus-line,
+    .input-group select:focus ~ .focus-line {
+        width: 100%;
+    }
+
+    /* Custom Button */
+    .submit-btn {
+        margin-top: 1rem;
+        padding: 1.25rem 2rem;
+        background: var(--color-accent);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-weight: var(--weight-bold);
+        font-size: var(--size-lg);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(236, 131, 5, 0.3);
+        background: var(--color-accent-light);
+    }
+
+    .btn-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.4) 0%,
+            transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .submit-btn:hover .btn-glow {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    import { ContactFormHandler } from "../../scripts/ContactFormHandler.js";
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll(".contact-form").forEach((formEl) => {
+            new ContactFormHandler(formEl);
+        });
+    });
+</script>

@@ -1,0 +1,215 @@
+---
+import { Image } from "astro:assets";
+import Devices from "/src/assets/images/hero-devices.png";
+import Logo from "../elements/Logo.astro";
+import Waves from "../elements/Waves.astro";
+import Button from "../elements/Button.astro";
+import Ticker from "../elements/Ticker.astro";
+---
+
+<section id="hero-section">
+    <div id="hero-wrapper">
+        <a href="tel:+14807085204" class="phone-link" aria-label="Call Today (480) 708-5204"><span>Click to Call</span></a>
+        <div id="hero">
+            <div id="hero-text">
+                <Logo maxWidth="100%" margin="0 0 1.5rem 0" />
+                <h1 class="fire">Empowering SMBs with Tools & Stunning Websites to Succeed</h1>
+                <p>A website isn’t just a digital footprint—it’s a growth engine. I craft conversion-focused websites that integrate with your entire tech stack and empower your business to make measurable improvements to your bottom line.<br />— Stephen Tims</p>
+                <div class="buttons">
+                    <Button href="#why-choose" bookmark>Why Choose?</Button>
+                    <Button href="/estimate.html">Get a "Quote"</Button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <Image alt="Devices" src={Devices} />
+            </div>
+        </div>
+        <Waves color="var(--color-secondary-dark)" />
+        <Ticker>
+            <span class="wordpress">Wordpress</span>
+            <span class="shopify">Shopify</span>
+            <span class="astro">Astro</span>
+            <span class="eleventy">Eleventy</span>
+            <span class="netlify">Netlify</span>
+            <span class="akamai">Akamai</span>
+            <span class="illustrator">Illustrator</span>
+            <span class="photoshop">Photoshop</span>
+            <span class="aftereffects">After Effects</span>
+            <span class="premierepro">Premiere Pro</span>
+            <span class="nginx">Nginx</span>
+            <span class="apache">Apache</span>
+            <span class="html5">HTML5</span>
+            <span class="css3">CSS3</span>
+            <span class="javascript">JavaScript</span>
+            <span class="react">React</span>
+            <span class="nodejs">Node.js</span>
+            <span class="php">PHP</span>
+            <span class="mysql">MySQL</span>
+            <span class="postgres">PostgreSQL</span>
+            <span class="google">Google Analytics</span>
+            <span class="openai">OpenAI</span>
+            <span class="gemini">Gemini</span>
+            <span class="salesforce">Salesforce</span>
+            <span class="slack">Slack</span>
+            <span class="jira">Jira</span>
+            <span class="facebook-business">Facebook Business</span>
+            <span class="google">Google Ads</span>
+            <span class="mailchimp">Mailchimp</span>
+        </Ticker>
+    </div>
+</section>
+
+<style>
+    #hero-section {
+        min-height: calc(100dvh - 2rem);
+        overflow: hidden;
+        background-color: var(--color-secondary-dark);
+        container-type: inline-size;
+        container-name: hero;
+    }
+
+    .phone-link {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .phone-link {
+            display: block;
+            position: absolute;
+            max-width: 50%;
+            height: 40px; /* Reference height */
+            aspect-ratio: 424.82 / 68.54; /* Matches SVG viewBox dimensions */
+            top: 1rem;
+            right: 1rem;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 424.82 68.54"><path d="M0,34.27C0,17.76,8.55,5.68,22.4,0v10.39c-7.3,4.42-12.01,11.87-12.01,23.88s4.72,19.46,12.01,23.88v10.39C8.55,62.87,0,50.78,0,34.27Z" fill="%23dbd3d3"/><path d="M38.62,48.46h-19.9v-9.58l19.9-29.19h11.06v28.82h4.13v9.95h-4.13v9.43h-11.06v-9.43ZM38.98,38.51v-13.78l-8.84,13.78h8.84Z" fill="%23dbd3d3"/><path d="M56.52,44.04c0-5.6,2.73-9.51,7.52-11.5v-.15c-3.91-1.92-5.97-5.38-5.97-10.17,0-8.11,6.12-13.49,15.7-13.49s15.7,5.38,15.7,13.49c0,4.79-2.14,8.25-5.97,10.17v.15c4.79,1.99,7.52,5.9,7.52,11.5,0,8.99-6.93,14.81-17.25,14.81s-17.25-5.82-17.25-14.81ZM80.03,42.93c0-3.76-2.21-5.82-6.19-5.82h-.15c-3.98,0-6.19,2.06-6.19,5.82s2.21,5.82,6.26,5.82,6.26-2.06,6.26-5.82ZM73.84,27.9c3.1,0,4.64-1.92,4.64-4.57s-1.55-4.57-4.72-4.57-4.72,1.92-4.72,4.57,1.55,4.57,4.64,4.57h.15Z" fill="%23dbd3d3"/><path d="M93.61,41.53v-15.48c0-10.47,7.08-17.32,17.25-17.32s17.25,6.85,17.25,17.32v15.48c0,10.47-7.08,17.32-17.25,17.32s-17.25-6.85-17.25-17.32ZM117.05,41.53v-15.48c0-4.42-2.21-7-6.19-7s-6.19,2.58-6.19,7v15.48c0,4.42,2.21,7,6.19,7s6.19-2.58,6.19-7Z" fill="%23dbd3d3"/><path d="M127.56,58.15c7.3-4.42,12.01-11.87,12.01-23.88s-4.72-19.46-12.01-23.88V0c13.86,5.68,22.4,17.76,22.4,34.27s-8.55,28.6-22.4,34.27v-10.39Z" fill="%23dbd3d3"/><path d="M179.94,19.64h-19.68v-9.95h31.62v9.58l-18.2,38.62h-12.01l18.28-38.25Z" fill="%23dbd3d3"/><path d="M193.34,41.53v-15.48c0-10.47,7.08-17.32,17.25-17.32s17.25,6.85,17.25,17.32v15.48c0,10.47-7.08,17.32-17.25,17.32s-17.25-6.85-17.25-17.32ZM216.78,41.53v-15.48c0-4.42-2.21-7-6.19-7s-6.19,2.58-6.19,7v15.48c0,4.42,2.21,7,6.19,7s6.19-2.58,6.19-7Z" fill="%23dbd3d3"/><path d="M229.44,44.04c0-5.6,2.73-9.51,7.52-11.5v-.15c-3.91-1.92-5.97-5.38-5.97-10.17,0-8.11,6.12-13.49,15.7-13.49s15.7,5.38,15.7,13.49c0,4.79-2.14,8.25-5.97,10.17v.15c4.79,1.99,7.52,5.9,7.52,11.5,0,8.99-6.93,14.81-17.25,14.81s-17.25-5.82-17.25-14.81ZM252.95,42.93c0-3.76-2.21-5.82-6.19-5.82h-.15c-3.98,0-6.19,2.06-6.19,5.82s2.21,5.82,6.26,5.82,6.26-2.06,6.26-5.82ZM246.76,27.9c3.1,0,4.64-1.92,4.64-4.57s-1.55-4.57-4.72-4.57-4.72,1.92-4.72,4.57,1.55,4.57,4.64,4.57h.15Z" fill="%23dbd3d3"/><path d="M269.2,31.62c0-2.49,2.04-4.53,4.53-4.53s4.53,2.04,4.53,4.53-2.04,4.53-4.53,4.53-4.53-2.04-4.53-4.53Z" fill="%23dbd3d3"/><path d="M284.07,44.39h11.35c.59,2.87,2.65,4.94,5.9,4.94,3.83,0,6.04-2.58,6.04-7.22,0-3.91-2.21-6.49-6.04-6.49-2.73,0-4.57,1.4-5.53,3.54l-9.88-3.02,3.39-25.65h25.65v9.95h-17.1l-1.33,8.84c1.77-2.14,4.05-3.1,7.37-3.1,7.74,0,14.67,6.04,14.67,15.92,0,10.61-7.08,17.54-17.25,17.54-9.58,0-16.58-6.34-17.25-15.26Z" fill="%23dbd3d3"/><path d="M319.57,49.1l15.26-15.55c2.8-2.8,4.72-5.53,4.72-8.25,0-3.17-1.33-5.45-4.42-5.45s-4.42,2.21-4.42,5.53v1.03h-11.05v-.66c0-9.88,5.9-16.21,15.55-16.21s15.55,6.71,15.55,15.85c0,6.12-2.88,9.95-7.59,14.59l-8.99,8.77h15.99v9.95h-30.59v-9.58Z" fill="%23dbd3d3"/><path d="M353.72,42.32v-15.48c0-10.47,7.08-17.32,17.25-17.32s17.25,6.85,17.25,17.32v15.48c0,10.47-7.08,17.32-17.25,17.32s-17.25-6.85-17.25-17.32ZM377.16,42.32v-15.48c0-4.42-2.21-7-6.19-7s-6.19,2.58-6.19,7v15.48c0,4.42,2.21,7,6.19,7s6.19-2.58,6.19-7Z" fill="%23dbd3d3"/><path d="M409.64,49.25h-19.9v-9.58l19.9-29.19h11.05v28.82h4.13v9.95h-4.13v9.43h-11.05v-9.43ZM410.01,39.3v-13.78l-8.84,13.78h8.84Z" fill="%23dbd3d3"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right center;
+        }
+        .phone-link span {
+            display: none;
+        }
+    }
+
+    @media (min-width: 769px) {
+        #hero-section {
+            border-top: solid 1px var(--color-accent);
+            border-left: solid 1px var(--color-accent);
+            border-right: solid 1px var(--color-accent);
+            border-radius: 15px 15px 0 0;
+            margin: 1rem auto 0;
+        }
+    }
+
+    #hero-wrapper {
+        position: relative;
+        background-image: url("/images/homehero-bg.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: var(--color-primary-darker);
+    }
+
+    #hero {
+        min-height: 80dvh;
+        width: clamp(94%, 100% - 10cqi, 1440px);
+        margin: 0 auto;
+        padding: calc(5.5rem + 1cqi) 0 1cqi;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 3cqi;
+    }
+
+    #hero h1 {
+        font-size: var(--size-2xl);
+        line-height: 0.95em;
+        margin-bottom: 1rem;
+        text-wrap: wrap; /* Overriding global 'balance' to allow wider lines */
+    }
+
+    #hero p {
+        font-size: var(--size-lg);
+        line-height: 1.25em;
+        color: var(--color-foreground);
+    }
+
+    #hero .hero-image {
+        width: 100%;
+        max-width: 45%;
+        max-height: 40cqi;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        transform: translateY(3cqi);
+    }
+
+    #hero .hero-image img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    @container hero (max-width: 850px) {
+        #hero {
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            padding-bottom: 2cqi;
+        }
+        #hero .hero-image {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 85%;
+            margin-top: 2cqi;
+        }
+        #hero #hero-text {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #hero #hero-text .buttons {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #hero {
+            padding-top: 6rem !important; /* Reduced clearance for Hamburger menu */
+        }
+    }
+
+    @media (orientation: portrait) {
+        #hero {
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            padding-top: calc(4.86cqi + 2cqi);
+        }
+        #hero .hero-image {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%; /* More horizontal space */
+            margin-top: 4cqi;
+        }
+        #hero #hero-text {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 2cqi;
+        }
+        #hero #hero-text .buttons {
+            flex-direction: column; /* Stacked for more space */
+            width: 100%;
+            padding: 0 5cqi;
+            gap: 1.25rem;
+        }
+        #hero #hero-text .buttons :global(.button) {
+            width: 100%;
+            padding: 1.25rem 2rem; /* Increased height proportionally */
+        }
+    }
+</style>
