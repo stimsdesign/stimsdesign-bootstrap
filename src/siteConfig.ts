@@ -23,6 +23,15 @@ export const siteConfig = {
     company: "STIMS Design LLC.",
     telephone: "+14807085204",
     prettyTelephone: "(480) 708-5204",
+    email: "",
+    addressLine1: "123 Main Street",
+    addressLine2: "Suite 100",
+    city: "Phoenix",
+    state: "AZ",
+    postalCode: "85001",
+    country: "USA",
+    hoursOfOperation: "Mon-Fri 9am-5pm",
+    hoursOfOperationWeekend: "Sat-Sun Closed",
     ogImage: `${baseUrl}/og-image.jpg`, /* Path relative to the public directory */
     fonts: [
         {
