@@ -1,6 +1,5 @@
 // Console statements for debugging
 console.log('Complete the puzzle for a prize! Who is Kazuhisa Hashimoto?');
-console.log('To review more of my code, please visit my github → https://github.com/stimsdesign');
 console.log('');
 // console.log('User is logged in:', userLoggedIn);
 
@@ -110,94 +109,6 @@ console.log('');
 
     function launchEasterEggGame() {
         if (document.getElementById('easter-egg-overlay')) return;
-
         console.log('Easter Egg Activated!');
-
-        // Construct paths at runtime to prevent pre-scanners from preloading
-        const romDir = '/roms';
-        const gameLoader = romDir + '/loader.js';
-        const romFile = romDir + '/journey-to-silius.nes';
-
-        // Create overlay container
-        const overlay = document.createElement('div');
-        overlay.id = 'easter-egg-overlay';
-        Object.assign(overlay.style, {
-            position: 'fixed',
-            top: '0',
-            left: '0',
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-            zIndex: '999999',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backdropFilter: 'blur(5px)'
-        });
-
-        // Create close button
-        const closeBtn = document.createElement('button');
-        closeBtn.innerHTML = '&times;';
-        Object.assign(closeBtn.style, {
-            position: 'absolute',
-            top: '20px',
-            right: '20px',
-            fontSize: '40px',
-            color: '#fff',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '10px',
-            lineHeight: '1'
-        });
-        closeBtn.onclick = () => {
-            document.body.removeChild(overlay);
-        };
-        overlay.appendChild(closeBtn);
-
-        // Click background to close
-        overlay.onclick = (e) => {
-            if (e.target === overlay) {
-                document.body.removeChild(overlay);
-            }
-        };
-
-        // Create game container
-        const gameWrapper = document.createElement('div');
-        Object.assign(gameWrapper.style, {
-            width: '640px',
-            height: '480px',
-            maxWidth: '100%',
-            backgroundColor: '#000',
-            boxShadow: '0 0 50px rgba(0,0,0,0.5)',
-            position: 'relative'
-        });
-
-        const gameContainer = document.createElement('div');
-        gameContainer.id = 'game';
-        Object.assign(gameContainer.style, {
-            width: '100%',
-            height: '100%'
-        });
-
-        gameWrapper.appendChild(gameContainer);
-        overlay.appendChild(gameWrapper);
-        document.body.appendChild(overlay);
-
-        // Initialize EJS
-        window['EJS_player'] = '#game';
-        window['EJS_biosUrl'] = '';
-        window['EJS_gameUrl'] = romFile;
-        window['EJS_core'] = 'nes';
-        window['EJS_lightgun'] = false;
-        window['EJS_startOnLoaded'] = true;
-        window['EJS_fullscreenOnLoaded'] = true;
-
-        // Load loader.js
-        const script = document.createElement('script');
-        script.src = gameLoader;
-        script.type = 'text/javascript';
-        document.body.appendChild(script);
     }
 })();

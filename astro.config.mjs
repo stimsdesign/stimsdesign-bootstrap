@@ -2,10 +2,9 @@
 /** Enables TypeScript type checking for this JavaScript configuration file */
 
 // Import necessary modules
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig } from 'astro/config';
+import { siteConfig } from './src/siteConfig';
 import netlify from '@astrojs/netlify';
-import tailwindcss from '@tailwindcss/vite';
-import { spawn } from 'node:child_process';
 
 // Export the Astro configuration https://astro.build/config
 export default defineConfig({
@@ -15,18 +14,7 @@ export default defineConfig({
   adapter: netlify(),
   // Disable "Pretty URLs" in Netlify Dashboard.
   trailingSlash: 'never',
-  fonts: [
-    {
-      provider: fontProviders.google(),
-      name: 'Inter',
-      cssVariable: '--font-inter',
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Quicksand',
-      cssVariable: '--font-quicksand',
-    }
-  ],
+  fonts: siteConfig.fonts,
   build: {
     format: 'file' // Output pages as standalone .html files (e.g., /services.html) to support clean URLs (/services)
   },
@@ -37,7 +25,4 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  vite: {
-    plugins: [tailwindcss()],
-  }
 });

@@ -1,7 +1,11 @@
 ---
+import { siteConfig } from "../../siteConfig";
 import MainNav from '../navigation/MainNav.astro';
+import Logo from "../elements/Logo.astro";
 ---
 
 <header>
     <MainNav />
+    <a href={`tel:${siteConfig.telephone}`} aria-label={`Call Today ${siteConfig.prettyTelephone}`}>{siteConfig.prettyTelephone}</a>
+    <Logo height="100px" maxWidth="calc(100% - 2rem)" margin="0 0 0 0" />
 </header>

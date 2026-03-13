@@ -1,49 +1,36 @@
 ---
-/* MobileNav.astro */
+import { siteConfig } from "../../siteConfig";
+import CrossIcon from "../../icons/cross.svg"
+import HamburgerIcon from "../../icons/hamburger.svg"
 const links = [
     { name: "Home", href: "/" },
-    { name: "Services", href: "/services.html" },
-    { name: "Pricing", href: "/services.html#pricing" },
-    { name: "Contact", href: "/contact.html" },
-    { name: 'Get "Quote"', href: "/estimate.html" },
+    { name: "Contact", href: "/contact.html", icon: null },
 ];
-
-import PortalEntryIcon from "../../icons/portal-entry.svg";
 ---
-
 <div class="mobile-nav-container">
-    <input type="checkbox" id="mobile-toggle" class="mobile-toggle" hidden aria-hidden="true" />
-
-    <!-- Hamburger Button -->
-    <label for="mobile-toggle" id="mobile-hamburger" class="hamburger-btn" aria-label="Open Menu">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
+    <input type="checkbox" id="mobile-toggle" hidden aria-hidden="true" />
+    <label for="mobile-toggle" id="mobile-hamburger" aria-label="Open Menu">
+        <HamburgerIcon />
     </label>
-
-    <!-- Slide-out Drawer -->
     <div id="mobile-menu-drawer" class="menu-drawer">
         <div class="drawer-header">
-            <label for="mobile-toggle" id="mobile-menu-close" class="close-btn" aria-label="Close Menu">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <label for="mobile-toggle" id="mobile-menu-close" aria-label="Close Menu">
+                <CrossIcon />
             </label>
         </div>
         <nav class="drawer-nav">
             <ul>
                 {
                     links.map((link) => (
-                        <li><a href={link.href}>{link.name}</a></li>
+                        <li><a href={link.href}>{link.name}{link.icon && <link.icon />}</a></li>
                     ))
                 }
             </ul>
         </nav>
         <div class="drawer-footer">
-            <a href="/portal" class="portal-link">Client Portal<PortalEntryIcon /></a>
-            <p>&copy; {new Date().getFullYear()} STIMS Design LLC</p>
+            <p>&copy; {new Date().getFullYear()} {siteConfig.company}</p>
         </div>
     </div>
-
-    <!-- Overlay -->
     <label for="mobile-toggle" id="mobile-menu-overlay" class="menu-overlay"></label>
 </div>
 
@@ -54,7 +41,7 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         pointer-events: none; /* Let clicks pass through unless on specific buttons */
     }
 
-    .hamburger-btn {
+    #mobile-hamburger {
         pointer-events: auto;
         position: fixed;
         top: 1.25rem;
@@ -62,13 +49,8 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         z-index: 2000;
         width: 50px;
         height: 50px;
-        background-color: color-mix(
-            in srgb,
-            var(--color-secondary-dark),
-            transparent 80%
-        );
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background-color: var(--color-foreground);
+        color: var(--color-background);
         border-radius: 50%;
         cursor: pointer;
         display: flex;
@@ -83,13 +65,17 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         visibility: hidden;
     }
 
-    .hamburger-btn.is-visible {
+    #mobile-hamburger:hover {
+        background-color: var(--color-foreground-lighter);
+    }
+
+    #mobile-hamburger.is-visible {
         opacity: 1;
         visibility: visible;
     }
 
     @media (max-width: 768px) {
-        .hamburger-btn {
+        #mobile-hamburger {
             opacity: 1;
             visibility: visible;
             top: 0.5rem;
@@ -97,67 +83,24 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         }
     }
 
-    .hamburger-btn:hover {
-        background-color: color-mix(
-            in srgb,
-            var(--color-secondary),
-            transparent 80%
-        );
-    }
-
-    .hamburger-btn:active {
-        transform: scale(0.95);
-    }
-
-    /* Hamburger Icon CSS */
-    .hamburger-box {
-        width: 24px;
-        height: 14px;
-        display: block;
-        position: relative;
-    }
-
-    .hamburger-inner,
-    .hamburger-inner::before,
-    .hamburger-inner::after {
-        width: 100%;
-        height: 2px;
-        background-color: var(--color-accent);
-        position: absolute;
-        left: 0;
-        transition: transform 0.15s ease;
-        border-radius: 4px;
-    }
-
-    .hamburger-inner {
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    .hamburger-inner::before {
-        content: "";
-        top: -6px;
-    }
-    .hamburger-inner::after {
-        content: "";
-        top: 6px;
-    }
-
     /* Menu Drawer Logic */
-    .mobile-toggle:checked ~ .menu-drawer {
+    #mobile-toggle:checked ~ .menu-drawer {
         transform: translateX(0);
         box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
     }
 
-    .mobile-toggle:checked ~ .menu-overlay {
+    #mobile-toggle:checked ~ .menu-overlay {
         pointer-events: auto;
         opacity: 1;
         visibility: visible;
     }
 
-    .mobile-toggle:checked ~ .menu-drawer .drawer-nav li {
+    #mobile-toggle:checked ~ .menu-drawer .drawer-nav li {
         opacity: 1;
         transform: translateX(0);
     }
+
+    /* Menu Drawer Styles */
 
     .menu-drawer {
         pointer-events: auto;
@@ -166,13 +109,9 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         left: 0;
         width: 80vw;
         height: 100dvh;
-        background-color: var(--color-primary-darker);
-        border-right: 1px solid var(--color-accent-dark);
-        border-top: 1px solid var(--color-accent-dark);
-        border-bottom: 1px solid var(--color-accent-dark);
-        border-radius: 0 20px 20px 0;
         z-index: 2100;
         display: flex;
+        background-color: var(--color-background);
         flex-direction: column;
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         transform: translateX(-100%);
@@ -199,17 +138,22 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         justify-content: flex-end;
     }
 
-    .close-btn {
+    #mobile-menu-close {
         background: none;
         border: none;
-        color: var(--color-accent);
+        color: var(--color-foreground);
         cursor: pointer;
         padding: 0.5rem;
         transition: transform 0.3s ease;
     }
 
-    .close-btn:hover {
+    #mobile-menu-close:hover {
         transform: rotate(90deg);
+    }
+
+    #mobile-menu-close svg {
+        width: 24px;
+        height: 24px;
     }
 
     .drawer-nav {
@@ -260,7 +204,6 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         color: var(--color-foreground);
         text-decoration: none;
         text-transform: uppercase;
-        letter-spacing: 1px;
         display: block;
         padding: 0.5rem 0;
         transition:
@@ -272,30 +215,6 @@ import PortalEntryIcon from "../../icons/portal-entry.svg";
         color: var(--color-accent);
         padding-left: 0.5rem;
         text-decoration: none;
-    }
-
-    .portal-link {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-family: var(--family-heading);
-        font-size: var(--size-xl);
-        font-weight: var(--weight-bold);
-        color: var(--color-accent);
-        text-decoration: none;
-        text-transform: uppercase;
-        padding: 1rem 0;
-        margin-bottom: 1rem;
-        transition: color 0.3s ease;
-    }
-
-    .portal-link:hover {
-        color: white;
-    }
-
-    .portal-link svg {
-        width: 1.5rem;
-        height: 1.5rem;
     }
 
     .drawer-footer {

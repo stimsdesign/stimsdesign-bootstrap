@@ -1,24 +1,19 @@
 ---
-import Template from "../layouts/BaseLayout.astro";
+import Template from "../layouts/HomePage.astro";
 import Main from "../components/layout/Main.astro";
 import HomeHero from "../components/sections/HomeHero.astro";
-import Services from "../components/sections/Services.astro";
-import WhyChoose from "../components/sections/WhyChoose.astro";
-import Verticals from "../components/sections/Verticals.astro";
-import TechStack from "../components/sections/TechStack.astro";
-import Process from "../components/sections/Process.astro";
-import SaveMoneyDoMore from "../components/sections/SaveMoneyDoMore.astro";
-import HomeContact from "../components/sections/HomeContact.astro";
+import Button from "../components/elements/Button.astro";
+import Slider from "../components/elements/Slider.astro";
 ---
-<Template title="STIMSDESIGN | Empowering SMBs with Stunning Web Solutions"	description="STIMSDESIGN crafts conversion-focused websites and digital tools to help small and medium businesses succeed online.">
+<Template>
 	<HomeHero />
 	<Main>
-		<Services />
-		<WhyChoose />
-		<Verticals />
-		<TechStack />
-		<SaveMoneyDoMore />
-		<Process />
-		<HomeContact />
+		Home Page Content
+        <Button href="/contact.html">Contact Us</Button>
+        <Slider autoplay>
+            <div class="slide">Slide 1</div>
+            <div class="slide">Slide 2</div>
+            <div class="slide">Slide 3</div>
+        </Slider>
 	</Main>
 </Template>

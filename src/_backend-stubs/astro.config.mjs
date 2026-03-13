@@ -2,7 +2,9 @@
 /** Enables TypeScript type checking for this JavaScript configuration file */
 
 // Import necessary modules
+import tailwindcss from '@tailwindcss/vite';
 import backendIntegration from '@stimsdesign/backend/integration';
+import { spawn } from 'node:child_process';
 
 // Export the Astro configuration https://astro.build/config
 export default defineConfig({
@@ -35,5 +37,8 @@ export default defineConfig({
         });
       }
     }
-  }]
+  }],
+  vite: {
+    plugins: [tailwindcss()],
+  }
 });

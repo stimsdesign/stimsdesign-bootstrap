@@ -11,6 +11,7 @@ dist/
 # generated types
 .agent/
 .astro/
+package-lock.json
 
 # dependencies
 node_modules/
