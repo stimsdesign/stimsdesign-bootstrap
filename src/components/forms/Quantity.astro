@@ -1,0 +1,60 @@
+---
+/**
+ * @prop {number|string} min - Minimum allowed number
+ * @prop {number|string} max - Maximum allowed number
+ * @prop {number|string} step - Legal numerical interval
+ * @prop {number|string} value - Default preset value
+ */
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    min?: number | string;
+    max?: number | string;
+    step?: number | string;
+    value?: number | string;
+    required?: boolean;
+    class?: string;
+    tabindex?: number;
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label, 
+    min = 0,
+    max,
+    step = 1,
+    value = min,
+    required = false, 
+    class: className = "",
+    tabindex,
+    ...rest 
+} = Astro.props;
+
+// Calculate width based on max value length
+const width = max ? String(max).length + 0.5 : 4;
+---
+
+<div class={`quantity-group ${className}`}>
+    {label && <label for={id}>{label}</label>}
+    <div class="quantity-input">
+        <button type="button" class="minus" aria-label="Decrease quantity" tabindex="-1">−</button>
+        <input 
+            type="number" 
+            id={id} 
+            name={name} 
+            min={min} 
+            max={max} 
+            step={step} 
+            value={value} 
+            placeholder=" " 
+            required={required} 
+            style={`width: ${width}em`}
+            tabindex={tabindex}
+            {...rest} 
+        />
+        <button type="button" class="plus" aria-label="Increase quantity" tabindex="-1">+</button>
+    </div>
+</div>

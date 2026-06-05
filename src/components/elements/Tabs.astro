@@ -1,9 +1,11 @@
 ---
 interface Props {
     id?: string;
+    class?: string;
+    [key: string]: any;
 }
 
-const { id } = Astro.props;
+const { id, class: className, ...rest } = Astro.props;
 
 let finalContent = '';
 if (Astro.slots.has('default')) {
@@ -33,7 +35,7 @@ if (Astro.slots.has('default')) {
 }
 ---
 
-<div id={id || undefined} class="tabs" set:html={finalContent}></div>
+<div id={id || undefined} class:list={["tabs", className]} set:html={finalContent} {...rest}></div>
 
 <style is:global>
 
@@ -68,7 +70,7 @@ if (Astro.slots.has('default')) {
         border-radius: 25px 25px 0 0;
         cursor: pointer;
         margin-right: .5rem;
-        color: var(--color-foreground-darker);
+        color: var(--color-foreground-dark);
         font-weight: var(--weight-medium);
     }
 

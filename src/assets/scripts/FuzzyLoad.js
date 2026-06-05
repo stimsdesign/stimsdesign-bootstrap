@@ -1,9 +1,4 @@
 export class FuzzyLoad {
-    /** @type {HTMLElement} */
-    root;
-    /** @type {HTMLImageElement | null} */
-    img;
-
     constructor(root) {
         this.root = root;
         this.img = root.querySelector('img');
@@ -25,8 +20,9 @@ export class FuzzyLoad {
     async tryDecode() {
         if (!this.img) return;
         try {
-            // Wait for the browser to actually decode the high-res pixels
-            await this.img.decode();
+            const decodePromise = this.img.decode();
+            const timeoutPromise = new Promise(resolve => setTimeout(resolve, 5000));            
+            await Promise.race([decodePromise, timeoutPromise]);
             this.markLoaded();
         } catch (e) {
             // Fallback for older browsers or broken decodes
@@ -37,4 +33,10 @@ export class FuzzyLoad {
     markLoaded() {
         this.root.classList.add('loaded');
     }
+}
+
+export function functionFuzzyLoad(selector = '.fuzzy-load') {
+    document.querySelectorAll(selector).forEach((el) => {
+        new FuzzyLoad(el);
+    });
 }

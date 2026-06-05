@@ -1,0 +1,39 @@
+---
+/**
+ * @prop {string} placeholder - Passed down to textarea, must be " " to trigger CSS float labels if using default CSS
+ * @prop {number|string} rows - Vertical height of the textarea
+ */
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    placeholder?: string;
+    required?: boolean;
+    rows?: number | string;
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label, 
+    placeholder = " ", 
+    required = false, 
+    rows = 4,
+    ...rest 
+} = Astro.props;
+---
+
+<div class="input-group">
+    {label && <label for={id}>{label}</label>}
+    <textarea 
+        id={id} 
+        name={name} 
+        placeholder={placeholder} 
+        required={required}
+        rows={rows}
+        {...rest} 
+    ></textarea>
+</div>
+
+

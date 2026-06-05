@@ -1,0 +1,16 @@
+---
+// For use in multi-step forms
+interface Props {
+    stepTotal: number;
+}
+
+const stepTotal = Astro.props.stepTotal;
+---
+
+<div class="step-indicator">
+    Step <span class="step-number">1</span> of <span class="step-total">{stepTotal}</span>
+</div>
+
+<div class="progress-track" aria-hidden="true">
+    <div class="progress-bar" style="width: 0%;"></div>
+</div>

@@ -1,0 +1,69 @@
+---
+// Assets
+import { Site } from "@site.config";
+import { Image } from "astro:assets";
+
+// Components
+import Button from "@elements/Button.astro";
+import Slider from "@elements/Slider.astro";
+import Logo from '@elements/SVGlogo.astro';
+import Sprite from "@elements/SVGsprite.astro";
+
+// Images
+import HeroImage from "@images/carbon-hero.webp";
+// import HeroImageFuzzy from "@images/carbon-hero.png";
+import HeroImageFuzzy from "@images/carbon-hero.webp";
+
+// Image Logic - Read dimensions from the imported asset to ensure CLS is avoided automatically
+const { width: heroWidth, height: heroHeight } = HeroImage;
+---
+
+<section id="hero__wrapper" class="is-wrapper">
+    <div id="hero">
+        <div id="hero__background">
+            <div class="fuzzy-image" style={`background-image: url(${HeroImageFuzzy.src});`}></div>
+            <Image 
+                src={HeroImage} 
+                alt="Summer Hero" 
+                width={heroWidth} 
+                height={heroHeight} 
+                loading="eager" 
+                fetchpriority="high" 
+                widths={[480, 800, 1200, 2000]} 
+                sizes="(max-width: 768px) 480px, (max-width: 1024px) 800px, 100vw" 
+            />
+        </div>
+        <div id="hero__content">
+            <div class="content">
+                <Logo id="hero__logo" name="stimsdesign" />
+                <Slider arrows pagination id="hero__slider">
+                    <div class="slide">
+                        <h1 class="fire">Start Your Summer Off Right</h1>
+                        <Button href="/" class="alt">Schedule Opening</Button>
+                    </div>
+                    <div class="slide">
+                        <h1 class="fire">Your Utah Pool Service Experts</h1>
+                        <Button href="/" class="alt">View Services</Button>
+                    </div>
+                    <div class="slide">
+                        <h1 class="fire">Highly Rated Utah Pool Service</h1>
+                        <Button href="/" class="alt">Learn More</Button>
+                    </div>
+                </Slider>
+            </div>
+            <div class="side-panel">
+                <h2><span>New Customers</span> <span>Receive</span> <span class="fire">20% Off</span> <span>First Service</span></h2>
+                <Button class="wave request-form-trigger">Schedule Now</Button>
+                <div class="badges">
+                    <Sprite name="GoogleReviews" />
+                    <Sprite name="BBB" />
+                </div>
+                <a id="hero__phone" href={`tel:${Site.Telephone}`} aria-label={`Call Today ${Site.PrettyTelephone}`}>{Site.PrettyTelephone}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @import "@theme/hero/Quality.css";
+</style>

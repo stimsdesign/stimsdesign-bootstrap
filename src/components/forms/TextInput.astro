@@ -1,0 +1,39 @@
+---
+/**
+ * @prop {string} type - Standard HTML input type, overrides default 'text'
+ * @prop {string} placeholder - Passed down to input, must be " " to trigger CSS float labels if using default CSS
+ */
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    placeholder?: string;
+    required?: boolean;
+    type?: "text" | "email" | "tel" | "password" | "url" | "number" | "search";
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label, 
+    placeholder = " ", // Default to space hack to support floating label CSS
+    required = false, 
+    type = "text",
+    ...rest 
+} = Astro.props;
+---
+
+<div class="input-group">
+    {label && <label for={id}>{label}</label>}
+    <input 
+        type={type} 
+        id={id} 
+        name={name} 
+        placeholder={placeholder} 
+        required={required}
+        {...rest} 
+    />
+</div>
+
+

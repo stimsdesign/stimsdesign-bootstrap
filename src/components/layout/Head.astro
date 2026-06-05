@@ -1,0 +1,61 @@
+---
+// Import Config
+import { Site } from "@site.config";
+
+// Assets
+import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+
+import TrackingPixels from "@layout/TrackingPixels.astro";
+
+// Interface Props
+export interface Props {
+    title?: string;
+    description?: string;
+    keywords?: string;
+    author?: string;
+    ogImage?: string;
+    favicon?: string;
+}
+
+// Props
+const {
+    title = Site.PageTitle,
+    description = Site.Description,
+    keywords = Site.Keywords,
+    author = Site.Author,
+    ogImage = Site.OgImage,
+    favicon = Site.Favicon,
+} = Astro.props;
+
+const hasTracking = [
+    Site.GoogleTagManager,
+    Site.GoogleAnalytics,
+    Site.MetaPixel,
+    Site.LinkedInInsight
+].some(id => id && id.trim().length > 0);
+
+
+---
+<head>
+    <meta charset="UTF-8" />
+    
+    {hasTracking && <TrackingPixels />}
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <title>{Site.SiteTitle + " | " + title}</title>
+    <link rel="icon" href={favicon} type="image/x-icon" />
+    <Font cssVariable="--font-raleway" preload />
+    <Font cssVariable="--font-roboto-condensed" preload />
+    <Font cssVariable="--font-quicksand" preload />
+    <ClientRouter />
+    <slot />
+</head>

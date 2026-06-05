@@ -1,0 +1,52 @@
+---
+/**
+ * Icon.astro
+ * Consumption component for UI icons.
+ * Uses the #icon- prefix for symbols in IconSheet.
+ */
+
+interface Props {
+  id?: string;
+  name: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const iconFiles = import.meta.glob("../../assets/images/icons/*.svg", {
+    query: "?raw",
+    eager: true,
+});
+
+const { id, name, class: className, ...rest } = Astro.props;
+
+if (!Astro.locals.iconRegistry) Astro.locals.iconRegistry = new Set();
+Astro.locals.iconRegistry.add(name);
+
+const iconPath = Object.keys(iconFiles).find(path => path.endsWith(`/${name}.svg`));
+const raw = iconPath ? (iconFiles[iconPath] as any)?.default : null;
+
+// Extract and normalize viewBox (shift origin to 0,0)
+const viewBoxRaw = raw?.match(/viewBox\s*=\s*["']([^"']+)["']/i)?.[1];
+let viewBox = viewBoxRaw;
+if (viewBoxRaw) {
+    const parts = viewBoxRaw.split(/\s+/);
+    if (parts.length === 4) {
+        // Keep width and height, but force origin to 0 0
+        viewBox = `0 0 ${parts[2]} ${parts[3]}`;
+    }
+}
+
+if (!raw && import.meta.env.DEV) {
+    console.warn(`[Icon] Icon "${name}" not found in src/assets/images/icons/`);
+}
+---
+
+<svg 
+    id={id}
+    class={className} 
+    viewBox={viewBox} 
+    fill="currentColor" 
+    {...rest}
+>
+  <use href={`#icon-${name}`} />
+</svg>

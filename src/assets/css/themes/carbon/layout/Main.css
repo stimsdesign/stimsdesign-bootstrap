@@ -1,0 +1,9 @@
+/* Locally Scope */
+
+p.no-content {
+    color: var(--color-foreground-dark);
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: italic;
+    padding: 10cqi 0;
+}

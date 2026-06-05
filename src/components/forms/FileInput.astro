@@ -1,0 +1,79 @@
+---
+import { Site } from "@site.config";
+/**
+ * @prop {string} accept - Standard HTML accept attribute (e.g. ".jpg,.png")
+ * @prop {number} maxSize - Maximum allowed file size in MB
+ * @prop {string} allowedTypes - Comma-separated MIME types for validation
+ * @prop {string} requirements - Custom descriptive text overriding auto-generator
+ */
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    accept?: string;
+    maxSize?: number;
+    allowedTypes?: string;
+    required?: boolean;
+    requirements?: string;
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label = "Upload File", 
+    accept, 
+    maxSize = Site.DefaultFileSize, 
+    allowedTypes = Site.DefaultFileTypes,
+    required = false,
+    requirements,
+    ...rest 
+} = Astro.props;
+
+// Human-readable MIME type mapping
+const mimeToExt: Record<string, string> = {
+    'application/pdf': 'PDF',
+    'image/jpeg': 'JPG',
+    'image/png': 'PNG',
+    'image/gif': 'GIF',
+    'text/plain': 'TXT',
+    'text/csv': 'CSV',
+    'application/msword': 'DOC',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
+    'application/vnd.ms-excel': 'XLS',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'XLSX',
+    'application/zip': 'ZIP'
+};
+
+const getHumanReadableTypes = (types: string) => {
+    return types.split(',')
+        .map(t => t.trim())
+        .map(t => mimeToExt[t] || t.split('/')[1]?.toUpperCase() || t)
+        .filter((value, index, self) => self.indexOf(value) === index) // Unique extensions
+        .join(', ');
+};
+
+const autoRequirements = `Files: ${getHumanReadableTypes(allowedTypes)} | Max File Size: ${maxSize}MB`;
+const displayRequirements = requirements || autoRequirements;
+---
+
+<div class="file-group">
+    {label && <label for={id}>{label}</label>}
+    <input 
+        type="file" 
+        id={id} 
+        name={name} 
+        accept={accept || allowedTypes}
+        data-max-size={maxSize}
+        data-allowed-types={allowedTypes}
+        required={required}
+        {...rest}
+    />
+    <div class="file-notation">
+        <span class="file-requirements">{displayRequirements}</span>
+        <span class="file-type-warning">File Type not Supported</span>
+        <span class="file-size-warning">File Size too Large</span>
+    </div>
+</div>
+
+

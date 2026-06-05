@@ -1,19 +1,11 @@
 ---
-import Template from "../layouts/HomePage.astro";
-import Main from "../components/layout/Main.astro";
-import HomeHero from "../components/sections/HomeHero.astro";
-import Button from "../components/elements/Button.astro";
-import Slider from "../components/elements/Slider.astro";
+// Layouts
+import Template from "@layouts/HomePage.astro";
+
+// Layout Components
+import FooterContact from "@sections/FooterContact.astro";
 ---
+
 <Template>
-	<HomeHero />
-	<Main>
-		Home Page Content
-        <Button href="/contact.html">Contact Us</Button>
-        <Slider autoplay>
-            <div class="slide">Slide 1</div>
-            <div class="slide">Slide 2</div>
-            <div class="slide">Slide 3</div>
-        </Slider>
-	</Main>
+    <FooterContact />
 </Template>

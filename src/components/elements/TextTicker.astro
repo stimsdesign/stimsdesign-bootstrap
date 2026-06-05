@@ -1,0 +1,91 @@
+---
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+<div class:list={["text-ticker__wrapper", className]} {...rest}>
+    <div class="text-ticker">
+        <div class="text-ticker__runner">
+            <div class="text-ticker__item">
+                <slot />
+            </div>
+        </div>
+    </div>
+</div>
+
+<style is:global>
+    .text-ticker__wrapper {
+        container-type: inline-size;
+        position: relative;
+        width: 100%;
+    }
+    .text-ticker {
+        overflow: hidden;
+        margin: 0 auto 0;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-drag: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .text-ticker .text-ticker__runner {
+        display: flex;
+        width: max-content;
+        animation: text-ticker-scroll 90s linear infinite;
+    }
+
+    .text-ticker__item {
+        white-space: nowrap;
+    }
+
+    .text-ticker__item span {
+        display: inline-block;
+        margin: 0 .5ch;
+        position: relative;
+    }
+
+
+
+
+    @keyframes text-ticker-scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+</style>
+
+<script>
+    class Ticker {
+        runner: HTMLElement | null;
+        item: HTMLElement | null;
+
+        constructor(root: Element) {
+            this.runner = root.querySelector(".text-ticker__runner");
+            this.item = this.runner?.querySelector(".text-ticker__item") || null;
+            if (!this.runner || !this.item) return;
+            this.cloneItems();
+        }
+        cloneItems() {
+            if (!this.runner || !this.item) return;
+            for (let i = 0; i < 3; i++) {
+                this.runner.appendChild(this.item.cloneNode(true));
+            }
+        }
+    }
+
+    document.addEventListener(
+        "astro:page-load",
+        () => {
+            const tickers = document.querySelectorAll(".text-ticker");
+            tickers.forEach((ticker) => new Ticker(ticker));
+        },
+        { passive: true },
+    );
+</script>

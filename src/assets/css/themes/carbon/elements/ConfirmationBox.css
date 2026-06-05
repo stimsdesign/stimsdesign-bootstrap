@@ -1,0 +1,54 @@
+/* Globally Scope */
+
+confirmation-box {
+    position: fixed;
+    inset: 0;
+    background: color-mix(in srgb, var(--color-background), transparent 20%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+}
+
+confirmation-box.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+confirmation-box .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    width: 90%;
+    padding: 3rem;
+    text-align: center;
+    background: var(--color-background-dark);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 1cqi;
+    transform: scale(0.9);
+    transition: transform 0.1s ease;
+}
+
+confirmation-box.active .content {
+    transform: scale(1);
+}
+
+confirmation-box h2 {
+    color: var(--color-foreground-light);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+confirmation-box p {
+    color: var(--color-foreground-light);
+    margin-bottom: 2rem;
+    font-size: var(--size-med);
+    line-height: 1.6;
+}

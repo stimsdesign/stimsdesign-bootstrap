@@ -1,0 +1,25 @@
+---
+// Layouts
+import Template from "@layouts/ContentPage.astro";
+import Main from "@layout/Main.astro";
+import FooterContact from "@sections/FooterContact.astro";
+
+// Template Props
+const title = `Services`;
+---
+<Template title={title}>
+    <Main id="services-page">
+        <h1>Our Services</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </Main>
+    <FooterContact />
+</Template>
+
+<script>
+    import { FormHandler } from "@scripts/FormHandler.js";
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll(".contact-form").forEach((formEl) => {
+            new FormHandler(formEl as HTMLFormElement);
+        });
+    });
+</script>

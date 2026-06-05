@@ -1,34 +1,71 @@
 ---
+// Assets
+import "@theme/elements/Button.css";
+
+// Components
+import Icon from "../elements/SVGicon.astro";
+
+/**
+ * Button Component
+ * A flexible button component that can be used as an anchor or a button.
+*/
+
 interface Props {
     href?: string;
     id?: string;
     margin?: string;
     bookmark?: boolean;
-    type?: string;
-    alt?: string;
+    type?: "anchor" | "button" | "submit" | "reset";
+    class?: string;
+    target?: string;
+    [key: string]: any;
 }
 
-const { href = "#", id = "", margin = "", bookmark = false, type = "anchor", alt } = Astro.props;
+const { 
+    href, 
+    id, 
+    margin, 
+    bookmark = false, 
+    type, 
+    class: className = "",
+    target,
+    ...rest
+} = Astro.props;
 
-const resolvedHref = href.trim() === "" ? "#" : href;
+// Logic 
+const finalType = type || (href ? "anchor" : "button");
+const isAnchor = finalType === "anchor";
+const isNext = className.includes('next-btn');
+const isPrev = className.includes('prev-btn');
 
-const altClass = alt?.trim() ? ` ${alt.trim()}` : "";
+const slotHtml = await Astro.slots.render('default');
 ---
 
 {
-    type === "anchor" ? (
-        bookmark ? (
-            <a href={resolvedHref} id={id} class={`button bookmark-button${altClass}`} style={margin ? `margin: ${margin};` : ""}>
-                <slot />
-            </a>
-        ) : (
-            <a href={resolvedHref} id={id} class={`button${altClass}`} style={margin ? `margin: ${margin};` : ""}>
-                <slot />
-            </a>
-        )
+    isAnchor ? (
+        <a 
+            href={href || "#"} 
+            id={id}
+            target={target}
+            class:list={["button", { "bookmark-button": bookmark }, className]}
+            style={margin ? `margin: ${margin};` : undefined}
+            {...rest}
+        >
+            {isPrev && <Icon name="arrow-left" />}
+            <Fragment set:html={slotHtml} />
+            {isNext && <Icon name="arrow-right" />}
+        </a>
     ) : (
-        <button type={type === "submit" ? "submit" : "button"} class={`button${altClass}`}>
-            <slot />
+        <button 
+            type={finalType === "submit" ? "submit" : finalType === "reset" ? "reset" : "button"}
+            id={id}
+            class:list={["button", { "bookmark-button": bookmark }, className]}
+            style={margin ? `margin: ${margin};` : undefined}
+            {...rest}
+        >
+            {isPrev && <Icon name="arrow-left" />}
+            <Fragment set:html={slotHtml} />
+            {isNext && <Icon name="arrow-right" />}
         </button>
     )
 }

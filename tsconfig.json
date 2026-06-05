@@ -1,5 +1,21 @@
 {
     "extends": "astro/tsconfigs/base",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@site.config": ["src/site.config.ts"],
+            "@layouts/*": ["src/layouts/*"],
+            "@cards/*": ["src/components/cards/*"],
+            "@elements/*": ["src/components/elements/*"],
+            "@forms/*": ["src/components/forms/*"],
+            "@layout/*": ["src/components/layout/*"],
+            "@navigation/*": ["src/components/navigation/*"],
+            "@sections/*": ["src/components/sections/*"],
+            "@hero/*": ["src/components/hero/*"],
+            "@scripts/*": ["src/assets/scripts/*"],
+            "@images/*": ["src/assets/images/*"]
+        }
+    },
     "exclude": [
         "src/_backend-stubs/**/*"
     ]

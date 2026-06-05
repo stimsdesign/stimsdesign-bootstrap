@@ -1,0 +1,125 @@
+/* Globally Scope */
+
+
+
+slider-component {
+    position: relative;
+    display: grid;
+    --arrow-size: 3.25cqi;
+    grid-template-columns: var(--arrow-size) auto var(--arrow-size);
+    grid-template-rows: 1fr;
+    align-items: center;
+    --bullet-size: 2cqh;
+    --dot-size: .5cqh;
+}
+
+@media (max-width: 768px) {
+    slider-component {
+        --bullet-size: 5cqi;
+        --dot-size: 1cqi;
+    }
+}
+
+slider-component .slides {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+slider-component .slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: opacity 0.5s ease-in-out;
+}
+
+slider-component .slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* #region Arrows */
+slider-component .slider-arrow {
+    border-radius: 50%;
+    width: var(--arrow-size);
+    height: var(--arrow-size);
+    padding: 1.1cqi;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    slider-component .slider-navigation {
+        display: none;
+    }
+}
+/* #endregion */
+
+/* #region Pagination */
+slider-component .pagination {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 100;
+}
+
+slider-component .pagination-bullet {
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    height: var(--bullet-size);
+    width: var(--bullet-size);
+    opacity: 1;
+    position: relative;
+    text-align: center;
+    user-select: none;
+}
+
+slider-component .pagination-bullet::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    width: var(--bullet-size);
+    height: var(--bullet-size);
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    transform: scale(0.3);
+    transition: all 0.4s;
+}
+
+slider-component .pagination-bullet.active::before {
+    color: currentColor;
+    opacity: 1;
+    transform: scale(1);
+}
+
+slider-component .pagination-bullet::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    background-color: currentColor;
+    cursor: pointer;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(calc(-50% + var(--dot-size)), -50%);
+}
+
+slider-component .pagination-bullet.active::after {
+    opacity: 1;
+}
+
+/* #endregion */

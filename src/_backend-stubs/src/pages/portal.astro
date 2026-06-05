@@ -2,11 +2,11 @@
 import Template from "../layouts/BaseLayout.astro";
 import Button from "../components/elements/Button.astro";
 import Main from "../components/layout/Main.astro";
-import CrossIcon from "../icons/cross.svg"
-import GoogleIcon from "../icons/google.svg"
-import TwitterXIcon from "../icons/twitter-x.svg"
-import EyeIcon from "../icons/eye.svg"
-import EyeOffIcon from "../icons/eye-off.svg"
+import CrossIcon from "../../assets/images/icons/cross.svg"
+import GoogleIcon from "../../assets/images/icons/google.svg"
+import TwitterXIcon from "../../assets/images/icons/twitter-x.svg"
+import EyeIcon from "../../assets/images/icons/eye.svg"
+import EyeOffIcon from "../../assets/images/icons/eye-off.svg"
 
 export const prerender = false;
 
@@ -133,7 +133,7 @@ if (Astro.locals.session) {
 
     .portal-content {
         padding: 1rem 1rem;
-        background: var(--color-primary-darker);
+        background: var(--color-primary-dark);
         border-radius: inherit;
         display: flex;
         flex-direction: column;
@@ -404,7 +404,7 @@ if (Astro.locals.session) {
         top: 4px;
         width: 20px;
         height: 20px;
-        background-color: var(--color-primary-darker);
+        background-color: var(--color-primary-dark);
         mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M469.402,35.492C334.09,110.664,197.114,324.5,197.114,324.5L73.509,184.176L0,254.336l178.732,222.172 l65.15-2.504C327.414,223.414,512,55.539,512,55.539L469.402,35.492z'/%3E%3C/svg%3E");
         mask-size: contain;
         mask-repeat: no-repeat;
@@ -456,14 +456,14 @@ if (Astro.locals.session) {
     }
 
     .forgot-password {
-        color: var(--color-secondary-lighter);
+        color: var(--color-secondary-light);
         text-decoration: none;
         transition: color 0.3s ease;
         font-size: var(--size-med);
     }
 
     .forgot-password:hover {
-        color: var(--color-secondary-evenlighter);
+        color: var(--color-secondary-evenlight);
     }
 
     .divider-mobile {
@@ -471,7 +471,7 @@ if (Astro.locals.session) {
         align-items: center;
         text-align: center;
         margin: 0 0 1.5rem 0;
-        color: var(--color-foreground-darker);
+        color: var(--color-foreground-dark);
     }
 
     .divider-mobile::before,

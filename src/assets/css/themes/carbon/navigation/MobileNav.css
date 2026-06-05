@@ -1,0 +1,319 @@
+/* Globally Scope */
+
+mobile-nav {
+    display: block;
+}
+
+/* #region Overlay */
+mobile-nav .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2100;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+}
+
+mobile-nav.open .menu-overlay {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+/* #endregion */
+
+/* #region Telephone */
+mobile-nav .telephone {
+    pointer-events: auto;
+    position: fixed;
+    height: 50px;
+    top: 0;
+    right: 1cqi;
+    z-index: 2000;
+    display: inline-flex;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-family: var(--font-roboto-condensed);
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: var(--size-xl);
+    text-transform: uppercase;
+    transition: color 0.1s ease;
+    visibility: hidden;
+    opacity: 0;
+    transition: color 0.1s ease;
+}
+
+mobile-nav .telephone:hover {
+    color: var(--color-primary-light);
+}
+mobile-nav .telephone svg {
+    color: var(--color-primary-light);
+    display: inline-block;
+    width: auto;
+    height: 30px;
+    filter: drop-shadow(1px 1px 0 var(--color-secondary-dark));
+    margin-left: .25rem;
+}
+/* #endregion */
+
+/* #region Logo */
+mobile-nav .logo {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    top: 0px;
+    left: 60px;
+    pointer-events: auto;
+    position: fixed;
+    z-index: 2000;
+    color: var(--color-primary-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+}
+/* #endregion */
+
+/* #region Hamburger */
+#mobile-hamburger {
+    pointer-events: auto;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    z-index: 2000;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.3s ease,
+        opacity 0.5s ease,
+        visibility 0.5s ease;
+    opacity: 0;
+    visibility: hidden;
+    border: none;
+    padding: 0;
+}
+
+#mobile-hamburger:hover {
+    background-color: var(--color-foreground-light);
+}
+
+mobile-nav.is-visible #mobile-hamburger {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* #endregion */
+
+@media (max-width: 768px) {
+    #mobile-hamburger, mobile-nav .telephone, mobile-nav .logo {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* #region Menu Drawer */
+#mobile-menu-drawer {
+    container-type: inline-size;
+    pointer-events: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80vw;
+    height: 100dvh;
+    z-index: 2500;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background-color: var(--color-background-dark);
+    flex-direction: column;
+    align-content: center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-100%);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Firefox Fallback */
+@supports (-moz-appearance: none) {
+    .menu-drawer {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-primary-light) transparent;
+    }
+}
+
+.menu-drawer::-webkit-scrollbar {
+    width: 4px;
+}
+
+.menu-drawer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.menu-drawer::-webkit-scrollbar-thumb {
+    background: var(--color-primary-light);
+    border-radius: 10px;
+}
+
+.menu-drawer::-webkit-scrollbar-button {
+    display: none;
+}
+
+mobile-nav.open #mobile-menu-drawer {
+    transform: translateX(0);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+mobile-nav.open #mobile-menu-drawer .drawer-nav li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@media (min-width: 769px) {
+    #mobile-menu-drawer {
+        width: 45vw; 
+    }
+}
+
+@media (min-width: 1200px) {
+    #mobile-menu-drawer {
+        width: 25vw;
+        max-width: 400px;
+    }
+}
+/* #endregion */
+
+/* #region Drawer Header */
+    .drawer-header {
+        padding: 8cqi;
+        position: relative;
+    }
+
+    .drawer-logo {
+        width: auto;
+        height: auto;
+        max-height: 100cqi;
+        margin: 1rem auto;
+    }
+
+/* #endregion */
+
+/* #region Drawer Nav */
+.drawer-nav {
+    padding: 0 6cqi;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.drawer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.drawer-nav li {
+    margin-bottom: 6cqi;
+    opacity: 0;
+    transform: translateX(-20cqi);
+    transition:
+        opacity 0.1s ease,
+        transform 1s ease;
+}
+
+/* Stagger the links */
+.drawer-nav li:nth-child(1) { transition-delay: 0.1s; }
+.drawer-nav li:nth-child(2) { transition-delay: 0.15s; }
+.drawer-nav li:nth-child(3) { transition-delay: 0.2s; }
+.drawer-nav li:nth-child(4) { transition-delay: 0.25s; }
+.drawer-nav li:nth-child(5) { transition-delay: 0.1s; }
+.drawer-nav li:nth-child(6) { transition-delay: 0.35s; }
+
+.drawer-nav a {
+    display: flex;
+    align-items: center;
+    gap: 3cqi;
+    font-family: var(--font-roboto-condensed);
+    white-space: nowrap;
+    font-size: 8cqi;
+    font-weight: 500;
+    color: var(--color-foreground-lighter);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition:
+        color 0.1s ease,
+        padding-left 0.1s ease;
+}
+
+.drawer-nav a:hover {
+    color: var(--color-accent);
+    padding-left: 1cqi;
+    text-decoration: none;
+}
+
+.drawer-nav a svg {
+    flex-shrink: 0;
+    width: 8cqi;
+    height: 8cqi;
+}
+
+.drawer-nav a span {
+    flex: 1;
+    line-height: 1;
+}
+/* #endregion */
+
+/* #region Drawer Footer */
+.drawer-footer {
+    padding: 2rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.drawer-footer p {
+    font-size: var(--size-xs);
+    color: var(--color-foreground-dark);
+    margin: 0;
+}
+/* #endregion */
+
+/* #region Close Button */
+#mobile-menu-close {
+    position: absolute;
+    top: 1cqi;
+    right: 1cqi;
+    background: none;
+    border: none;
+    color: var(--color-accent);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.1s ease;
+}
+
+#mobile-menu-close:hover {
+    transform: rotate(90deg);
+}
+
+#mobile-menu-close svg {
+    width: 5cqi;
+    height: 5cqi;
+}
+/* #endregion */

@@ -1,0 +1,40 @@
+/* Globally Scope */
+
+.buttons {
+    display: flex;
+    gap: clamp(1rem, 1.38cqi, 2rem);
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5em 1.25em;
+    font-size: var(--size-lg);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: var(--color-secondary);
+    color: var(--color-foreground);
+    transition:
+        background-color 0.3s ease,
+        text-shadow 0.3s ease;
+    cursor: pointer;
+    border: none;
+    text-wrap: nowrap;
+}
+
+.button:hover {
+    background-color: var(--color-secondary-light);
+    text-shadow: 0 0 10px var(--color-primary-light);
+}
+
+.button svg {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.button:hover svg {
+    filter: drop-shadow(0 0 10px var(--color-primary-light));
+}

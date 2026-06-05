@@ -1,0 +1,79 @@
+---
+import Icon from "../elements/SVGicon.astro";
+/**
+ * @prop {string} days - Comma-separated list of active days (e.g., "mon,tue,wed")
+ * @prop {boolean} weekends - Toggle weekend availability
+ * @prop {number} startRange - Offset for the first selectable date
+ * @prop {number} endRange - Restricts calendar past this forward offset
+ * @prop {string} excludedDates - Comma-separated MM/DD/YY dates to disable
+ * @prop {boolean} hideDays - Condenses the grid dynamically skipping disabled days
+ * @prop {boolean} weekView - Only displays one selectable week at a time
+ * @prop {boolean} disableHistory - Prevents backwards historic navigation
+ */
+interface Props {
+    id: string;
+    label?: string;
+    days?: string;
+    weekends?: boolean;
+    startRange?: number;
+    endRange?: number;
+    excludedDates?: string;
+    hideDays?: boolean;
+    weekView?: boolean;
+    disableHistory?: boolean;
+    required?: boolean;
+    tabindex?: number;
+}
+
+const { 
+    id, 
+    label = "Preferred Day", 
+    days = "sun,mon,tue,wed,thu,fri,sat", 
+    weekends = true, 
+    startRange = 0, 
+    endRange,
+    excludedDates = "",
+    hideDays = false,
+    weekView = false,
+    disableHistory = false,
+    required = false
+} = Astro.props;
+
+---
+
+<div 
+    class="custom-group" 
+    data-days={days} 
+    data-weekends={String(weekends)} 
+    data-start-range={startRange} 
+    data-end-range={endRange}
+    data-excluded-dates={excludedDates}
+    data-hide-days={String(hideDays)}
+    data-week-view={String(weekView)}
+    data-disable-history={String(disableHistory)}
+>    
+    <label>{label}</label>
+    <input type="hidden" id={id} name={id} required={required} class="date-input" />
+    <div class="select-day">
+        <div class="select-day__header">
+            <span class="month-input" aria-label="Month"></span>
+            <span class="year-input" aria-label="Year"></span>
+        </div>
+        <div class="select-day__calendar">
+            <button type="button" class="prev-month" aria-label="Previous Month" tabindex="-1"><Icon name="arrow-left" /></button>
+            <div>
+                <div class="days">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="dates"></div>
+            </div>
+            <button type="button" class="next-month" aria-label="Next Month" tabindex="-1"><Icon name="arrow-right" /></button>
+        </div>
+    </div>
+</div>

@@ -1,55 +1,52 @@
 ---
-import { siteConfig } from "../siteConfig";
-import "../assets/css/styles.css";
-import Header from "../components/layout/Header.astro";
-import Footer from "../components/layout/Footer.astro";
-import MobileNav from "../components/navigation/MobileNav.astro";
-import { Font } from "astro:assets";
-import { ClientRouter } from "astro:transitions";
+// Initialize request-scoped SVG registries
+Astro.locals.iconRegistry = new Set();
+Astro.locals.spriteRegistry = new Set();
+Astro.locals.logoRegistry = new Set();
 
-interface Props {
-    title?: string;
-    description?: string;
-    keywords?: string;
-    author?: string;
-    ogImage?: string;
-    favicon?: string;
-}
+// Import Styles
+import "@theme/styles.css";
+import "@form-styles/forms.css";
 
-const {
-    title = siteConfig.title,
-    description = siteConfig.description,
-    keywords = siteConfig.keywords,
-    author = siteConfig.author,
-    ogImage = siteConfig.ogImage,
-    favicon = "/favicon.ico",
-} = Astro.props;
+// Import Layout Components
+import Head from "@layout/Head.astro";
+import NoScript from "@layout/NoScript.astro";
+import Header from "@layout/Header.astro";
+import Footer from "@layout/Footer.astro";
+import MobileNav from "@navigation/MobileNav.astro";
+import Script from "@layout/Script.astro";
+
+// Import Elements
+import IconSheet from "@elements/SVGiconSheet.astro";
+import LogoSheet from "@elements/SVGlogoSheet.astro";
+import SpriteSheet from "@elements/SVGspriteSheet.astro";
+import ConfirmationBox from "@elements/ConfirmationBox.astro";
+
+import type { Props as HeadProps } from "@layout/Head.astro";
+
+// Interface Props
+interface Props extends HeadProps {}
+
+// Props
+const { ...headProps } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
-        <meta name="author" content={author} />
-        <meta name="generator" content={Astro.generator} />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.stimsdesign.com" />
-        <title>{title}</title>
-        <link rel="icon" href={favicon} type="image/x-icon" />
-        <Font cssVariable="--font-inter" preload />
-        <Font cssVariable="--font-quicksand" preload />
-        <ClientRouter />
-    </head>
+    <Head {...headProps}>
+        <slot name="head" />
+    </Head>
     <body>
+        <NoScript />
         <Header />
         <slot />
         <Footer />
         <MobileNav />
-        <script is:inline src="/js/scripts.js" defer></script>
+        <ConfirmationBox />
+        <IconSheet />
+        <LogoSheet />
+        <SpriteSheet />
+        <Script>
+            <slot name="script" />
+        </Script>
     </body>
 </html>

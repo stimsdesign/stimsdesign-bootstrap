@@ -1,0 +1,8 @@
+---
+// Custom TextInput Component
+
+import TextInput from "./TextInput.astro";
+
+const { id = "city", label = "City", ...rest } = Astro.props;
+---
+<TextInput id={id} label={label} autocomplete="address-level2" {...rest} />

@@ -1,0 +1,54 @@
+---
+import AddressInput from "./AddressInput.astro";
+import Address2Input from "./Address2Input.astro";
+import CityInput from "./CityInput.astro";
+import StateInput from "./StateInput.astro";
+import ZipInput from "./ZipInput.astro";
+
+/**
+ * @prop {string} provider - Address verification API ("photon", "google", "mapbox", "none")
+ * @prop {boolean} formRow - If true, groups City/State/Zip horizontally
+ * @prop {boolean} verify - Enable strict address verification constraints
+ */
+interface Props {
+    id?: string;
+    provider?: "photon" | "google" | "mapbox" | "none";
+    required?: boolean;
+    formRow?: boolean;
+    verify?: boolean;
+    tabindex?: number;
+}
+
+const { 
+    id = "address", 
+    provider = "photon", 
+    required = false,
+    formRow = true,
+    verify = false,
+    tabindex
+} = Astro.props;
+
+const prefix = id;
+
+const Wrapper = formRow ? 'div' : Fragment;
+const wrapperProps = formRow ? { class: "form-row" } : {};
+---
+
+<div class="valid-address-group" data-address-provider={provider} data-id-prefix={prefix} data-verify={verify}>
+    <div class="street-address-container">
+        <AddressInput id={`${prefix}-street`} required={required} tabindex={tabindex} />
+        <div class="address-suggestions scroll-thin hidden" id={`${prefix}-suggestions`}></div>
+    </div>
+    
+    <Address2Input id={`${prefix}-apt`} tabindex={tabindex} />
+    
+    <Wrapper {...wrapperProps}>
+        <CityInput id={`${prefix}-city`} required={required} tabindex={tabindex} />
+        <StateInput id={`${prefix}-state`} required={required} tabindex={tabindex} />
+        <ZipInput id={`${prefix}-zip`} required={required} tabindex={tabindex} />
+    </Wrapper>
+
+    <input type="hidden" id={`${prefix}-verified`} name={`${prefix}-verified`} value="false" class="address-verified-flag" />
+</div>
+
+

@@ -1,0 +1,30 @@
+---
+/**
+ * @prop {string} id - The standard HTML id acting as the value token
+ * @prop {boolean} required - Standard HTML required attribute that renders a visual asteroid
+ */
+interface Props {
+    id: string;
+    name?: string;
+    label: string;
+    required?: boolean;
+    [key: string]: any;
+}
+
+const { id, name = id, label, required = false, ...rest } = Astro.props;
+---
+
+<div class="pill-group">
+    <input 
+        type="checkbox" 
+        id={id} 
+        name={name} 
+        required={required} 
+        {...rest}
+    />
+    <label for={id}>
+        <span>{label}</span>
+    </label>
+</div>
+
+

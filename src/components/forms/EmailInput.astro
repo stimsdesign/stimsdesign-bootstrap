@@ -1,0 +1,31 @@
+---
+// Custom TextInput Component
+
+import TextInput from "./TextInput.astro";
+
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    required?: boolean;
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label = "Email Address", 
+    required = false, 
+    ...rest 
+} = Astro.props;
+---
+
+<TextInput 
+    type="email" 
+    id={id} 
+    name={name} 
+    label={label} 
+    required={required} 
+    autocomplete="email" 
+    {...rest} 
+/>

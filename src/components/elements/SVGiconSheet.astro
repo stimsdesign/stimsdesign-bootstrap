@@ -1,0 +1,69 @@
+---
+/**
+ * SVGiconSheet.astro
+ * Generates an SVG sprite sheet for UI icons.
+ */
+
+const registered = Astro.locals.iconRegistry || new Set();
+const requestedNames = registered;
+
+// Import all SVGs as raw strings from the icons directory
+const iconFiles = import.meta.glob("../../assets/images/icons/*.svg", {
+    query: "?raw",
+    eager: true,
+});
+
+const allDefs: string[] = [];
+
+function processSvg(raw: any, path: string) {
+    const filename = path.split("/").pop() || "";
+    const name = filename.replace(".svg", "");
+
+    // Only process if it was requested
+    if (!requestedNames.has(name)) return null;
+
+    let content = raw;
+    
+    // Remove XML declaration and comments
+    content = content.replace(/<\?xml.*\?>/g, "").replace(/<!--.*-->/g, "").trim();
+
+    // Extract attributes and body
+    const svgMatch = content.match(/<svg([^>]*)>([\s\S]*)<\/svg>/i);
+    if (!svgMatch) return null;
+
+    let attributes = svgMatch[1];
+    let body = svgMatch[2];
+
+    // Remove width/height from attributes
+    attributes = attributes.replace(/\s+(width|height)\s*=\s*["']([^"']*)["']/gi, "");
+
+    // 1. Extract <defs> and prefix their internal IDs
+    const defsMatch = body.match(/<defs>([\s\S]*?)<\/defs>/);
+    if (defsMatch) {
+        let defs = defsMatch[1];
+        defs = defs.replace(/id="([^"]+)"/g, (_: string, id: string) => `id="icon-${name}-${id}"`);
+        allDefs.push(defs);
+        body = body.replace(/<defs>[\s\S]*?<\/defs>/, "");
+    }
+
+    // 2. Prefix references and IDs in the body
+    body = body.replace(/url\(#([^)]+)\)/g, (_: string, id: string) => `url(#icon-${name}-${id})`);
+    body = body.replace(/href="#([^"]+)"/g, (_: string, id: string) => `href="#icon-${name}-${id}"`);
+    body = body.replace(/xlink:href="#([^"]+)"/g, (_: string, id: string) => `xlink:href="#icon-${name}-${id}"`);
+    body = body.replace(/id="([^"]+)"/g, (_: string, id: string) => `id="icon-${name}-${id}"`);
+
+    // 3. Return as symbol
+    return `<symbol id="icon-${name}"${attributes}>${body}</symbol>`;
+}
+
+const symbols = Object.entries(iconFiles)
+    .map(([path, module]: any) => processSvg(module.default, path))
+    .filter((s): s is string => s !== null);
+---
+
+<svg id="icon-sheet" xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+    {allDefs.length > 0 && <defs set:html={allDefs.join("\n")} />}
+    {symbols.map((symbol) => (
+        <Fragment set:html={symbol} />
+    ))}
+</svg>

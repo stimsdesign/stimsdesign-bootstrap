@@ -1,0 +1,408 @@
+/* Globally Scope */
+:root {
+    /* Font Faces */
+    --font-heading: var(--font-raleway);
+    --font-body: var(--font-quicksand);
+    --font-accent: var(--font-roboto-condensed);
+    
+    /* Font Sizes */
+    /* Set this to 1 for standard, 1.2 for large, 0.8 for compact */
+    --size-factor: .8;
+
+    --size-xs: clamp(
+        calc(0.75rem * var(--size-factor, 1)), 
+        calc((-0.5rem + 0.9375dvw) * var(--size-factor, 1)), 
+        calc(1rem * var(--size-factor, 1))
+    );
+
+    --size-sm: clamp(
+        calc(0.875rem * var(--size-factor, 1)), 
+        calc((-0.5rem + 1.1328dvw) * var(--size-factor, 1)), 
+        calc(1.3125rem * var(--size-factor, 1))
+    );
+
+    --size-med: clamp(
+        calc(1.125rem * var(--size-factor, 1)), 
+        calc((-1rem + 1.7188dvw) * var(--size-factor, 1)), 
+        calc(1.75rem * var(--size-factor, 1))
+    );
+
+    --size-lg: clamp(
+        calc(1.3125rem * var(--size-factor, 1)), 
+        calc((-1rem + 2.2363dvw) * var(--size-factor, 1)), 
+        calc(2.5781rem * var(--size-factor, 1))
+    );
+
+    --size-xl: clamp(
+        calc(1.5rem * var(--size-factor, 1)), 
+        calc((-1rem + 3.125dvw) * var(--size-factor, 1)), 
+        calc(4rem * var(--size-factor, 1))
+    );
+
+    --size-2xl: clamp(
+        calc(1.625rem * var(--size-factor, 1)), 
+        calc((-1rem + 3.75dvw) * var(--size-factor, 1)), 
+        calc(5rem * var(--size-factor, 1))
+    );
+
+    --size-3xl: clamp(
+        calc(2rem * var(--size-factor, 1)), 
+        calc((-1rem + 4.8047dvw) * var(--size-factor, 1)), 
+        calc(6.6875rem * var(--size-factor, 1))
+    );
+
+    --size-4xl: clamp(
+        calc(2.625rem * var(--size-factor, 1)), 
+        calc((-1rem + 5.625dvw) * var(--size-factor, 1)), 
+        calc(8rem * var(--size-factor, 1))
+    );
+
+    /* Colors */
+    /* Primary */
+    --color-primary-light: #60A5FA;
+    --color-primary:       #3B82F6;
+    --color-primary-dark:  #1D4ED8;
+
+    /* Secondary */
+    --color-secondary-light: #334155;
+    --color-secondary:       #1E293B;
+    --color-secondary-dark:  #0F172A;
+
+    /* Accent */
+    --color-accent-light: #f7a53b;
+    --color-accent:       #ec8305;
+    --color-accent-dark:  #b56504;
+
+    /* Background */
+    --color-background-light: #2D2D2D;
+    --color-background:       #121212;
+    --color-background-dark:  #0A0A0A;
+
+    /* Foreground */
+    --color-foreground-light: #F8FAFC;
+    --color-foreground:       #E1E1E1;
+    --color-foreground-dark:  #94A3B8;
+
+    /* Utility Colors */
+    --color-green: #00FF88;
+    --color-red:   #FF0044;
+}
+
+/* Breakpoints
+
+@media all
+@media screen and (max-width: 769px)
+@media screen and (max-width: 481px)
+
+*/
+
+/* View Transition */
+@view-transition {navigation: auto;}
+
+/* Layers Setup */
+@layer reset, global;
+
+/* #region Fallbacks */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+        hanging-punctuation: first last;
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(70px + 2rem);
+        @media (prefers-reduced-motion: reduce) {
+            scroll-behavior: auto;
+        }
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        padding-top: 70px;
+        padding-left: 2cqi;
+        padding-right: 2cqi;
+        font-size: var(--size-med);
+        font-family: var(--font-body);
+        color: var(--color-foreground);
+        background-color: var(--color-background-dark);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        body {scroll-behavior: auto;}
+    }
+
+    @media screen and (max-width: 769px) {
+        html {scroll-padding-top: calc(50px + 1rem);}
+        body {padding-top: 50px;}
+    }
+
+    @media screen and (max-width: 769px) {
+        :global(html) {scroll-padding-top: calc(50px + 2rem);}
+        :global(body) {padding-top: 50px;}
+    }
+
+
+/* #endregion */
+
+/* Reset Styles */
+@layer reset {
+    * {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        text-wrap: balance;
+        text-transform: uppercase;
+        font-family: var(--font-heading);
+        font-weight: 700;
+        line-height: 1em;
+        margin-bottom: .5em;
+    }
+
+    h1 {
+        font-size: var(--size-4xl);
+    }
+
+    hgroup > h1 + p {
+        font-size: var(--size-xl);
+        font-weight: 700;
+    }
+
+    h2 {
+        font-size: var(--size-3xl);
+    }
+
+    h3 {
+        font-size: var(--size-2xl);
+        /* font-family: var(--font-accent);
+        letter-spacing: -.05ch;
+        word-spacing: .25ch; */
+    }
+
+    h4 {
+        font-size: var(--size-xl);
+    }
+
+    h5 {
+        font-size: var(--size-lg);
+    }
+
+    h6 {
+        font-size: var(--size-med);
+        /* font-family: var(--font-roboto-condensed);
+        text-transform: capitalize; */
+    }
+
+    img, picture, video, canvas, svg, lite-youtube {
+        display: block;
+        max-width: 100%;
+    }
+
+    a:focus {outline: none;}
+
+    p, blockquote, figcaption {
+        font-size: var(--size-med);
+        text-wrap: pretty;
+        margin-bottom: 1em;
+        line-height: 1.25em;
+    }
+
+    a:not(.button),
+    a:visited:not(.button) {
+        color: var(--color-accent);
+        text-decoration: none;
+    }
+
+    a:hover:not(.button),
+    a:focus:not(.button),
+    a:active:not(.button) {
+        color: var(--color-accent-light);
+        text-decoration: underline;
+    }
+
+    strong, b {
+        font-weight: 900;
+        color: var(--color-foreground-dark);
+    }
+
+    figure > figcaption {
+        text-align: center;
+        font-size: var(--size-sm);
+        margin-top: 1em;
+    }
+
+    small {
+        font-size: var(--size-sm);
+    }
+}
+
+/* Helper Styles */
+@layer global {
+    .is-wrapper {container: wrapper / inline-size; max-width: 2560px; margin: 0 auto;}
+
+    .hidden {
+        position: absolute;
+        top: -10000px;
+        left: -10000px;
+        visibility: hidden;
+        height: 0;
+        width: 0;
+        overflow: hidden;
+        z-index: -1;
+    }
+
+
+    .nobreak, .nowrap {white-space: nowrap;}
+
+    .indent {text-indent: 1ch;}
+
+    .small {font-size: var(--size-sm);}
+    .xsmall {font-size: var(--size-xs);}
+
+    .bold, .strong {font-weight: 900;}
+
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Button Styles */
+
+    /* Text Effects */
+
+    .fire {
+        color: transparent;
+        background-image: linear-gradient(to bottom,
+            var(--color-accent-light),
+            var(--color-accent));
+        background-clip: text;
+        filter: drop-shadow(1px 1px 4px red);
+    }
+
+    .electric {
+        color: transparent;
+        background-image: linear-gradient(to bottom,
+            var(--color-secondary-lightest),
+            var(--color-secondary-light));
+        background-clip: text;
+        filter: drop-shadow(0 0 5px var(--color-secondary-light)) drop-shadow(0 0 1px var(--color-secondary-dark));
+    }
+
+    /* Fancy Border - Animated Conic Gradient Border */
+    @property --border-angle-1 {syntax: "<angle>"; inherits: true; initial-value: 0deg;}
+    @property --border-angle-2 {syntax: "<angle>"; inherits: true; initial-value: 90deg;}
+    @property --border-angle-3 {syntax: "<angle>"; inherits: true; initial-value: 180deg;}
+    .fancy-border {
+        --border-angle-1: 0deg;
+        --border-angle-2: 90deg;
+        --border-angle-3: 180deg;
+        color: inherit;
+        border: 0;
+        padding: 1px;
+        border-radius: 15px;
+        background-color: var(--color-primary);
+        background-image:
+            conic-gradient(from var(--border-angle-1) at 10% 15%,
+                transparent,
+                var(--color-secondary) 10%,
+                transparent 30%,
+                transparent),
+            conic-gradient(from var(--border-angle-2) at 70% 60%,
+                transparent,
+                var(--color-primary) 10%,
+                transparent 60%,
+                transparent),
+            conic-gradient(from var(--border-angle-3) at 50% 20%,
+                transparent,
+                var(--color-accent) 10%,
+                transparent 50%,
+                transparent);
+        animation:
+            rotateBackground 3s linear infinite,
+            rotateBackground2 8s linear infinite,
+            rotateBackground3 13s linear infinite;
+    }
+    .fancy-border > * {
+        border-radius: calc(15px - 1px);
+    }
+    @keyframes rotateBackground {
+        to {--border-angle-1: 360deg;}
+    }
+    @keyframes rotateBackground2 {
+        to {--border-angle-2: -270deg;}
+    }
+    @keyframes rotateBackground3 {
+        to {--border-angle-3: 540deg;}
+    }
+
+    /* Global Animations */
+    @keyframes pulse {
+        0% {transform: scale(1); opacity: 1;}
+        50% {transform: scale(1.5); opacity: 0.5;}
+        100% {transform: scale(1);opacity: 1;}
+    }
+
+    /* Scripted Effects */
+
+    /* Fuzzy Lazy loading Effect for Images, Uses a blurred background image that transitions to the clear image when loaded */
+    .fuzzy-load { 
+        position: relative;
+        background-image: var(--background);
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        /* Blur the background image without affecting child content */
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            background-image: var(--background);
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: blur(12px);
+            transform: scale(1.05);
+            z-index: 0;
+        }
+        & > * {
+            position: relative;
+            z-index: 1;
+        }
+    }
+    .fuzzy-image {
+        background-size: 100% 100%;
+        filter: blur(15px);
+        transform: scale(1.05);
+        z-index: -1;
+    }
+        .fuzzy-load>img {
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+    }
+    .fuzzy-load.loaded > img {
+        opacity: 1;
+    }
+
+    @supports (-moz-appearance: none) {
+        .scroll-thin {
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary-light) transparent;
+        }
+    }
+
+    .scroll-thin::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .scroll-thin::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .scroll-thin::-webkit-scrollbar-thumb {
+        background: var(--color-primary-light);
+        border-radius: 10px;
+    }
+
+    .scroll-thin::-webkit-scrollbar-button {
+        display: none;
+    }
+}

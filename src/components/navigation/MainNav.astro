@@ -1,22 +1,47 @@
 ---
-const links = [
-    { name: "Home", href: "/", icon: null },
-    { name: "Contact", href: "/contact.html", icon: null },
-];
+// Assets
+import { Site } from "@site.config";
+import "@theme/navigation/DropDown.css";
+import "@theme/navigation/MainNav.css";
+
+
+// Components
+import Logo from "@elements/SVGlogo.astro";
+import Icon from "@elements/SVGicon.astro";
+import DropDown from "@navigation/DropDown.astro";
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/' || pathname === '/index.html';
+
+const links = Site.SiteNavigation;
 ---
 
-<nav id="main-nav">
+<nav id="main-nav" class={isHome ? "is-home" : ""}>
+    <a id="main-nav__logo" href="/"><Logo name="stimsdesign-icon" /></a>
     <ul>
+        <li class="icon-only"><a href="https://github.com/stimsdesign/" target="_blank" rel="noopener noreferrer" aria-label="Download Astro Template"><Icon name="save-disk" /></a></li>
+        {!isHome && <li><a href="/">Home</a></li>}
         {
             links.map((link) => (
-                <li><a href={link.href}>{link.name}{link.icon && <link.icon />}</a></li>
+                <li 
+                    class={`${link.name.toLowerCase()}-menu-item`}
+                    class:list={[
+                        { 'icon-only': link.iconOnly },
+                        { 'drop-down': link.name === "Services" }
+                    ]}
+                >
+                    <a href={link.href}>
+                        {
+                            link.iconOnly && link.icon 
+                            ? <Icon name={link.icon} /> 
+                            : link.icon 
+                            ? <> {link.name} <Icon name={link.icon} /> </>
+                            : link.name
+                        }
+                    </a>
+                    {link.name === "Services" && <DropDown />}
+                </li>
             ))
         }
     </ul>
 </nav>
-
-<style is:global>
-    @media (max-width: 769px) {
-        nav#main-nav {display: none !important;}
-    }
-</style>

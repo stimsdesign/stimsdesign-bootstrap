@@ -1,0 +1,28 @@
+---
+// Assets
+import { Site } from "@site.config";
+
+// Layouts
+import Template from "@layouts/ContentPage.astro";
+import Main from "@layout/Main.astro";
+import FooterContact from "@sections/FooterContact.astro";
+
+// Template Props
+const title = `About ${Site.Brand}`;
+---
+<Template title={title}>
+    <Main id="about-page">
+        <h1>About Us</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At repellendus voluptas totam rerum autem iusto, necessitatibus accusantium dolorum inventore ipsum?</p>
+    </Main>
+    <FooterContact />
+</Template>
+
+<script>
+    import { FormHandler } from "@scripts/FormHandler.js";
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll(".contact-form").forEach((formEl) => {
+            new FormHandler(formEl as HTMLFormElement);
+        });
+    });
+</script>

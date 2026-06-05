@@ -1,0 +1,82 @@
+---
+/**
+ * @prop {string} defaultValue - Text for the disabled first option
+ * @prop {boolean} hideLabel - Visually hides label while keeping accessibility
+ * @prop {12 | 24} format - Time format display
+ * @prop {string} startTime - 24h format "HH:mm" start boundary
+ * @prop {string} endTime - 24h format "HH:mm" end boundary
+ * @prop {number} increment - Minutes between generated options
+ */
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    required?: boolean;
+    defaultValue?: string;
+    hideLabel?: boolean;
+    format?: 12 | 24;
+    startTime?: string;
+    endTime?: string;
+    increment?: number;
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label = "Preferred Time", 
+    required = false, 
+    defaultValue = "Select a Time",
+    hideLabel = false,
+    format = 12,
+    startTime = "09:00",
+    endTime = "17:00",
+    increment = 30,
+    ...rest 
+} = Astro.props;
+
+// Protection: Ensure increment is a whole divisor of 60, otherwise fallback to 30
+const step = (60 % Number(increment) === 0) ? Number(increment) : 30;
+
+// Generate time options
+const options = [];
+const startArr = startTime.split(':').map(Number);
+const endArr = endTime.split(':').map(Number);
+
+let current = new Date();
+current.setHours(startArr[0], startArr[1], 0, 0);
+
+const end = new Date();
+end.setHours(endArr[0], endArr[1], 0, 0);
+
+while (current <= end) {
+    const hours = current.getHours();
+    const minutes = current.getMinutes();
+    
+    // Value is always 24h format
+    const value = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    
+    // Label follows format prop
+    let displayLabel: string;
+    if (format === 24) {
+        displayLabel = value;
+    } else {
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const hours12 = hours % 12 || 12;
+        displayLabel = `${hours12}:${minutes.toString().padStart(2, '0')} ${period}`;
+    }
+    
+    options.push({ label: displayLabel, value });
+    current.setMinutes(current.getMinutes() + step);
+}
+---
+
+<div class="select-group">
+    {label && <label for={id} class={hideLabel ? "hidden" : ""}>{label}</label>}
+    <select id={id} name={name} required={required} {...rest}>
+        <option value="">{defaultValue}</option>
+        {options.map((option) => (
+            <option value={option.value}>{option.label}</option>
+        ))}
+    </select>
+</div>

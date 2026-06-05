@@ -1,0 +1,95 @@
+---
+import Icon from "../elements/SVGicon.astro";
+/**
+ * @prop {string} days - Comma-separated list of active days (e.g., "mon,tue,wed")
+ * @prop {boolean} weekends - Toggle weekend availability
+ * @prop {number} startRange - Offset for the first selectable date
+ * @prop {number} endRange - Restricts calendar past this forward offset
+ * @prop {string} excludedDates - Comma-separated MM/DD/YY dates to disable
+ * @prop {boolean} hideDays - Condenses the grid dynamically skipping disabled days
+ * @prop {boolean} disableHistory - Prevents backwards historic navigation
+ */
+interface Props {
+    id: string;
+    label?: string;
+    days?: string;
+    weekends?: boolean;
+    startRange?: number;
+    endRange?: number;
+    excludedDates?: string;
+    hideDays?: boolean;
+    disableHistory?: boolean;
+    required?: boolean;
+    tabindex?: number;
+}
+
+const { 
+    id, 
+    label = "Preferred Date", 
+    days = "sun,mon,tue,wed,thu,fri,sat", 
+    weekends = true, 
+    startRange = 0, 
+    endRange,
+    excludedDates = "",
+    hideDays = false,
+    disableHistory = false,
+    required = false,
+    tabindex
+} = Astro.props;
+
+const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+---
+
+<div 
+    class="input-group" 
+    data-days={days} 
+    data-weekends={String(weekends)} 
+    data-start-range={startRange} 
+    data-end-range={endRange}
+    data-excluded-dates={excludedDates}
+    data-hide-days={String(hideDays)}
+    data-disable-history={String(disableHistory)}
+>
+    <label for={id}>{label}</label>
+    <input 
+        type="text" 
+        id={id} 
+        name={id} 
+        class="date-input" 
+        inputmode="none" 
+        autocomplete="off" 
+        placeholder=" " 
+        required={required} 
+        aria-required={required ? "true" : "false"} 
+        tabindex={tabindex}
+    />
+    <div class="datepicker__wrapper hidden" hidden="true">
+        <div class="datepicker">
+            <div class="datepicker__header">
+                <button type="button" class="prev-month" aria-label="Previous Month"><Icon name="arrow-left" /></button>
+                <div class="month-year">
+                    <select class="month-input" aria-label="Select Month">
+                        {months.map((month) => (
+                            <option value={month}>{month}</option>
+                        ))}
+                    </select>
+                    <input type="number" class="year-input" min="1900" max="2100" aria-label="Year" />
+                </div>
+                <button type="button" class="next-month" aria-label="Next Month"><Icon name="arrow-right" /></button>
+            </div>
+            <div class="days">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+            </div>
+            <div class="dates"></div>
+        </div>
+    </div>
+</div>

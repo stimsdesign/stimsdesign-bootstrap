@@ -1,0 +1,40 @@
+---
+/**
+ * @prop {Array} options - Objects mapping { label, value, target? }
+ * @prop {string} defaultValue - Text for the first empty option
+ * @prop {boolean} hideLabel - Hides the label visually but keeps it in the DOM for accessibility
+ */
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    options: { label: string; value: string; target?: string }[];
+    required?: boolean;
+    defaultValue?: string; // Text for the first empty option
+    hideLabel?: boolean;
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label, 
+    options,
+    required = false, 
+    defaultValue = "Select Option",
+    hideLabel = false,
+    ...rest 
+} = Astro.props;
+---
+
+<div class="select-group">
+    {label && <label for={id} class={hideLabel ? "hidden" : ""}>{label}</label>}
+    <select id={id} name={name} required={required} {...rest}>
+        <option value="">{defaultValue}</option>
+        {options.map((option) => (
+            <option value={option.value} {...(option.target ? { "data-target": option.target } : {})}>{option.label}</option>
+        ))}
+    </select>
+</div>
+
+

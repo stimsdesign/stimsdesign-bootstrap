@@ -1,0 +1,83 @@
+---
+// Assets
+import { Site } from "@site.config";
+
+// Components
+import Button from "@elements/Button.astro";
+import Icon from "@elements/SVGicon.astro";
+
+// Inputs
+import Honeypot from "@forms/Honeypot.astro";
+import NameInput from "@forms/NameInput.astro";
+import EmailInput from "@forms/EmailInput.astro";
+import PhoneInput from "@forms/PhoneInput.astro";
+import TextAreaInput from "@forms/TextArea.astro";
+---
+<section id="contact" class="is-wrapper">
+    <div class="content">
+        <div class="contact-info">
+            <h1><span>Contact</span><br>{Site.Brand}</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quod repellat qui quisquam commodi, et consequuntur quos assumenda magnam facere id inventore laboriosam blanditiis doloribus eveniet ipsum dolorum explicabo debitis.</p>
+            <div class="cards">
+                <div class="card">
+                    <div class="icon">
+                        <Icon name="mobilephone" />
+                    </div>
+                    <div class="text">
+                        <span>Call or Text</span>
+                        <a href={`tel:${Site.Telephone}`} aria-label={`Call Today ${Site.PrettyTelephone}`}>{Site.PrettyTelephone}</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <Icon name="mail" />
+                    </div>
+                    <div class="text">
+                        <span>Email</span>
+                        <a href={`mailto:${Site.Email}`} aria-label={`Email Today ${Site.Email}`}>{Site.Email}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-wrapper">
+            <div class="form-card">
+                <form 
+                    id="intake-form" 
+                    class="contact-form" 
+                    name="Footer Contact Form" 
+                    data-netlify="true" 
+                    netlify-honeypot="question-field"
+                    data-modal-header="Email Sent"
+                    data-modal-paragraph="Your message has been received. We will get back to you shortly."
+                    data-modal-button="Close"
+                >
+                    <input type="hidden" name="form-name" value="Footer Contact Form" />
+                    <input type="hidden" name="subject" value={`Footer Contact Submission from ${Site.PrettyUrl}`} />
+                    <Honeypot />
+                    <div class="form-row">
+                        <NameInput id="footer-contact__name" label="Your Name" tabindex={1} required />
+                        <EmailInput id="footer-contact__email" label="Email Address" tabindex={2} required />
+                    </div>
+                    <PhoneInput id="footer-contact__phone" label="Phone Number" tabindex={3} />
+                    <TextAreaInput id="footer-contact__message" label="Your Message" tabindex={4} required />
+                    <div class="button-group">
+                        <Button type="submit" tabindex={5}>Send Message</Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @import "@theme/sections/FooterContact.css";
+</style>
+
+<script>
+    import { FormHandler } from "@scripts/FormHandler.js";
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll(".contact-form").forEach((formEl) => {
+            new FormHandler(formEl as HTMLFormElement);
+        });
+    });
+</script>

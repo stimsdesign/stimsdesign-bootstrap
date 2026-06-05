@@ -1,0 +1,70 @@
+/* Globally Scope */
+
+#dropdown {
+    position: absolute;
+    z-index: 1000;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    background: rgba(0, 0, 0, .25);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    pointer-events: none;
+}
+
+#dropdown .dropdown__content {
+    background: var(--color-background-dark);
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+    overflow: hidden;
+    pointer-events: auto;
+}
+
+#dropdown .dropdown__inner {
+    padding: 2cqi 3cqi;
+    min-height: 0;
+}
+
+#dropdown ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1cqi;
+    margin:0 auto;
+}
+
+#dropdown ul li {
+    display: flex;
+}
+
+#dropdown ul li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5cqi;
+    color: white;
+    text-decoration: none;
+    font-family: var(--font-quicksand);
+    font-weight: 500;
+    font-size: 1.25cqi;
+    text-transform: uppercase;
+    padding: .5cqi;
+    border-radius: 15px;
+    background-color: var(--color-secondary);
+    aspect-ratio: 1/1;
+    width: 11cqi;
+    white-space: nowrap;
+    transition: all 0.1s ease;
+}
+
+#dropdown ul li a:hover {
+    background: var(--color-primary-dark);
+}
+
+#dropdown .button {
+    display: block;
+    width:fit-content;
+    margin:2cqi 0 0;
+}

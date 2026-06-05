@@ -1,0 +1,31 @@
+---
+// Custom TextInput Component
+
+import TextInput from "./TextInput.astro";
+
+interface Props {
+    id: string;
+    name?: string;
+    label?: string;
+    required?: boolean;
+    [key: string]: any;
+}
+
+const { 
+    id, 
+    name = id,
+    label = "Phone Number", 
+    required = false, 
+    ...rest 
+} = Astro.props;
+---
+
+<TextInput 
+    type="tel" 
+    id={id} 
+    name={name} 
+    label={label} 
+    required={required} 
+    autocomplete="tel" 
+    {...rest} 
+/>

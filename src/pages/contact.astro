@@ -1,37 +1,40 @@
 ---
-import { siteConfig } from "../siteConfig";
-import Template from "../layouts/ContentPage.astro";
-import Main from "../components/layout/Main.astro";
----
+// Assets
+import { Site } from "@site.config";
 
-<Template title={`Contact | ${siteConfig.title}`} description={`Get in touch with ${siteConfig.brand}"`}>
+// Layouts
+import Template from "@layouts/ContentPage.astro";
+import Main from "@layout/Main.astro";
+import FooterContact from "@sections/FooterContact.astro";
+
+// Template Props
+const title = `Contact ${Site.Brand}`;
+---
+<Template title={title}>
     <Main id="contact-page">
-        <form id="main-contact-form" class="contact-form" name="Contact Page Form" data-netlify="true" netlify-honeypot="question-field">
+        <form 
+            id="main-contact-form" 
+            class="contact-form" 
+            name="Contact Page Form" 
+            data-netlify="true" 
+            netlify-honeypot="question-field"
+            data-modal-header="Success!"
+            data-modal-paragraph="We have received your message from the contact page. We will be in touch soon."
+            data-modal-button="Acknowledged"
+        >
             <input type="hidden" name="form-name" value="Contact Page Form" />
-            <input type="hidden" name="subject" value=`{Contact Page Submisstion from ${siteConfig.prettyUrl}}` />
+            <input type="hidden" name="subject" value=`{Contact Page Submisstion from ${Site.PrettyUrl}}` />
             <input type="text" id="question-field" name="question-field" />
         </form>
     </Main>
+    <FooterContact />
 </Template>
 
-<style>
-    #question-field {
-        position: absolute;
-        top: -10000px;
-        left: -10000px;
-        visibility: hidden;
-        height: 0;
-        width: 0;
-        overflow: hidden;
-        z-index: -1;
-    }
-</style>
-
 <script>
-    import { ContactFormHandler } from "../assets/scripts/ContactFormHandler.js";
+    import { FormHandler } from "@scripts/FormHandler.js";
     document.addEventListener("astro:page-load", () => {
         document.querySelectorAll(".contact-form").forEach((formEl) => {
-            new ContactFormHandler(formEl);
+            new FormHandler(formEl as HTMLFormElement);
         });
     });
 </script>

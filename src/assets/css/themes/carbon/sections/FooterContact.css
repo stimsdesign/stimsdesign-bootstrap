@@ -1,0 +1,125 @@
+@media all {
+    #contact {
+        position: relative;
+    }
+
+    .content {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 2cqi;
+        align-items: center;
+        padding: 4cqi;
+    }
+
+    .contact-info {
+        max-width: 45cqi;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: row;
+        gap: 4cqi;
+        padding-top: 2cqi;
+    }
+
+    .card {
+        display: flex;
+        align-items: center;
+        gap: 1cqi;
+    }
+
+    .card .icon {
+        width: 3cqi;
+        height: 3cqi;
+        color:white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card .text span {
+        display: block;
+        margin-bottom: 0.25em;
+    }
+
+    .card .text a {
+        text-decoration: none;
+        transition: color 0.1s ease;
+        white-space: nowrap;
+    }
+
+    .form-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: right;
+    }
+
+    .form-card {
+        max-width: 40cqi;
+    }
+
+
+}
+
+@media screen and (max-width: 769px) {
+    .content {
+        grid-template-columns: 1fr;
+        justify-content: center;
+        gap:0;
+    }
+
+    .contact-info {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .cards {
+        flex-direction: row;
+        margin-bottom: 2rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card .icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .card .text span {
+        display: none;
+    }
+
+    .form-card {
+        padding: 5cqi 6cqi;
+        max-width: 100%;
+        margin-bottom: 5cqi;
+    }
+
+    .form-label {
+        left: 0;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media screen and (max-width: 481px) {
+    .cards {
+        flex-direction: column;
+        margin-bottom: 2rem;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+
+

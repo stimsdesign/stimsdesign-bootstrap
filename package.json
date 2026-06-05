@@ -10,12 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.7",
-    "@astrojs/netlify": "^7.0.1",
-    "@astrojs/node": "^10.0.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^6.0.1",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
+    "@astrojs/check": "latest",
+    "@astrojs/netlify": "latest",
+    "@astrojs/node": "latest",
+    "astro": "latest",
+    "typescript": "latest"
   }
 }

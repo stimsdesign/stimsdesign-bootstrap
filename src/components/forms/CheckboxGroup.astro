@@ -1,0 +1,36 @@
+---
+/**
+ * @prop {string} legend - Visual accessibility title for the fieldset
+ * @prop {Array} options - Objects mapping { id, label, value, name?, required?, target? }
+ * @prop {boolean} list - Renders the options vertically if true
+ */
+interface Props {
+    legend: string;
+    options: { id: string; label: string; value: string; name?: string; required?: boolean; target?: string }[];
+    list?: boolean;
+    tabindex?: number;
+}
+
+const { legend, options, list = false, tabindex } = Astro.props;
+---
+
+<fieldset class:list={["checkbox-group", { "list": list }]}>
+    <legend>{legend}</legend>
+    {options.map((option) => (
+        <>
+            <input 
+                type="checkbox" 
+                id={option.id} 
+                name={option.name || option.id} 
+                value={option.value} 
+                placeholder=" " 
+                required={option.required} 
+                tabindex={tabindex}
+                {...(option.target ? { "data-target": option.target } : {})}
+            />
+            <label for={option.id}>{option.label}</label>
+        </>
+    ))}
+</fieldset>
+
+

@@ -1,0 +1,95 @@
+---
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+<div class:list={["image-ticker__wrapper", className]} {...rest}>
+    <div class="image-ticker">
+        <div class="image-ticker__runner">
+            <div class="image-ticker__img">
+                <slot />
+            </div>
+        </div>
+    </div>
+</div>
+
+<style is:global>
+    .image-ticker__wrapper {
+        container-type: inline-size;
+        position: relative;
+        width: 100%;
+    }
+
+    @media (max-width: 769px) {
+        .image-ticker__wrapper {
+            margin: 2rem 0;
+        }
+    }   
+    .image-ticker {
+        overflow: hidden;
+        margin: 0 auto 0;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-drag: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .image-ticker .image-ticker__runner {
+        display: flex;
+        width: max-content;
+        animation: image-ticker-scroll 90s linear infinite;
+        will-change: transform;
+    }
+
+    .image-ticker__img > * {
+        display: inline-block;
+        margin: 0 .5ch;
+        position: relative;
+        height: 5cqi;
+        width: auto;
+        margin: 0 2cqi;
+    }
+
+
+    @keyframes image-ticker-scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+</style>
+
+<script>
+    class ImageTickerAnim {
+        runner: HTMLElement | null;
+        item: HTMLElement | null;
+
+        constructor(root: Element) {
+            this.runner = root.querySelector(".image-ticker__runner");
+            this.item = this.runner?.querySelector(".image-ticker__img") || null;
+            if (!this.runner || !this.item) return;
+            this.cloneItems();
+        }
+        cloneItems() {
+            if (!this.runner || !this.item) return;
+            for (let i = 0; i < 3; i++) {
+                this.runner.appendChild(this.item.cloneNode(true));
+            }
+        }
+    }
+
+    document.addEventListener(
+        "astro:page-load",
+        () => {
+            const Imagetickers = document.querySelectorAll(".image-ticker");
+            Imagetickers.forEach((Imageticker) => new ImageTickerAnim(Imageticker));
+        },
+        { passive: true },
+    );
+</script>

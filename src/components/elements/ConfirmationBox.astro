@@ -1,0 +1,38 @@
+---
+/**
+ * ConfirmationBox Component (formerly GlobalModal)
+ * 
+ * To open this box from any element:
+ * - Add the class `.open-confirmation` to the trigger.
+ * - Use data attributes for content:
+ *   - data-modal-header: Text for the title
+ *   - data-modal-paragraph: Text for the message
+ *   - data-modal-button: Text for the close button
+ */
+// Assets
+import { Site } from "@site.config";
+import "@theme/elements/ConfirmationBox.css";
+
+// Component Elements
+import Button from "@elements/Button.astro";
+
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+<confirmation-box id="confirmation-box" class:list={["is-wrapper", className]} {...rest}>
+    <slot>
+        <div class="content">
+            <h2 data-modal-title>{Site.Company}</h2>
+            <p data-modal-text>{Site.Mission}</p>
+            <Button class="close-modal" data-modal-close>Close</Button>
+        </div>
+    </slot>
+</confirmation-box>
+
+<script>
+    import "@scripts/ConfirmationBox.js";
+</script>

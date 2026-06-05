@@ -1,296 +1,58 @@
 ---
-import { siteConfig } from "../../siteConfig";
-import CrossIcon from "../../icons/cross.svg"
-import HamburgerIcon from "../../icons/hamburger.svg"
+// Pass `class="is-visible"` on component invocation to show the mobile nav on desktop
+
+// Assets
+import "@theme/navigation/MobileNav.css"
+import { Site } from "@site.config";
+
+// Components
+import Icon from "../elements/SVGicon.astro";
+import Logo from "../elements/SVGlogo.astro";
+
+// Props for class list
+interface Props {
+    class?: string;
+}
+
+const { class: className } = Astro.props;
+
 const links = [
     { name: "Home", href: "/" },
-    { name: "Contact", href: "/contact.html", icon: null },
+    { name: "Forms", href: "/forms.html", icon: "forms" },
+    { name: "Contact", href: "/contact.html", icon: "phone" },
 ];
 ---
-<div class="mobile-nav-container">
-    <input type="checkbox" id="mobile-toggle" hidden aria-hidden="true" />
-    <label for="mobile-toggle" id="mobile-hamburger" aria-label="Open Menu">
-        <HamburgerIcon />
-    </label>
+<mobile-nav class:list={[className]}>
+    <a class="logo" href="/" aria-label={`Return to ${Site.Brand} home`}><Logo name="stimsdesign-icon" /></a>
+    <a class="telephone" href={`tel:${Site.Telephone}`} aria-label={`Call Today ${Site.PrettyTelephone}`}>
+        {Site.PrettyTelephone} <Icon name="mobilephone" />
+    </a>
+    <button id="mobile-hamburger" aria-label="Open Menu">
+        <Icon name="hamburger" />
+    </button>
     <div id="mobile-menu-drawer" class="menu-drawer">
         <div class="drawer-header">
-            <label for="mobile-toggle" id="mobile-menu-close" aria-label="Close Menu">
-                <CrossIcon />
-            </label>
+            <Logo name="stimsdesign" class="drawer-logo"/>
+            <button id="mobile-menu-close" aria-label="Close Menu">
+                <Icon name="cross" />
+            </button>
         </div>
         <nav class="drawer-nav">
             <ul>
                 {
                     links.map((link) => (
-                        <li><a href={link.href}>{link.name}{link.icon && <link.icon />}</a></li>
+                        <li><a href={link.href}>{link.icon && <Icon name={link.icon} />}{link.name}</a></li>
                     ))
                 }
             </ul>
         </nav>
         <div class="drawer-footer">
-            <p>&copy; {new Date().getFullYear()} {siteConfig.company}</p>
+            <p>&copy; {new Date().getFullYear()} {Site.Company}</p>
         </div>
     </div>
-    <label for="mobile-toggle" id="mobile-menu-overlay" class="menu-overlay"></label>
-</div>
+    <div id="mobile-menu-overlay" class="menu-overlay"></div>
+</mobile-nav>
 
-<style is:global>
-    /* variables context from BaseLayout.astro layout is inherited */
-
-    .mobile-nav-container {
-        pointer-events: none; /* Let clicks pass through unless on specific buttons */
-    }
-
-    #mobile-hamburger {
-        pointer-events: auto;
-        position: fixed;
-        top: 1.25rem;
-        left: 1.25rem;
-        z-index: 2000;
-        width: 50px;
-        height: 50px;
-        background-color: var(--color-foreground);
-        color: var(--color-background);
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition:
-            transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-            background-color 0.3s ease,
-            opacity 0.5s ease,
-            visibility 0.5s ease;
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    #mobile-hamburger:hover {
-        background-color: var(--color-foreground-lighter);
-    }
-
-    #mobile-hamburger.is-visible {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    @media (max-width: 768px) {
-        #mobile-hamburger {
-            opacity: 1;
-            visibility: visible;
-            top: 0.5rem;
-            left: 0.5rem;
-        }
-    }
-
-    /* Menu Drawer Logic */
-    #mobile-toggle:checked ~ .menu-drawer {
-        transform: translateX(0);
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
-    }
-
-    #mobile-toggle:checked ~ .menu-overlay {
-        pointer-events: auto;
-        opacity: 1;
-        visibility: visible;
-    }
-
-    #mobile-toggle:checked ~ .menu-drawer .drawer-nav li {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    /* Menu Drawer Styles */
-
-    .menu-drawer {
-        pointer-events: auto;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 80vw;
-        height: 100dvh;
-        z-index: 2100;
-        display: flex;
-        background-color: var(--color-background);
-        flex-direction: column;
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        transform: translateX(-100%);
-        container-type: inline-size;
-        overflow-x: hidden;
-    }
-
-    @media (min-width: 769px) {
-        .menu-drawer {
-            width: 45vw; /* Increased width for tablet to allow space for large labels */
-        }
-    }
-
-    @media (min-width: 1200px) {
-        .menu-drawer {
-            width: 25vw; /* Return to sleek width for large screens */
-            max-width: 400px;
-        }
-    }
-
-    .drawer-header {
-        padding: 1.5rem;
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    #mobile-menu-close {
-        background: none;
-        border: none;
-        color: var(--color-foreground);
-        cursor: pointer;
-        padding: 0.5rem;
-        transition: transform 0.3s ease;
-    }
-
-    #mobile-menu-close:hover {
-        transform: rotate(90deg);
-    }
-
-    #mobile-menu-close svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .drawer-nav {
-        flex: 1;
-        padding: 0 1.5rem;
-    }
-
-    .drawer-nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .drawer-nav li {
-        margin-bottom: 1rem;
-        opacity: 0;
-        transform: translateX(-20px);
-        transition:
-            opacity 0.3s ease,
-            transform 0.3s ease;
-    }
-
-    /* Stagger the links */
-    .drawer-nav li:nth-child(1) {
-        transition-delay: 0.1s;
-    }
-    .drawer-nav li:nth-child(2) {
-        transition-delay: 0.15s;
-    }
-    .drawer-nav li:nth-child(3) {
-        transition-delay: 0.2s;
-    }
-    .drawer-nav li:nth-child(4) {
-        transition-delay: 0.25s;
-    }
-    .drawer-nav li:nth-child(5) {
-        transition-delay: 0.3s;
-    }
-    .drawer-nav li:nth-child(6) {
-        transition-delay: 0.35s;
-    }
-
-    .drawer-nav a {
-        font-family: var(--family-heading);
-        white-space: nowrap;
-        font-size: var(--size-2xl);
-        font-weight: var(--weight-bold);
-        color: var(--color-foreground);
-        text-decoration: none;
-        text-transform: uppercase;
-        display: block;
-        padding: 0.5rem 0;
-        transition:
-            color 0.3s ease,
-            padding-left 0.3s ease;
-    }
-
-    .drawer-nav a:hover {
-        color: var(--color-accent);
-        padding-left: 0.5rem;
-        text-decoration: none;
-    }
-
-    .drawer-footer {
-        padding: 2rem 1.5rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .drawer-footer p {
-        font-size: var(--size-xs);
-        color: var(--color-foreground-dark);
-        margin: 0;
-    }
-
-    /* Overlay */
-    .menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(4px);
-        z-index: 2050;
-        opacity: 0;
-        visibility: hidden;
-        transition:
-            opacity 0.4s ease,
-            visibility 0.4s ease;
-    }
-</style>
-
-<script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
-        const toggle = document.getElementById("mobile-toggle");
-        const hamburger = document.getElementById("mobile-hamburger");
-        const drawer = document.getElementById("mobile-menu-drawer");
-
-        // Body scroll lock
-        toggle?.addEventListener("change", () => {
-            if (toggle.checked) {
-                document.body.style.overflow = "hidden";
-            } else {
-                document.body.style.overflow = "";
-            }
-        });
-
-        // Close on swipeLeft (custom event)
-        drawer?.addEventListener("swipeLeft", () => {
-            if (toggle) toggle.checked = false;
-            document.body.style.overflow = "";
-        });
-
-        // Interaction Observer for Desktop Sticky Hamburger
-        const mainNav =
-            document.getElementById("main-nav-observer") ||
-            document.getElementById("portal-nav-observer");
-        if (mainNav) {
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) {
-                            hamburger?.classList.add("is-visible");
-                            mainNav.classList.add("is-hidden");
-                        } else {
-                            hamburger?.classList.remove("is-visible");
-                            mainNav.classList.remove("is-hidden");
-                        }
-                    });
-                },
-                {
-                    threshold: 0,
-                    rootMargin: "-20px 0px 0px 0px",
-                },
-            );
-
-            observer.observe(mainNav);
-        }
-    });
+<script>
+    import "@scripts/MobileNav.js";
 </script>

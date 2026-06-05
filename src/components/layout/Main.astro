@@ -1,11 +1,16 @@
 ---
+// Props
 interface Props {
     id?: string;
 }
 const { id } = Astro.props;
 ---
-<main id={id} >
+<main id={id} class="is-wrapper" >
     <slot>
-        <p>No content provided. This is the default content.</p>
+        <p class="no-content">No content provided.</p>
     </slot>
 </main>
+
+<style>
+    @import "@theme/layout/Main.css";
+</style>

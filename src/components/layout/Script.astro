@@ -1,0 +1,10 @@
+<script is:inline src="/js/scripts.js" defer></script>
+<script>
+    import { functionFuzzyLoad } from "@scripts/FuzzyLoad.js";
+    import { initFonts } from "@scripts/InitFonts.js";
+    document.addEventListener("astro:page-load", () => {
+        functionFuzzyLoad();
+        initFonts();
+    });
+</script>
+<slot />

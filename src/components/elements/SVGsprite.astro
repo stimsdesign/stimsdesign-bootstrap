@@ -1,0 +1,45 @@
+---
+/**
+ * SVGsprite.astro
+ * Consumption component for general images/illustrations.
+ * Uses the #sprite- prefix for symbols in SpriteSheet.
+ */
+
+interface Props {
+  id?: string;
+  name: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const spriteFiles = import.meta.glob("../../assets/images/sprites/*.svg", {
+    query: "?raw",
+    eager: true,
+});
+
+const { id, name, class: className, ...rest } = Astro.props;
+
+if (!Astro.locals.spriteRegistry) Astro.locals.spriteRegistry = new Set();
+Astro.locals.spriteRegistry.add(name);
+
+const spritePath = Object.keys(spriteFiles).find(path => path.endsWith(`/${name}.svg`));
+const raw = spritePath ? (spriteFiles[spritePath] as any)?.default : null;
+
+// Normalize viewBox
+const viewBoxRaw = raw?.match(/viewBox\s*=\s*["']([^"']+)["']/i)?.[1];
+let viewBox = viewBoxRaw;
+if (viewBoxRaw) {
+    const parts = viewBoxRaw.split(/\s+/);
+    if (parts.length === 4) {
+        viewBox = `0 0 ${parts[2]} ${parts[3]}`;
+    }
+}
+
+if (!raw && import.meta.env.DEV) {
+    console.warn(`[Sprite] Sprite "${name}" not found in src/assets/images/sprites/`);
+}
+---
+
+<svg id={id} class={className} viewBox={viewBox} {...rest}>
+  <use href={`#sprite-${name}`} />
+</svg>
