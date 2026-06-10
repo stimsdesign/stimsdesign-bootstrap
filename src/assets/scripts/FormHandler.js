@@ -65,6 +65,13 @@ export class FormHandler {
         // Initialize dynamic inputs to update requirement tracking on DOM load
         const wrappers = this.root.querySelectorAll('.dynamic-input');
         wrappers.forEach(wrapper => this.updateDynamicDisplay(wrapper));
+
+        // Initialize has-value class for select elements
+        this.root.querySelectorAll('select').forEach(select => {
+            const hasVal = select.value !== "";
+            select.classList.toggle('has-value', hasVal);
+            select.closest('.select-group')?.classList.toggle('has-value', hasVal);
+        });
     }
 
     _initAddressVerification() {
@@ -175,6 +182,11 @@ export class FormHandler {
             this.formatPhoneInput(target);
         }
 
+        // Zip / Postal code digit restriction & formatting
+        if (target.tagName === 'INPUT' && target.getAttribute('autocomplete') === 'postal-code') {
+            this.formatZipInput(target);
+        }
+
         // 3. Password Requirements & Checking
         if (target.tagName === 'INPUT' && target.closest('.password-input-wrapper')) {
             const container = this.root.querySelector('.password-requirements');
@@ -194,6 +206,13 @@ export class FormHandler {
 
     handleDelegatedChange(e) {
         const target = e.target;
+
+        // Manage has-value class for select elements
+        if (target.tagName === 'SELECT') {
+            const hasVal = target.value !== "";
+            target.classList.toggle('has-value', hasVal);
+            target.closest('.select-group')?.classList.toggle('has-value', hasVal);
+        }
 
         // Dynamic Elements Select Dropdowns
         if (target.tagName === 'SELECT' && target.closest('.dynamic-input')) {
@@ -304,6 +323,10 @@ export class FormHandler {
             return input;
         });
         inputEl.value = formatted;
+    }
+
+    formatZipInput(inputEl) {
+        inputEl.value = inputEl.value.replace(/\D/g, "").substring(0, 5);
     }
 
     validatePasswordRequirements(value, container) {

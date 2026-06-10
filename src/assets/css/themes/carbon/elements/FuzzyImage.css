@@ -1,0 +1,62 @@
+/* Container styling for the fuzzy loader placeholder */
+.fuzzy-image { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--background);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    z-index: -1; /* Place behind other relative page elements if nested */
+}
+
+/* Position overrides for the placeholder */
+.fuzzy-image.top {
+    background-position: top;
+}
+.fuzzy-image.bottom {
+    background-position: bottom;
+}
+
+/* Pseudo-element to apply the blur effect.
+   This avoids edge-blur artifacts and keeps the parent boundaries sharp. */
+.fuzzy-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit; /* Inherits background-image, position, and size from parent */
+    filter: blur(15px);
+    transform: scale(1.05); /* Scales slightly to hide blurred edges */
+    z-index: -1;
+}
+
+/* The loading/target image element */
+.fuzzy-image + img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+}
+
+/* Position overrides for the target image to match placeholder exactly */
+.fuzzy-image.top + img {
+    object-position: top;
+}
+
+.fuzzy-image.bottom + img {
+    object-position: bottom;
+}
+
+/* Transition trigger once image finishes loading.
+   !important is REQUIRED to override the inline style="opacity: 0;" on the Image element. */
+.fuzzy-image.loaded + img {
+    opacity: 1 !important;
+}

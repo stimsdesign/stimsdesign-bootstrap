@@ -116,9 +116,7 @@
     }
 
     body {
-        padding-top: 70px;
-        padding-left: 2cqi;
-        padding-right: 2cqi;
+        padding: 70px 0 0 0;
         font-size: var(--size-med);
         font-family: var(--font-body);
         color: var(--color-foreground);
@@ -237,7 +235,7 @@
 
 /* Helper Styles */
 @layer global {
-    .is-wrapper {container: wrapper / inline-size; max-width: 2560px; margin: 0 auto;}
+    .is-wrapper {container: wrapper / inline-size; max-width: 2560px; padding: 0 5cqi; margin: 0 auto;}
 
     .hidden {
         position: absolute;
@@ -342,45 +340,6 @@
     }
 
     /* Scripted Effects */
-
-    /* Fuzzy Lazy loading Effect for Images, Uses a blurred background image that transitions to the clear image when loaded */
-    .fuzzy-load { 
-        position: relative;
-        background-image: var(--background);
-        background-repeat: no-repeat;
-        background-size: cover;
-        overflow: hidden;
-        /* Blur the background image without affecting child content */
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: inherit;
-            background-image: var(--background);
-            background-repeat: no-repeat;
-            background-size: cover;
-            filter: blur(12px);
-            transform: scale(1.05);
-            z-index: 0;
-        }
-        & > * {
-            position: relative;
-            z-index: 1;
-        }
-    }
-    .fuzzy-image {
-        background-size: 100% 100%;
-        filter: blur(15px);
-        transform: scale(1.05);
-        z-index: -1;
-    }
-        .fuzzy-load>img {
-        opacity: 0;
-        transition: opacity 250ms ease-in-out;
-    }
-    .fuzzy-load.loaded > img {
-        opacity: 1;
-    }
 
     @supports (-moz-appearance: none) {
         .scroll-thin {

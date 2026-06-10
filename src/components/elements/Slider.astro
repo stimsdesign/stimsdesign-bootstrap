@@ -1,7 +1,22 @@
 ---
-import "@theme/elements/Slider.css"; // global for slot
+/*************************************************************************
+ * @elements/Slider.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description: 
+ *   
+ * Usage:
+ *   
+ * 
+ *************************************************************************/
+
+// Import → Styles
+import "@theme/elements/Slider.css";
+
+// Import → Elements
 import Icon from "@elements/SVGicon.astro";
 
+// Props
 interface Props {
     id?: string;
     arrows?: boolean;
@@ -13,6 +28,7 @@ interface Props {
     [key: string]: any;
 }
 
+// Destructuring Props
 const {
     id,
     arrows = false,

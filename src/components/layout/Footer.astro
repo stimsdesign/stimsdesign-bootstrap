@@ -10,7 +10,7 @@ import Time from "@elements/Time.astro";
 
 // Variables
 const linksTitle = "Quick Links";
-const links = Site.SiteNavigation;
+const links = Site.FooterNavigation;
 ---
 <footer id="footer" class="is-wrapper">
     <div class="content">
@@ -39,7 +39,6 @@ const links = Site.SiteNavigation;
                     <a href={link.href}>{link.name}</a>
                     </li>
                 ))}
-                <li><a href="#" class="open-confirmation" data-modal-header="Hello" data-modal-paragraph="World" data-modal-button="Close Me Now">Confrimation Box</a></li>
             </ul>
         </div>
         <div class="links">
@@ -56,7 +55,6 @@ const links = Site.SiteNavigation;
                     <a href={link.href}>{link.name}</a>
                     </li>
                 ))}
-                <li><a href="#" class="open-confirmation" data-modal-header="Hello" data-modal-paragraph="World" data-modal-button="Close Me Now">Confrimation Box</a></li>
             </ul>
         </div>
         <div class="extras">

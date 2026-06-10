@@ -1,33 +1,32 @@
 ---
-// Initialize request-scoped SVG registries
-Astro.locals.iconRegistry = new Set();
-Astro.locals.spriteRegistry = new Set();
-Astro.locals.logoRegistry = new Set();
-
-// Import Styles
+// Styles
 import "@theme/styles.css";
 import "@form-styles/forms.css";
 
-// Import Layout Components
+// Layout
 import Head from "@layout/Head.astro";
 import NoScript from "@layout/NoScript.astro";
-import Header from "@layout/Header.astro";
 import Footer from "@layout/Footer.astro";
-import MobileNav from "@navigation/MobileNav.astro";
 import Script from "@layout/Script.astro";
 
-// Import Elements
+// Navigation
+import MainNav from "@navigation/MainNav.astro";
+import MobileNav from "@navigation/MobileNav.astro";
+
+// Elements
+import ConfirmationBox from "@elements/ConfirmationBox.astro";
+
+// SVG Sheets
+Astro.locals.iconRegistry = new Set(); // Initialize Icon Registry
+Astro.locals.spriteRegistry = new Set(); // Initialize Sprite Registry
+Astro.locals.logoRegistry = new Set(); // Initialize Logo Registry
 import IconSheet from "@elements/SVGiconSheet.astro";
 import LogoSheet from "@elements/SVGlogoSheet.astro";
 import SpriteSheet from "@elements/SVGspriteSheet.astro";
-import ConfirmationBox from "@elements/ConfirmationBox.astro";
-
-import type { Props as HeadProps } from "@layout/Head.astro";
-
-// Interface Props
-interface Props extends HeadProps {}
 
 // Props
+import type { Props as HeadProps } from "@layout/Head.astro";
+interface Props extends HeadProps {}
 const { ...headProps } = Astro.props;
 ---
 <!doctype html>
@@ -37,7 +36,7 @@ const { ...headProps } = Astro.props;
     </Head>
     <body>
         <NoScript />
-        <Header />
+        <MainNav />
         <slot />
         <Footer />
         <MobileNav />

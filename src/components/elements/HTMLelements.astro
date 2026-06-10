@@ -1,0 +1,44 @@
+---
+/*************************************************************************
+ * @elements/HTMLelements.astro
+ * 
+ *************************************************************************/
+
+// Elements
+import Modal from "@elements/Modal.astro";
+import Button from "@elements/Button.astro";
+---
+
+<h1>lipsum dolor sit amet</h1>
+<h2>lipsum dolor sit amet</h2>
+<h3>lipsum dolor sit amet</h3>
+<h4>lipsum dolor sit amet</h4>
+<h5>lipsum dolor sit amet</h5>
+<h6>lipsum dolor sit amet</h6>
+<p>lipsum dolor sit amet</p>
+<p class="small">lipsum dolor sit amet</p>
+<p class="xsmall">lipsum dolor sit amet</p>
+<ul>
+    <li>lipsum dolor sit amet</li>
+    <li>lipsum dolor sit amet</li>
+    <li>lipsum dolor sit amet</li>
+</ul>
+<ol>
+    <li>lipsum dolor sit amet</li>
+    <li>lipsum dolor sit amet</li>
+    <li>lipsum dolor sit amet</li>
+</ol>
+<pre> </pre>
+<address>
+    <a href="tel:5555555555" title="555-555-5555">555-555-5555</a>
+    <a href="mailto:[EMAIL_ADDRESS]" title="[EMAIL_ADDRESS]">email@address.com</a>
+    <a href="https://www.google.com" title="Google">Google</a>
+</address>
+<p>Lorem ipsum <strong>strong text</strong> dolor sit amet consectetur <a href="#">link</a> adipisicing elit. Quisquam, quod.</p>
+<button>Button</button>
+<button class="button">Button</button>
+<Modal id="sample-modal">
+    <p>This is modal content</p>
+    <Button class="close-modal">Close Modal</Button>
+</Modal>
+<Button data-modal-id="sample-modal">Open Modal</Button>

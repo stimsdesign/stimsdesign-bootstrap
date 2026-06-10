@@ -11,6 +11,9 @@ import path from "path";
 // Export the Astro configuration https://astro.build/config
 export default defineConfig({
   integrations: [],
+  image: {
+    domains: ['unsplash.it', 'picsum.photos'],
+  },
   vite: {
     resolve: {
       alias: {

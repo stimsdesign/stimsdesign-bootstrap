@@ -1,7 +1,8 @@
-export class FuzzyLoad {
+export class FuzzyImage {
+
     constructor(root) {
         this.root = root;
-        this.img = root.querySelector('img');
+        this.img = root.nextElementSibling;
         if (!this.img) return;
         this.init();
     }
@@ -35,8 +36,8 @@ export class FuzzyLoad {
     }
 }
 
-export function functionFuzzyLoad(selector = '.fuzzy-load') {
+export function functionFuzzyImage(selector = '.fuzzy-image') {
     document.querySelectorAll(selector).forEach((el) => {
-        new FuzzyLoad(el);
+        new FuzzyImage(el);
     });
 }

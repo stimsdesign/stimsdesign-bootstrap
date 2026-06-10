@@ -1,0 +1,247 @@
+---
+/*************************************************************************
+ * @elements/FuzzyImage.astro
+ * 
+ * Responsive image component with smooth blurred loading transition.
+ * Supports automatic placeholder generation, smart widths, and 
+ * layout-based sizes.
+ * 
+ *************************************************************************/
+
+ // Assets
+import { Image, getImage } from "astro:assets";
+
+// Imports
+import "@theme/elements/FuzzyImage.css";
+
+// Props
+interface Props {
+  name: string; // File name under src/assets/images (e.g. 'carbon-hero.webp') or a remote URL
+  placeholder?: string; // Optional manual override for the placeholder image (URL or path)
+  alt?: string; // Alt text for accessibility
+  width?: number; // Optional override for image width
+  height?: number; // Optional override for image height
+  eager?: boolean; // Set to true for images above the fold
+  widths?: number[]; // Custom responsive widths
+  sizes?: string; // Custom sizes attribute
+  layout?: "full-width" | "half-width" | "grid-2" | "grid-3" | "grid-4" | "content"; // Preset for smart responsive sizes
+  orientation?: "landscape" | "portrait" | "square"; // Override for resizing logic
+  class?: string; // CSS class for the .fuzzy-image wrapper div
+  imageClass?: string; // CSS class for the actual img tag
+  [key: string]: any;
+}
+
+// Props Destructuring
+const {
+  name,
+  placeholder,
+  alt = "",
+  width,
+  height,
+  eager = false,
+  widths,
+  sizes,
+  layout = "full-width",
+  orientation,
+  class: className = "",
+  imageClass = "",
+  ...rest
+} = Astro.props;
+
+// Logic
+// 1. Determine if the source is a remote URL
+const isRemote = name.startsWith("http://") || name.startsWith("https://") || name.startsWith("//");
+
+// 2. Set default loading parameters
+const loading = eager ? "eager" : "lazy";
+const fetchpriority = eager ? "high" : "auto";
+
+// 3. Globs to resolve local assets
+const localImages = import.meta.glob("@images/**/*.{jpeg,jpg,png,gif,webp,avif,svg}");
+const fuzzyGlob = import.meta.glob("@images/fuzzy-image/**/*.{png,jpg,jpeg,webp}");
+
+// Variables
+let srcImage: any = name;
+let fuzzySrc = placeholder || "";
+
+// Logic for local images
+if (!isRemote) {
+  // Normalize file name by stripping aliases or standard prefixes if present
+  let normalizedPath = name;
+  if (normalizedPath.startsWith("@images/")) {
+    normalizedPath = normalizedPath.replace("@images/", "");
+  } else if (normalizedPath.startsWith("@images/")) {
+    normalizedPath = normalizedPath.replace("@images/", "");
+  } else if (normalizedPath.startsWith("@images/")) {
+    normalizedPath = normalizedPath.replace("@images/", "");
+  } else if (normalizedPath.startsWith("/")) {
+    normalizedPath = normalizedPath.substring(1);
+  }
+
+  const imageKey = `/src/assets/images/${normalizedPath}`;
+  
+  if (localImages[imageKey]) {
+    const imageModule = (await localImages[imageKey]()) as any;
+    srcImage = imageModule.default;
+  } else {
+    if (import.meta.env.DEV) {
+      console.warn(`[FuzzyImage] Local image not found in src/assets/images: "${name}" (looked for key: "${imageKey}")`);
+    }
+  }
+
+  // 4. Resolve the fuzzy placeholder
+  if (!placeholder) {
+    const lastDot = normalizedPath.lastIndexOf(".");
+    const baseName = lastDot !== -1 ? normalizedPath.substring(0, lastDot) : normalizedPath;
+    const fuzzyKey = `@images/fuzzy-image/${baseName}.png`;
+
+    if (fuzzyGlob[fuzzyKey]) {
+      // Use pre-generated PNG
+      const fuzzyModule = (await fuzzyGlob[fuzzyKey]()) as any;
+      fuzzySrc = fuzzyModule.default.src;
+    } else if (srcImage && typeof srcImage === "object") {
+      // Dynamic fallback: Generate placeholder on the fly
+      try {
+        const imageWidth = srcImage.width || 0;
+        const imageHeight = srcImage.height || 0;
+        
+        let targetW = 20;
+        let targetH = 20;
+        const activeOrientation = orientation || (imageWidth >= imageHeight ? "landscape" : "portrait");
+
+        if (imageWidth > 0 && imageHeight > 0) {
+          const aspect = imageWidth / imageHeight;
+          if (activeOrientation === "square") {
+            targetW = 20;
+            targetH = 20;
+          } else if (activeOrientation === "portrait") {
+            targetW = 20;
+            targetH = Math.round(20 / aspect);
+          } else {
+            targetH = 20;
+            targetW = Math.round(20 * aspect);
+          }
+        } else {
+          if (activeOrientation === "portrait") {
+            targetW = 20;
+            targetH = 40;
+          } else if (activeOrientation === "landscape") {
+            targetH = 20;
+            targetW = 40;
+          }
+        }
+
+        const optimizedPlaceholder = await getImage({
+          src: srcImage,
+          width: targetW,
+          height: targetH,
+          quality: 10,
+          format: "png"
+        });
+        fuzzySrc = optimizedPlaceholder.src;
+      } catch (e: any) {
+        console.error(`[FuzzyImage] Failed to dynamically generate placeholder for local image: "${name}". Error: ${e?.message || e}`);
+        fuzzySrc = srcImage.src; // Fallback to full image
+      }
+    }
+  }
+} else {
+  // Remote image placeholder dynamic generation
+  if (!placeholder) {
+    try {
+      const origW = width || 0;
+      const origH = height || 0;
+      
+      let targetW = 20;
+      let targetH = 20;
+      const activeOrientation = orientation || (origW && origH && origW >= origH ? "landscape" : "portrait");
+      
+      if (origW > 0 && origH > 0) {
+        const aspect = origW / origH;
+        if (activeOrientation === "square") {
+          targetW = 20;
+          targetH = 20;
+        } else if (activeOrientation === "portrait") {
+          targetW = 20;
+          targetH = Math.round(20 / aspect);
+        } else {
+          targetH = 20;
+          targetW = Math.round(20 * aspect);
+        }
+      } else {
+        if (activeOrientation === "portrait") {
+          targetW = 20;
+          targetH = 40;
+        } else if (activeOrientation === "landscape") {
+          targetH = 20;
+          targetW = 40;
+        }
+      }
+
+      const optimizedPlaceholder = await getImage({
+        src: name,
+        width: targetW,
+        height: targetH,
+        quality: 10,
+        format: "png"
+      });
+      fuzzySrc = optimizedPlaceholder.src;
+    } catch (e: any) {
+      console.warn(`[FuzzyImage] Remote image placeholder optimization failed for: "${name}". Domain may not be allowed in astro.config.mjs. Error: ${e?.message || e}`);
+      fuzzySrc = name; // Fallback to full remote image
+    }
+  }
+}
+
+// 5. Smart Widths Resolution
+const naturalWidth = srcImage && typeof srcImage === "object" ? srcImage.width : undefined;
+const naturalHeight = srcImage && typeof srcImage === "object" ? srcImage.height : undefined;
+
+const finalWidth = width || naturalWidth;
+const finalHeight = height || naturalHeight;
+
+let finalWidths = widths;
+if (!finalWidths && finalWidth) {
+  const standardWidths = [360, 540, 720, 960, 1200, 1600, 2000, 2560];
+  // Filter to widths <= resolved width to save bandwidth/processing
+  finalWidths = standardWidths.filter(w => w <= finalWidth);
+  // Ensure the maximum width is in the list
+  if (!finalWidths.includes(finalWidth)) {
+    finalWidths.push(finalWidth);
+    finalWidths.sort((a, b) => a - b);
+  }
+}
+
+// 6. Smart Sizes Preset Resolution
+let finalSizes = sizes;
+if (!finalSizes) {
+  if (layout === "full-width") {
+    finalSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw";
+  } else if (layout === "half-width" || layout === "grid-2") {
+    finalSizes = "(max-width: 768px) 100vw, 50vw";
+  } else if (layout === "grid-3") {
+    finalSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw";
+  } else if (layout === "grid-4") {
+    finalSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw";
+  } else if (layout === "content") {
+    finalSizes = "(max-width: 800px) 100vw, 800px";
+  } else {
+    finalSizes = "(max-width: 768px) 100vw, 100vw";
+  }
+}
+---
+
+<div class:list={["fuzzy-image", className]} style={`background-image: url('${fuzzySrc}');`} {...rest}></div>
+<Image
+  src={srcImage}
+  alt={alt}
+  width={finalWidth}
+  height={finalHeight}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  widths={finalWidths}
+  sizes={finalSizes}
+  class={imageClass}
+  style="opacity: 0;"
+/>
+

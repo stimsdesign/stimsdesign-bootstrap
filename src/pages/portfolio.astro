@@ -1,4 +1,7 @@
 ---
+// Assets
+import { Site } from "@site.config";
+
 // Layout
 import Layout from "@layouts/ContentPage.astro";
 import Main from "@layout/Main.astro";
@@ -9,15 +12,14 @@ import FooterContact from "@sections/FooterContact.astro";
 // Elements
 import Elements from "@elements/HTMLelements.astro";
 import PageHeading from "@layout/PageHeading.astro";
-
 ---
-<Layout title="Services">
-    <Main id="services-page">
+<Layout title="Portfolio">
+    <Main id="portfolio-page">
         <PageHeading 
-            background="https://unsplash.it/2560/1440?image=509" 
+            background="https://unsplash.it/2560/1440?image=666" 
             width={2560}
             height={1440}
-            text="Our Services"
+            text="Portfolio"
         />
         <Elements />
     </Main>

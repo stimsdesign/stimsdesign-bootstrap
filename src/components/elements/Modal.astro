@@ -1,25 +1,36 @@
 ---
-/**
- * Generic Modal Component
+/*************************************************************************
+ * @elements/Modal.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description: 
+ *   A reusable modal component.
  * 
  * Usage:
- * <Modal data-modal-id="unique-id">
- *    <div class="content">Your Content</div>
- * </Modal>
+ *   <Modal data-modal-id="unique-id">
+ *      <div class="content">Your Content</div>
+ *   </Modal>
  * 
  * Trigger:
- * <Button data-modal-id="unique-id">Open Modal</Button>
- */
+ *   <Button data-modal-id="unique-id">Open Modal</Button>
+ * 
+ *************************************************************************/
+
+// Import → Styles
 import "@theme/elements/Modal.css";
+
+// Import → Elements
 import Icon from"@elements/SVGicon.astro"
 import Button from "@elements/Button.astro";
 
+// Props
 interface Props {
     id: string;
     class?: string;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { id, class: className, ...rest } = Astro.props;
 ---
 <modal-component id={id} class:list={["is-wrapper", className]} {...rest}>

@@ -1,6 +1,5 @@
 #page-heading {
     display: flex;
-    padding-top: 2cqi;
     flex-direction: row;
     align-items: start;
     gap: 2cqi;
@@ -14,17 +13,6 @@
     width: 100%;
     height: 14cqi;
     overflow: hidden;
-    border-radius: 5px;
-}
-
-#page-heading__text img {
-    display: none !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 #page-heading__text h1 {
@@ -91,17 +79,17 @@
         height: auto;
     }
 
-    #page-heading__text.fuzzy-load {
+    #page-heading__text.fuzzy-image {
         background-image: none;
         height: initial;
         transition: none;
     }
 
-    #page-heading__text.fuzzy-load::before {
+    #page-heading__text.fuzzy-image::before {
         display: none;
     }
 
-    #page-heading__text.fuzzy-load > * {
+    #page-heading__text.fuzzy-image > * {
         opacity: 1;
         transition: none;
     }

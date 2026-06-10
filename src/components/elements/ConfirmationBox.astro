@@ -1,26 +1,42 @@
 ---
-/**
- * ConfirmationBox Component (formerly GlobalModal)
+/*************************************************************************
+ * @elements/ConfirmationBox.astro
+ * -----------------------------------------------------------------------
  * 
- * To open this box from any element:
- * - Add the class `.open-confirmation` to the trigger.
- * - Use data attributes for content:
+ * Description: 
+ *   A reusable confirmation box component.
+ * 
+ * Usage:
+ *   To open this box from any element:
+ *   - Add the class `.open-confirmation` to the trigger.
+ *   - Use data attributes for content:
  *   - data-modal-header: Text for the title
  *   - data-modal-paragraph: Text for the message
  *   - data-modal-button: Text for the close button
- */
-// Assets
+ * 
+ * Example:
+ *   <ConfirmationBox id="unique-id">
+ *      <div class="content">Your Content</div>
+ *   </ConfirmationBox>
+ * 
+ *************************************************************************/
+
+// Import → Configuration
 import { Site } from "@site.config";
+
+// Import → Styles
 import "@theme/elements/ConfirmationBox.css";
 
-// Component Elements
+// Import → Components
 import Button from "@elements/Button.astro";
 
+// Props
 interface Props {
     class?: string;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { class: className, ...rest } = Astro.props;
 ---
 <confirmation-box id="confirmation-box" class:list={["is-wrapper", className]} {...rest}>

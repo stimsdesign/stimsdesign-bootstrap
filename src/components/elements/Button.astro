@@ -1,43 +1,59 @@
 ---
-// Assets
+/*************************************************************************
+ * @elements/Button.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A flexible button component that can be used as an anchor or a button.
+ * 
+ * Usage:
+ *  - Example Switch CSS...
+ *      body:has(input[data-switch-target="target-id"]:checked) #target-id {
+ *          display: block;
+ *      }
+ * 
+ *************************************************************************/
+
+// Import → Styles
 import "@theme/elements/Button.css";
 
-// Components
-import Icon from "../elements/SVGicon.astro";
+// Import → Elements
+import Icon from "@elements/SVGicon.astro";
 
-/**
- * Button Component
- * A flexible button component that can be used as an anchor or a button.
-*/
-
+// Props
 interface Props {
     href?: string;
-    id?: string;
-    margin?: string;
-    bookmark?: boolean;
-    type?: "anchor" | "button" | "submit" | "reset";
+    /** Determines the type of Button to render Anchor, Button, Switch, Submit, Reset. */
+    type?: "anchor" | "button" | "submit" | "reset" | "switch";
     class?: string;
-    target?: string;
+    /** For Switch Button, `id` and `for` attributes for checkbox and label. */
+    name?: string;
+    /** For Switch Button, `data-switch-target` value for checkbox. See Example Switch CSS in Button.astro */
+    switchTarget?: string;
+    /** For Switch Button, `checked` attribute for checkbox. */
+    checked?: boolean;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
-    href, 
-    id, 
-    margin, 
-    bookmark = false, 
+    href,
     type, 
     class: className = "",
-    target,
+    name,
+    switchTarget,
+    checked,
     ...rest
 } = Astro.props;
 
 // Logic 
 const finalType = type || (href ? "anchor" : "button");
 const isAnchor = finalType === "anchor";
+const isSwitch = finalType === "switch";
 const isNext = className.includes('next-btn');
 const isPrev = className.includes('prev-btn');
 
+// Slot rendering
 const slotHtml = await Astro.slots.render('default');
 ---
 
@@ -45,22 +61,24 @@ const slotHtml = await Astro.slots.render('default');
     isAnchor ? (
         <a 
             href={href || "#"} 
-            id={id}
-            target={target}
-            class:list={["button", { "bookmark-button": bookmark }, className]}
-            style={margin ? `margin: ${margin};` : undefined}
+            class:list={["button", className]}
             {...rest}
         >
             {isPrev && <Icon name="arrow-left" />}
             <Fragment set:html={slotHtml} />
             {isNext && <Icon name="arrow-right" />}
         </a>
+    ) : isSwitch ? (
+        <div class:list={["button switch-button", className]} {...rest}>
+            <input type="checkbox" data-switch-target={switchTarget} id={name} checked={checked} />
+            <label for={name}>
+                <Fragment set:html={slotHtml} />
+            </label>
+        </div>
     ) : (
         <button 
             type={finalType === "submit" ? "submit" : finalType === "reset" ? "reset" : "button"}
-            id={id}
-            class:list={["button", { "bookmark-button": bookmark }, className]}
-            style={margin ? `margin: ${margin};` : undefined}
+            class:list={["button", className]}
             {...rest}
         >
             {isPrev && <Icon name="arrow-left" />}

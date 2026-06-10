@@ -1,10 +1,13 @@
 ---
-/**
- * Icon.astro
+/*************************************************************************
+ * @elements/SVGIcon.astro
+ * 
  * Consumption component for UI icons.
  * Uses the #icon- prefix for symbols in IconSheet.
- */
+ * 
+ *************************************************************************/
 
+// Props
 interface Props {
   id?: string;
   name: string;
@@ -12,16 +15,20 @@ interface Props {
   [key: string]: any;
 }
 
-const iconFiles = import.meta.glob("../../assets/images/icons/*.svg", {
+// Props Destructuring
+const { id, name, class: className, ...rest } = Astro.props;
+
+// Imports
+const iconFiles = import.meta.glob("@images/icons/*.svg", {
     query: "?raw",
     eager: true,
 });
 
-const { id, name, class: className, ...rest } = Astro.props;
-
+// Add icon to registry
 if (!Astro.locals.iconRegistry) Astro.locals.iconRegistry = new Set();
 Astro.locals.iconRegistry.add(name);
 
+// Import SVG file
 const iconPath = Object.keys(iconFiles).find(path => path.endsWith(`/${name}.svg`));
 const raw = iconPath ? (iconFiles[iconPath] as any)?.default : null;
 
@@ -36,6 +43,7 @@ if (viewBoxRaw) {
     }
 }
 
+// Warning if icon is not found
 if (!raw && import.meta.env.DEV) {
     console.warn(`[Icon] Icon "${name}" not found in src/assets/images/icons/`);
 }

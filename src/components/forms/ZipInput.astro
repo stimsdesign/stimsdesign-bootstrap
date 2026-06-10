@@ -5,4 +5,13 @@ import TextInput from "./TextInput.astro";
 
 const { id = "zip", label = "Zip / Postal Code", ...rest } = Astro.props;
 ---
-<TextInput id={id} label={label} autocomplete="postal-code" {...rest} />
+<TextInput 
+    type="text" 
+    id={id} 
+    label={label} 
+    autocomplete="postal-code" 
+    inputmode="numeric" 
+    pattern="[0-9]{5}" 
+    maxlength={5} 
+    {...rest} 
+/>

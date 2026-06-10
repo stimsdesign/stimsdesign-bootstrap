@@ -2,19 +2,32 @@
 // Assets
 import { Site } from "@site.config";
 
-// Layouts
-import Template from "@layouts/ContentPage.astro";
+// Layout
+import Layout from "@layouts/ContentPage.astro";
 import Main from "@layout/Main.astro";
-import FooterContact from "@sections/FooterContact.astro";
 
-// Template Props
+// Elements
+import Elements from "@elements/HTMLelements.astro";
+import PageHeading from "@layout/PageHeading.astro";
+
+// Forms
+// import FormHandler from "@forms/FormHandler.astro";
+
+// Layout Props
 const title = `Contact ${Site.Brand}`;
 ---
-<Template title={title}>
+<Layout title={title}>
     <Main id="contact-page">
-        <form 
+        <PageHeading 
+            background="https://unsplash.it/2560/1440?image=666" 
+            width={2560}
+            height={1440}
+            text={`Contact ${Site.Brand}`}
+        />
+        <Elements />
+        <!-- <form 
             id="main-contact-form" 
-            class="contact-form" 
+            class="contact-page-form" 
             name="Contact Page Form" 
             data-netlify="true" 
             netlify-honeypot="question-field"
@@ -25,16 +38,8 @@ const title = `Contact ${Site.Brand}`;
             <input type="hidden" name="form-name" value="Contact Page Form" />
             <input type="hidden" name="subject" value=`{Contact Page Submisstion from ${Site.PrettyUrl}}` />
             <input type="text" id="question-field" name="question-field" />
-        </form>
+        </form> -->
     </Main>
-    <FooterContact />
-</Template>
-
-<script>
-    import { FormHandler } from "@scripts/FormHandler.js";
-    document.addEventListener("astro:page-load", () => {
-        document.querySelectorAll(".contact-form").forEach((formEl) => {
-            new FormHandler(formEl as HTMLFormElement);
-        });
-    });
-</script>
+    <!-- <FormHandler className="contact-page-form" /> -->
+    <!-- <FooterContact /> -->
+</Layout>

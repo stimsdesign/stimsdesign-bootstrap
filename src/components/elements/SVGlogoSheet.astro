@@ -1,19 +1,25 @@
 ---
-/**
- * SVGlogoSheet.astro
+/*************************************************************************
+ * @elements/SVGlogoSheet.astro
+ * 
  * Generates an SVG sprite sheet for brand logos.
  * Usage: <LogoSheet />
- */
+ * 
+ *************************************************************************/
+
+// Get registered logos
+const registered = Astro.locals.logoRegistry || new Set();
 
 // Import all SVGs as raw strings from the logos directory
-const logoFiles = import.meta.glob("../../assets/images/logo/*.svg", {
+const logoFiles = import.meta.glob("@images/logo/*.svg", {
     query: "?raw",
     eager: true,
 });
 
-const registered = Astro.locals.logoRegistry || new Set();
+// SVG symbol defs
 const allDefs: string[] = [];
 
+// Process each SVG
 function processSvg(raw: any, path: string) {
     const filename = path.split("/").pop() || "";
     const name = filename.replace(".svg", "");
@@ -57,6 +63,7 @@ function processSvg(raw: any, path: string) {
     return `<symbol id="logo-${name}"${attributes}>${body}</symbol>`;
 }
 
+// Process and collect symbols
 const symbols = Object.entries(logoFiles)
     .map(([path, module]: any) => processSvg(module.default, path))
     .filter((s): s is string => s !== null);

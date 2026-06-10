@@ -1,0 +1,47 @@
+---
+//DEV ONLY CSS
+import "@theme/elements/PageHeading.css";
+
+// Assets
+import Logo from "@elements/SVGlogo.astro";
+import FuzzyImage from "@elements/FuzzyImage.astro";
+
+// Props
+interface Props {
+    fuzzy?: string;
+    background?: string;
+    width?: number;
+    height?: number;
+    text?: string;
+    color?: string;
+    class?: string;
+}
+const { fuzzy, background, width, height, text, color = "dark", class: className = "" } = Astro.props;
+---
+
+
+<div id="page-heading">
+    <div id="page-heading__text">
+        <div id="page-heading__background">
+            {background && (
+                <FuzzyImage
+                    name={background}
+                    placeholder={fuzzy}
+                    alt={text}
+                    width={width}
+                    height={height}
+                    eager 
+                    class={className}
+                />
+            )}
+        </div>
+        <h1 class={color}>{text}</h1>
+    </div>
+    <a href="/" aria-label="Return to Quality Pool and Spa home">
+        <Logo id="page-logo" name="stimsdesign" />
+    </a>
+</div>
+
+<!-- <style>
+    @import "@theme/elements/PageHeading.css";
+</style> -->

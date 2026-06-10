@@ -1,11 +1,15 @@
 ---
-// Layouts
-import Template from "@layouts/HomePage.astro";
+// Layout
+import Layout from "@layouts/HomePage.astro";
 
-// Layout Components
+// Hero
+import Hero from "@hero/Quality.astro";
+
+// Sections
 import FooterContact from "@sections/FooterContact.astro";
 ---
 
-<Template>
+<Layout>
+    <Hero />
     <FooterContact />
-</Template>
+</Layout>

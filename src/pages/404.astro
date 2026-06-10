@@ -3,28 +3,29 @@
 import { Site } from "@site.config";
 
 // Layouts
-import Template from "@layouts/ContentPage.astro";
+import Layout from "@layouts/ContentPage.astro";
 import Main from "@layout/Main.astro";
+
+// Sections
 import FooterContact from "@sections/FooterContact.astro";
 
-// Template Props
-const title = `404 Page Not Found`;
+// Elements
+import PageHeading from "@layout/PageHeading.astro";
+import Button from "@elements/Button.astro";
+
+// Layout Props
 const description = `Sorry, the page you are looking for does not exist on ${Site.SiteTitle}. Please check the URL or return to the homepage.`;
 ---
-<Template title={title} description={description}>
-	<Main id="fourofour">
-		<h1>404 Page Not Found</h1>
+<Layout title="404 Page Not Found" description={description}>
+	<Main id="page-not-found">
+		<PageHeading 
+            background="https://unsplash.it/2560/1440?image=830" 
+            width={2560}
+            height={1440}
+            text="404 Page Not Found"
+        />
 		<p>Sorry, the page you are looking for does not exist.</p>
-        <a href="/" class="btn btn-primary">Back to Home</a>
+        <Button href="/">Back to Home</Button>
 	</Main>
     <FooterContact />
-</Template>
-
-<script>
-    import { FormHandler } from "@scripts/FormHandler.js";
-    document.addEventListener("astro:page-load", () => {
-        document.querySelectorAll(".contact-form").forEach((formEl) => {
-            new FormHandler(formEl as HTMLFormElement);
-        });
-    });
-</script>
+</Layout>

@@ -2,10 +2,11 @@
 
 /* #region MainNav Bar Styles */
     #main-nav {
-        width: 100%;
+        width: calc(100% - 10cqi);
+        max-width: 2560px;
         height: 70px;
-        padding: 0 2cqi;
-        background: var(--color-background-dark);
+        margin: 0 5cqi;
+        background: linear-gradient(90deg, var(--color-background-dark) 0%, var(--color-background) 30%, var(--color-background) 70%, var(--color-background-dark) 100%);
         position: fixed;
         top: 0;
         left: 0;

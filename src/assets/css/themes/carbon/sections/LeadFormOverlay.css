@@ -1,0 +1,92 @@
+#lead-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: color-mix(in srgb, var(--color-background-dark) 90%, transparent);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 9999;
+    padding: 2cqi;
+    transform: translateX(-100%);
+    transition: transform .5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Firefox Fallback */
+@supports (-moz-appearance: none) {
+    #lead-overlay {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-primary-light) transparent;
+    }
+}
+
+#lead-overlay::-webkit-scrollbar {
+    width: 4px;
+}
+
+#lead-overlay::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#lead-overlay::-webkit-scrollbar-thumb {
+    background: var(--color-primary-light);
+    border-radius: 10px;
+}
+
+#lead-overlay::-webkit-scrollbar-button {
+    display: none;
+}
+
+#lead-overlay #lead-overlay__logo {
+    width: 50cqi;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 2cqi;
+}
+
+#lead-overlay p {
+    text-align: center;
+    margin: 0 0 2cqi 0;
+}
+
+body:has(input[data-switch-target="lead-overlay"]:checked) {
+    overflow: hidden;
+}
+
+body:has(input[data-switch-target="lead-overlay"]:checked) #lead-overlay {
+    transform: translateX(0);
+}
+
+#lead-overlay .close-form {
+    position: absolute;
+    top: 1cqi;
+    right: 1cqi;
+    background: none;
+    border: none;
+    color: var(--color-accent);
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 10000;
+    width: 50px;
+    height: 50px;
+    transform: rotate(0);
+    transition: transform 0.2s ease;
+}
+
+#lead-overlay .close-form:hover {
+    transform: rotate(90deg);
+}
+
+#lead-overlay .lead-overlay__wrapper {
+    width: 90%;
+    max-width: 1024px;
+    margin: 0 auto;
+    background-color: var(--color-background-dark);
+    padding: 2cqi;
+    border-radius: 1cqi;
+    border: solid 1px var(--color-primary)
+}

@@ -2,27 +2,29 @@
 // Assets
 import { Site } from "@site.config";
 
-// Layouts
-import Template from "@layouts/ContentPage.astro";
+// Layout
+import Layout from "@layouts/ContentPage.astro";
 import Main from "@layout/Main.astro";
+
+// Sections
 import FooterContact from "@sections/FooterContact.astro";
 
-// Template Props
+// Elements
+import Elements from "@elements/HTMLelements.astro";
+import PageHeading from "@layout/PageHeading.astro";
+
+// Layout Props
 const title = `About ${Site.Brand}`;
 ---
-<Template title={title}>
+<Layout title={title}>
     <Main id="about-page">
-        <h1>About Us</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At repellendus voluptas totam rerum autem iusto, necessitatibus accusantium dolorum inventore ipsum?</p>
+        <PageHeading 
+            background="https://unsplash.it/2560/1440?image=555" 
+            width={2560}
+            height={1440}
+            text={`About ${Site.Brand}`}
+        />
+        <Elements />
     </Main>
     <FooterContact />
-</Template>
-
-<script>
-    import { FormHandler } from "@scripts/FormHandler.js";
-    document.addEventListener("astro:page-load", () => {
-        document.querySelectorAll(".contact-form").forEach((formEl) => {
-            new FormHandler(formEl as HTMLFormElement);
-        });
-    });
-</script>
+</Layout>

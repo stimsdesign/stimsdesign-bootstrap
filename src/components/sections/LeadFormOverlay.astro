@@ -1,0 +1,108 @@
+---
+/*************************************************************************
+ * LeadFormOverlay.astro
+ * Used in @hero/Quality.astro
+ * <Button type="switch" switchTarget="lead-overlay" name="lead-overlay__switch">Schedule Now</Button>
+ * 
+ *************************************************************************/
+
+// Assets
+import { Site } from "@site.config";
+
+// Elements
+import Icon from "@elements/SVGicon.astro";
+import Logo from "@elements/SVGlogo.astro";
+
+// Forms
+import FormHandler from "@forms/FormHandler.astro";
+import Honeypot from "@forms/Honeypot.astro";
+import FirstNameInput from "@forms/FirstNameInput.astro";
+import LastNameInput from "@forms/LastNameInput.astro";
+import EmailInput from "@forms/EmailInput.astro";
+import PhoneInput from "@forms/PhoneInput.astro";
+import RadioGroup from "@forms/RadioGroup.astro";
+import SelectTime from "@forms/SelectTime.astro";
+import SelectInput from "@forms/SelectInput.astro";
+import AddressInput from "@forms/AddressInput.astro";
+import CityInput from "@forms/CityInput.astro";
+import ZipInput from "@forms/ZipInput.astro";
+import TextArea from "@forms/TextArea.astro";
+import Button from "@elements/Button.astro";
+---
+
+<div id="lead-overlay">
+    <label for="lead-overlay__switch"><Icon name="cross" class="close-form" /></label>
+    <Logo id="lead-overlay__logo" name="stimsdesign" />
+    <p>Use the form below to request a free quote for our services.</p>
+    <div class="lead-overlay__wrapper">
+        <form 
+            id="lead-overlay__form" 
+            class="contact-form" 
+            name="Lead Overlay Form" 
+            data-netlify="true" 
+            netlify-honeypot="question-field"
+            data-modal-header="Email Sent"
+            data-modal-paragraph="Your message has been received. We will get back to you shortly."
+            data-modal-button="Close"
+            data-multi-part="true"
+            data-section-ids="section-1,section-2"
+        >
+            <input type="hidden" name="form-name" value="Lead Overlay Form" />
+            <input type="hidden" name="subject" value={`Lead Overlay Form Submission from ${Site.PrettyUrl}`} />
+            <Honeypot />
+            <div class="form-row">
+                <FirstNameInput id="lead-first-name" tabindex={21} />
+                <LastNameInput id="lead-last-name" tabindex={22} />
+            </div>
+            <div class="form-row">
+                <PhoneInput id="lead-phone" tabindex={23} />
+                <EmailInput id="lead-email" tabindex={24} />
+            </div>
+            <div class="form-row">
+                <RadioGroup legend="Preferred Contact Method" name="lead-contact" tabindex={25} options={[
+                    { id: "lead-contact-email", label: "Email", value: "email", required: true },
+                    { id: "lead-contact-phone", label: "Phone", value: "phone", required: true },
+                    { id: "lead-contact-text", label: "Text", value: "text", required: true }
+                ]} />
+                <SelectTime id="lead-time" label="Preffered Time" defaultValue="Preffered Time" tabindex={26} />
+            </div>
+            <div class="form-row">
+                <SelectInput id="lead-input" label="Service Type" defaultValue="Service Type" tabindex={27} options={[
+                    {label: "Residential", value: "residential" },
+                    {label: "Commercial", value: "commercial" },
+                    {label: "Other", value: "other" }
+                ]} />
+            </div>
+            <div class="form-row">
+                <AddressInput id="lead-address" tabindex={28} />
+            </div>
+            <div class="form-row">
+                <CityInput id="lead-city" tabindex={29} />
+                <ZipInput id="lead-zip" tabindex={30} />
+            </div>
+            <div class="form-row">
+                <TextArea id="lead-textarea" label="Additional Information" tabindex={31}/>
+            </div>
+            <div class="button-group">
+                <Button type="submit" tabindex={32}>Submit Request</Button>
+            </div>
+        </form>
+    </div>
+    <FormHandler className="contact-form" />
+</div>
+
+<script>
+    const form = document.getElementById('lead-overlay__form');
+    if (form) {
+        form.addEventListener('reset', () => {
+            const checkbox = document.getElementById('lead-overlay__switch') as HTMLInputElement | null;
+            if (checkbox) {
+                checkbox.checked = false;
+            }
+        });
+    }
+</script>
+
+<style>
+    @import "@theme/sections/LeadFormOverlay.css";
+</style>

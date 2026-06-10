@@ -1,4 +1,9 @@
 ---
+/*************************************************************************
+ * FooterContact.astro
+ * 
+ *************************************************************************/
+
 // Assets
 import { Site } from "@site.config";
 
@@ -12,6 +17,9 @@ import NameInput from "@forms/NameInput.astro";
 import EmailInput from "@forms/EmailInput.astro";
 import PhoneInput from "@forms/PhoneInput.astro";
 import TextAreaInput from "@forms/TextArea.astro";
+
+// Components
+import FormHandler from "@forms/FormHandler.astro";
 ---
 <section id="contact" class="is-wrapper">
     <div class="content">
@@ -73,11 +81,4 @@ import TextAreaInput from "@forms/TextArea.astro";
     @import "@theme/sections/FooterContact.css";
 </style>
 
-<script>
-    import { FormHandler } from "@scripts/FormHandler.js";
-    document.addEventListener("astro:page-load", () => {
-        document.querySelectorAll(".contact-form").forEach((formEl) => {
-            new FormHandler(formEl as HTMLFormElement);
-        });
-    });
-</script>
+<FormHandler className="contact-form" />

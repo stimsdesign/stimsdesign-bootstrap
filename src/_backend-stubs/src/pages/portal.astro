@@ -1,5 +1,5 @@
 ---
-import Template from "../layouts/BaseLayout.astro";
+import Layout from "../layouts/BaseLayout.astro";
 import Button from "../components/elements/Button.astro";
 import Main from "../components/layout/Main.astro";
 import CrossIcon from "../../assets/images/icons/cross.svg"
@@ -15,7 +15,7 @@ if (Astro.locals.session) {
     return Astro.redirect("/dashboard");
 }
 ---
-<Template title="Client Portal | STIMSDESIGN">
+<Layout title="Client Portal | STIMSDESIGN">
     <Main>
         <input type="checkbox" id="register-toggle" class="form-toggle-checkbox"/>
         <div class="portal-wrapper">
@@ -124,7 +124,7 @@ if (Astro.locals.session) {
             </section>
         </div>
     </Main>
-</Template>
+</Layout>
 
 <style>
     .portal-card {

@@ -3,9 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev --host",
+    "dev": "node src/utils/auto/generate-fuzzy-images.js && astro dev --host",
     "netlify": "netlify dev",
-    "build": "astro build",
+    "build": "node src/utils/auto/generate-fuzzy-images.js && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -14,6 +14,7 @@
     "@astrojs/netlify": "latest",
     "@astrojs/node": "latest",
     "astro": "latest",
+    "sharp": "^0.34.5",
     "typescript": "latest"
   }
 }

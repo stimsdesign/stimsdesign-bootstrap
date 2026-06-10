@@ -1,0 +1,23 @@
+---
+// src/components/forms/FormHandler.astro
+interface Props {
+    className: string;
+}
+
+const { className } = Astro.props;
+---
+
+<span data-form-handler-class={className} class="hidden"></span>
+<script>
+    import { FormHandler } from "@scripts/FormHandler.js";
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll("[data-form-handler-class]").forEach((configEl) => {
+            const className = configEl.getAttribute("data-form-handler-class");
+            if (className) {
+                document.querySelectorAll(`.${className}`).forEach((formEl) => {
+                    new FormHandler(formEl as HTMLFormElement);
+                });
+            }
+        });
+    });
+</script>

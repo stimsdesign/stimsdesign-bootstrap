@@ -1,26 +1,30 @@
 ---
-/**
- * SVGiconSheet.astro
+/*************************************************************************
+ * @elements/SVGiconSheet.astro
+ * 
  * Generates an SVG sprite sheet for UI icons.
- */
+ * 
+ *************************************************************************/
 
+// Get registered icons
 const registered = Astro.locals.iconRegistry || new Set();
-const requestedNames = registered;
 
 // Import all SVGs as raw strings from the icons directory
-const iconFiles = import.meta.glob("../../assets/images/icons/*.svg", {
+const iconFiles = import.meta.glob("@images/icons/*.svg", {
     query: "?raw",
     eager: true,
 });
 
+// SVG symbol defs
 const allDefs: string[] = [];
 
+// Process each SVG
 function processSvg(raw: any, path: string) {
     const filename = path.split("/").pop() || "";
     const name = filename.replace(".svg", "");
 
     // Only process if it was requested
-    if (!requestedNames.has(name)) return null;
+    if (!registered.has(name)) return null;
 
     let content = raw;
     
@@ -56,6 +60,7 @@ function processSvg(raw: any, path: string) {
     return `<symbol id="icon-${name}"${attributes}>${body}</symbol>`;
 }
 
+// Process and collect symbols
 const symbols = Object.entries(iconFiles)
     .map(([path, module]: any) => processSvg(module.default, path))
     .filter((s): s is string => s !== null);

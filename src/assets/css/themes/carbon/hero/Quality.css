@@ -3,7 +3,6 @@
 #hero {
     width: 100%;
     aspect-ratio: 2.35/1;
-    margin: 0 auto;
     background-color: var(--color-background-dark);
     color: var(--color-foreground);
     position: relative;
@@ -20,14 +19,14 @@
     z-index: 1;
 }
 
-#hero__background > img,
+/* #hero__background > img,
 .fuzzy-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-}
+} */
 
 #hero__background > img {
     object-fit: fill; /* Since container is 16:9, fill won't distort */

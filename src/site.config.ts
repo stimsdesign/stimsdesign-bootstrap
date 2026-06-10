@@ -39,10 +39,20 @@ export const Site = {
 
     // Navigation
     SiteNavigation: [
-        { name: "Elements", href: "/elements.html", icon: "", iconOnly: false },
+        { name: "Blog", href: "/blog.html", icon: "", iconOnly: false },
         { name: "Forms", href: "/forms.html", icon: "forms", iconOnly: false },
         { name: "Services", href: "/services.html", icon: "arrow-down", iconOnly: false },
         { name: "Contact", href: "/contact.html", icon: "phone", iconOnly: false },
+    ],
+    FooterNavigation: [
+        { name: "About", href: "/about.html", icon: "", iconOnly: false },
+        { name: "Contact", href: "/contact.html", icon: "", iconOnly: false },
+        { name: "Services", href: "/services.html", icon: "", iconOnly: false },
+        { name: "Portfolio", href: "/portfolio.html", icon: "", iconOnly: false },
+        { name: "Testimonials", href: "/testimonials.html", icon: "", iconOnly: false },
+        { name: "Blog", href: "/blog.html", icon: "", iconOnly: false },
+        { name: "Privacy Policy", href: "/privacy.html", icon: "", iconOnly: false },
+        { name: "Terms of Service", href: "/terms.html", icon: "", iconOnly: false },
     ],
     SocialLinks: [
         { name: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },

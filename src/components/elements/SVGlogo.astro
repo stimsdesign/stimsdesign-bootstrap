@@ -1,10 +1,13 @@
 ---
-/**
- * SVGlogo.astro
+/*************************************************************************
+ * @elements/SVGlogo.astro
+ * 
  * Consumption component for brand logos.
  * Uses the #logo- prefix for symbols in LogoSheet.
- */
+ * 
+ *************************************************************************/
 
+// Props
 interface Props {
     id?: string;
     name: string;
@@ -12,20 +15,24 @@ interface Props {
     [key: string]: any;
 }
 
+// Props Destructuring
+const { id, name, class: className, ...rest } = Astro.props;
+
+// Imports
 const logoFiles = import.meta.glob("../../assets/images/logo/*.svg", {
     query: "?raw",
     eager: true,
 });
 
-const { id, name, class: className, ...rest } = Astro.props;
-
+// Add logo to registry
 if (!Astro.locals.logoRegistry) Astro.locals.logoRegistry = new Set();
 Astro.locals.logoRegistry.add(name);
 
+// Import SVG file
 const logoPath = Object.keys(logoFiles).find(path => path.endsWith(`/${name}.svg`));
 const raw = logoPath ? (logoFiles[logoPath] as any)?.default : null;
 
-// Normalize viewBox
+// Extract and normalize viewBox (shift origin to 0,0)
 const viewBoxRaw = raw?.match(/viewBox\s*=\s*["']([^"']+)["']/i)?.[1];
 let viewBox = viewBoxRaw;
 if (viewBoxRaw) {
@@ -35,6 +42,7 @@ if (viewBoxRaw) {
     }
 }
 
+// Warning if logo not found
 if (!raw && import.meta.env.DEV) {
     console.warn(`[Logo] Logo "${name}" not found in src/assets/images/logo/`);
 }
