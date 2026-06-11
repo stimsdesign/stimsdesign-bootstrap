@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "latest",
+    "@astrojs/check": "^0.9.2",
     "@astrojs/netlify": "latest",
     "@astrojs/node": "latest",
     "astro": "latest",
