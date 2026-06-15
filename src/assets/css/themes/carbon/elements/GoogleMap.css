@@ -1,0 +1,26 @@
+.google-map-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    position: relative;
+    z-index: 500;
+}
+
+@media (max-width: 769px) {
+    .google-map-container {
+        display: none;
+    }
+}
+
+.google-map-container iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+}

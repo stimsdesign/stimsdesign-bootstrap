@@ -1,16 +1,26 @@
 ---
 /*************************************************************************
- * @elements/SVGIcon.astro
+ * @elements/SVGicon.astro
+ * -----------------------------------------------------------------------
  * 
- * Consumption component for UI icons.
- * Uses the #icon- prefix for symbols in IconSheet.
+ * Description: 
+ *   Consumption component for UI icons. Resolves individual SVG files 
+ *   at build time and references them via a global SVG sprite sheet (SVGiconSheet).
+ *   Supports subdirectories and auto-stripping of the .svg extension.
+ * 
+ * Usage:
+ *   <SVGicon name="arrow-right" class="icon-class" />
+ *   <SVGicon name="brands/facebook.svg" class="icon-class" />
  * 
  *************************************************************************/
 
 // Props
 interface Props {
+  /** Optional HTML identifier for the SVG element. */
   id?: string;
+  /** Name of the icon SVG file in `src/assets/images/icons/` */
   name: string;
+  /** Additional CSS classes. */
   class?: string;
   [key: string]: any;
 }
@@ -18,18 +28,21 @@ interface Props {
 // Props Destructuring
 const { id, name, class: className, ...rest } = Astro.props;
 
-// Imports
-const iconFiles = import.meta.glob("@images/icons/*.svg", {
+// Strip .svg extension if present
+const cleanName = name.replace(/\.svg$/, "");
+
+// Glob SVG Files recursively
+const iconFiles = import.meta.glob("@images/icons/**/*.svg", {
     query: "?raw",
     eager: true,
 });
 
 // Add icon to registry
 if (!Astro.locals.iconRegistry) Astro.locals.iconRegistry = new Set();
-Astro.locals.iconRegistry.add(name);
+Astro.locals.iconRegistry.add(cleanName);
 
-// Import SVG file
-const iconPath = Object.keys(iconFiles).find(path => path.endsWith(`/${name}.svg`));
+// Import SVG Markup
+const iconPath = Object.keys(iconFiles).find(path => path.endsWith(`/icons/${cleanName}.svg`));
 const raw = iconPath ? (iconFiles[iconPath] as any)?.default : null;
 
 // Extract and normalize viewBox (shift origin to 0,0)
@@ -43,9 +56,16 @@ if (viewBoxRaw) {
     }
 }
 
-// Warning if icon is not found
-if (!raw && import.meta.env.DEV) {
-    console.warn(`[Icon] Icon "${name}" not found in src/assets/images/icons/`);
+// Warning if icon is not found or has incompatible format
+if (import.meta.env.DEV) {
+    if (!raw) {
+        console.warn(`[Icon] Icon "${name}" not found in src/assets/images/icons/`);
+    } else {
+        const svgMatch = raw.match(/<svg([^>]*)>([\s\S]*)<\/svg>/i);
+        if (!svgMatch) {
+            console.warn(`[Icon] Icon "${name}" in src/assets/images/icons/ is not a compatible SVG file format.`);
+        }
+    }
 }
 ---
 
@@ -56,5 +76,5 @@ if (!raw && import.meta.env.DEV) {
     fill="currentColor" 
     {...rest}
 >
-  <use href={`#icon-${name}`} />
+  <use href={`#icon-${cleanName}`} />
 </svg>

@@ -4,10 +4,19 @@
  * -----------------------------------------------------------------------
  * 
  * Description:
- *  A flexible button component that can be used as an anchor or a button.
+ *  A flexible button component that can be used as an anchor, button, or switch toggle.
  * 
  * Usage:
- *  - Example Switch CSS...
+ *  - Standard Button:
+ *      <Button type="button">Click Me</Button>
+ * 
+ *  - Link Button (renders as an anchor `<a>`):
+ *      <Button href="/about">Go to About</Button>
+ * 
+ *  - Switch Button (renders as a toggle checkbox/label):
+ *      <Button type="switch" name="my-switch" switchTarget="target-id">Toggle Target</Button>
+ * 
+ *    Example Switch CSS:
  *      body:has(input[data-switch-target="target-id"]:checked) #target-id {
  *          display: block;
  *      }
@@ -25,6 +34,7 @@ interface Props {
     href?: string;
     /** Determines the type of Button to render Anchor, Button, Switch, Submit, Reset. */
     type?: "anchor" | "button" | "submit" | "reset" | "switch";
+    /** Additional CSS classes. */
     class?: string;
     /** For Switch Button, `id` and `for` attributes for checkbox and label. */
     name?: string;
@@ -52,9 +62,6 @@ const isAnchor = finalType === "anchor";
 const isSwitch = finalType === "switch";
 const isNext = className.includes('next-btn');
 const isPrev = className.includes('prev-btn');
-
-// Slot rendering
-const slotHtml = await Astro.slots.render('default');
 ---
 
 {
@@ -65,14 +72,14 @@ const slotHtml = await Astro.slots.render('default');
             {...rest}
         >
             {isPrev && <Icon name="arrow-left" />}
-            <Fragment set:html={slotHtml} />
+            <slot />
             {isNext && <Icon name="arrow-right" />}
         </a>
     ) : isSwitch ? (
         <div class:list={["button switch-button", className]} {...rest}>
             <input type="checkbox" data-switch-target={switchTarget} id={name} checked={checked} />
             <label for={name}>
-                <Fragment set:html={slotHtml} />
+                <slot />
             </label>
         </div>
     ) : (
@@ -82,7 +89,7 @@ const slotHtml = await Astro.slots.render('default');
             {...rest}
         >
             {isPrev && <Icon name="arrow-left" />}
-            <Fragment set:html={slotHtml} />
+            <slot />
             {isNext && <Icon name="arrow-right" />}
         </button>
     )

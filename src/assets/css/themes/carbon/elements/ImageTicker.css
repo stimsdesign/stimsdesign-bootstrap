@@ -1,0 +1,58 @@
+image-ticker {
+    display: block;
+}
+
+.image-ticker__wrapper {
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+}
+
+@media (max-width: 769px) {
+    .image-ticker__wrapper {
+        margin: 2rem 0;
+    }
+}   
+
+.image-ticker {
+    overflow: hidden;
+    margin: 0 auto 0;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.image-ticker .image-ticker__runner {
+    display: flex;
+    width: max-content;
+    animation: image-ticker-scroll var(--ticker-duration, 90s) linear infinite;
+    will-change: transform;
+}
+
+/* Pause on hover functionality */
+.image-ticker__wrapper[data-pause-on-hover] .image-ticker:hover .image-ticker__runner {
+    animation-play-state: paused;
+}
+
+/* Reverse direction functionality */
+.image-ticker__wrapper[data-direction="right"] .image-ticker__runner {
+    animation-direction: reverse;
+}
+
+.image-ticker__img > * {
+    display: inline-block;
+    position: relative;
+    height: var(--ticker-height, 5cqi);
+    width: auto;
+    margin: 0 var(--ticker-gap, 2cqi);
+}
+
+@keyframes image-ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

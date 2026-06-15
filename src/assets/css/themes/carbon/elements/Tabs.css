@@ -1,0 +1,98 @@
+/* =========================================================================
+   Tabs Component Styles (Functional Only)
+   ========================================================================= */
+
+/* Hide raw radio inputs */
+.tab-input {
+    display: none !important;
+}
+
+/* Layout triggers horizontally */
+.tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1ch;
+}
+
+.tab-item {
+    display: inline-block;
+}
+
+/* Set interactive cursor */
+.tab-label {
+    display: inline-block;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding:.5rem 2rem;
+    border-top: solid 1px var(--color-background-light);
+    border-left: solid 1px var(--color-background-light);
+    border-right: solid 1px var(--color-background-light);
+    border-radius: 10px 10px 0 0;
+}
+
+.tab-item:has(.tab-input:checked) .tab-label {
+    background-color: var(--color-background-light);
+}
+
+/* Hide content panes by default */
+.tab-content-pane {
+    display: none;
+    padding: 2rem;
+    border: solid 1px var(--color-background-light);
+    border-radius: 0 0 10px 10px;
+}
+
+/* =========================================================================
+   CSS-only Tab content toggling via sibling :has() selectors
+   ========================================================================= */
+/* Supports up to 10 tabs using both adjacent (+) and modern nth-child (of selector) for absolute compatibility */
+
+.tabs-group-container:has(.tab-item:nth-child(1) input:checked) ~ .tab-content-pane:nth-child(1 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(1) input:checked) + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(2) input:checked) ~ .tab-content-pane:nth-child(2 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(2) input:checked) + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(3) input:checked) ~ .tab-content-pane:nth-child(3 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(3) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(4) input:checked) ~ .tab-content-pane:nth-child(4 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(4) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(5) input:checked) ~ .tab-content-pane:nth-child(5 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(5) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(6) input:checked) ~ .tab-content-pane:nth-child(6 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(6) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(7) input:checked) ~ .tab-content-pane:nth-child(7 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(7) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(8) input:checked) ~ .tab-content-pane:nth-child(8 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(8) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(9) input:checked) ~ .tab-content-pane:nth-child(9 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(9) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}
+
+.tabs-group-container:has(.tab-item:nth-child(10) input:checked) ~ .tab-content-pane:nth-child(10 of .tab-content-pane),
+.tabs-group-container:has(.tab-item:nth-child(10) input:checked) + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane + .tab-content-pane {
+    display: block;
+}

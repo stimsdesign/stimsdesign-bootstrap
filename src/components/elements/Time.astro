@@ -1,28 +1,25 @@
 ---
 /*************************************************************************
  * @elements/Time.astro
+ * -----------------------------------------------------------------------
  * 
- * A dynamic time element that updates on the client side.
- * Supports custom formatting strings, timezones, and Astro View Transitions.
+ * Description: 
+ *   A dynamic time element that updates on the client side.
+ *   Supports custom formatting strings, timezones, and Astro View Transitions.
+ * 
+ * Usage:
+ *   <Time format="HH:mm:ss" timezone="America/New_York" class="clock-class" />
  * 
  *************************************************************************/
 
 // Props
 interface Props {
-    /** 
-     * Format string using tokens:
-     * h, hh (12h hour), H, HH (24h hour), m, mm (minutes), s, ss (seconds), a, A (am/pm)
-     * Default: "h:mm a"
-     */
+    /** Format string using tokens (e.g., hh, h, HH, H, mm, m, ss, s, a, A). Default: "h:mm a". */
     format?: string;
-    /** 
-     * IANA Timezone string (e.g., "America/New_York", "Europe/London")
-     * Default: User's local timezone
-     */
+    /** IANA Timezone string (e.g., "America/New_York", "Europe/London"). Default: User's local timezone. */
     timezone?: string;
-    /** CSS classes */
+    /** Additional CSS classes. */
     class?: string;
-    /** Any other HTML attributes for the time tag */
     [key: string]: any;
 }
 

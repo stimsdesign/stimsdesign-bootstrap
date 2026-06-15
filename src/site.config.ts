@@ -24,6 +24,7 @@ export const Site = {
 
     // Company Information
     Brand: "STIMS Design",
+    Logo: "stimsdesign", // filename
     Company: "STIMS Design LLC.",
     Telephone: "+14807085204",
     PrettyTelephone: "(480) 708-5204",
@@ -73,6 +74,16 @@ export const Site = {
     GoogleAnalytics: "", // G-XXXXXXX (GA4 direct tag)
     MetaPixel: "", // Facebook Pixel ID (numeric string)
     LinkedInInsight: "", // LinkedIn Partner ID (numeric string)
+
+    // Adobe Web Projects (fonts)
+    AdobeWebProjectId: "yif6wle", // Adobe Web Project ID
+
+    // Google Fonts
+    GoogleFonts: [
+        { family: "Raleway", weights: ['900']},
+        { family: "Quicksand", weights: ['400', '700']},
+        { family: "Roboto Condensed", weights: ['500','900']}
+    ]
 };
 
 export type Site = typeof Site;

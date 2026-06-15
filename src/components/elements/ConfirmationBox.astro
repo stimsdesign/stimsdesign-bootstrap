@@ -7,21 +7,29 @@
  *   A reusable confirmation box component.
  * 
  * Usage:
- *   To open this box from any element:
- *   - Add the class `.open-confirmation` to the trigger.
- *   - Use data attributes for content:
- *   - data-modal-header: Text for the title
- *   - data-modal-paragraph: Text for the message
- *   - data-modal-button: Text for the close button
+ *   Add the component to your page/layout:
+ *   <ConfirmationBox />
  * 
- * Example:
- *   <ConfirmationBox id="unique-id">
- *      <div class="content">Your Content</div>
- *   </ConfirmationBox>
+ * Triggering from any element:
+ *   - Add the class `.open-confirmation` to the trigger element.
+ *   - Use data attributes for content:
+ *     - data-modal-header: Text for the title
+ *     - data-modal-paragraph: Text for the message
+ *     - data-modal-button: Text for the close button
+ * 
+ *   Example:
+ *   <button 
+ *      class="open-confirmation" 
+ *      data-modal-header="Are you sure?" 
+ *      data-modal-paragraph="This action cannot be undone."
+ *      data-modal-button="Got it"
+ *   >
+ *      Trigger Action
+ *   </button>
  * 
  *************************************************************************/
 
-// Import → Configuration
+// Import → Site Config
 import { Site } from "@site.config";
 
 // Import → Styles
@@ -32,6 +40,7 @@ import Button from "@elements/Button.astro";
 
 // Props
 interface Props {
+    /** Additional CSS classes. */
     class?: string;
     [key: string]: any;
 }

@@ -3,10 +3,10 @@
 import { Site } from "@site.config";
 
 // Assets
-import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 
 import TrackingPixels from "@layout/TrackingPixels.astro";
+import Fonts from "@layout/Fonts.astro";
 
 // Interface Props
 export interface Props {
@@ -35,7 +35,6 @@ const hasTracking = [
     Site.LinkedInInsight
 ].some(id => id && id.trim().length > 0);
 
-
 ---
 <head>
     <meta charset="UTF-8" />
@@ -52,9 +51,7 @@ const hasTracking = [
     <meta property="og:url" content={Astro.url} />
     <title>{Site.SiteTitle + " | " + title}</title>
     <link rel="icon" href={favicon} type="image/x-icon" />
-    <Font cssVariable="--font-raleway" preload />
-    <Font cssVariable="--font-roboto-condensed" preload />
-    <Font cssVariable="--font-quicksand" preload />
+    <Fonts />
     <ClientRouter />
     <slot />
 </head>

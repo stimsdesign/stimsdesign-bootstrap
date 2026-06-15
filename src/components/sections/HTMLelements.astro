@@ -1,0 +1,688 @@
+---
+/*************************************************************************
+ * @sections/HTMLelements.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description: 
+ *   A development-only helper component to output standard HTML elements 
+ *   as a CSS styling aid for design system calibration. Automatically
+ *   scans document stylesheets at runtime to present live color swatches
+ *   and font testers without hardcoding.
+ * 
+ * Usage:
+ *   <HTMLelements />
+ * 
+ *************************************************************************/
+import Button from "@elements/Button.astro";
+import Tabs from "@elements/Tabs.astro";
+import Tab from "@elements/Tab.astro";
+import TabbedContent from "@elements/TabContent.astro";
+---
+<div class="dev-html-elements">
+    <!-- Swatches -->
+    <section>
+        <Button class="section-title small">Color Vars --color</Button>
+        <div class="swatches-grid" id="auto-swatches-grid">
+            <p class="xsmall" style="color: var(--color-foreground-dark);">Scanning theme stylesheets for color swatches...</p>
+        </div>
+    </section>
+
+    <hr />
+
+    <!-- Fonts -->
+    <section>
+        <Button class="section-title small">Font Vars --font</Button>
+        <div class="fonts-list" id="auto-fonts-list">
+            <p class="xsmall" style="color: var(--color-foreground-dark);">Scanning theme stylesheets for active fonts...</p>
+        </div>
+    </section>
+
+    <hr />
+
+    <!-- Headings & Paragraphs -->
+    <section>
+        <Button class="section-title small">Headings & Paragraphs</Button>
+        <h1>Heading 1</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Proin vel lorem quis nisl elementum porta in sed.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione. <a href="#">Laudantium eaque ipsa quae</a> ab illo inventore veritatis et quasi architecto beatae vitae dicta.</p>
+        
+        <h2>Heading 2</h2>
+        <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa.</p>
+        <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus. <a href="#">Itaque earum rerum</a> hic tenetur a sapiente delectus reiciendis.</p>
+        
+        <h3>Heading 3</h3>
+        <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus.</p>
+        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. <a href="#">Consequuntur magni dolores</a> eos qui ratione voluptatem sequi nesciunt.</p>
+        
+        <h4>Heading 4</h4>
+        <p>Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+        <p>Donec sollicitudin molestie malesuada. Pellentesque in ipsum id orci porta dapibus. <a href="#">Curabitur aliquet quam</a> id dui posuere blandit.</p>
+        <p class="small">Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur arcu erat, accumsan.</p>
+        <p class="xsmall">Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Cras ultricies ligula sed magna dictum porta.</p>
+        
+        <h5>Heading 5</h5>
+        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper.</p>
+        <p>Donec rutrum congue leo eget malesuada. Cras ultricies ligula sed magna dictum porta. <a href="#">Vestibulum ante ipsum</a> primis in faucibus.</p>
+        <p class="small">Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Sed porttitor lectus nibh.</p>
+        <p class="xsmall">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur aliquet quam id dui posuere blandit. Quisque.</p>
+        
+        <h6>Heading 6</h6>
+        <p>Nulla porttitor accumsan tincidunt. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat, accumsan id imperdiet et.</p>
+        <p>Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. <a href="#">Nulla porttitor</a> accumsan.</p>
+        <p class="small">Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu.</p>
+        <p class="xsmall">Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur aliquet.</p>
+    </section>
+
+    <hr />
+
+    <!-- Inline Text Elements -->
+    <section>
+        <Button class="section-title small">Inline Text Elements</Button>
+        <p>
+            You can use standard tags to format text: 
+            <strong>strong text (strong)</strong>, 
+            <b>bold text (b)</b>, 
+            <em>emphasized text (em)</em>, 
+            <i>italic text (i)</i>, 
+            <ins>inserted text (ins)</ins>, 
+            <u>underlined text (u)</u>, 
+            <del>deleted text (del)</del>, 
+            <s>strikethrough text (s)</s>, 
+            <mark>highlighted text (mark)</mark>, 
+            <abbr title="HyperText Markup Language">HTML (abbr with title)</abbr>, 
+            and inline code like <code>const element = 'code';</code>.
+            We also have superscripts like E = mc<sup>2</sup> and subscripts like H<sub>2</sub>O.
+        </p>
+    </section>
+
+    <hr />
+
+    <!-- Lists -->
+    <section>
+        <Button class="section-title small">Lists</Button>
+        <h3>Unordered List</h3>
+        <ul>
+            <li>Unordered list item number one.</li>
+            <li>Unordered list item number two.
+                <ul>
+                    <li>Nested unordered list item.</li>
+                    <li>Another nested unordered list item.</li>
+                </ul>
+            </li>
+            <li>Unordered list item number three.</li>
+        </ul>
+
+        <h3>Ordered List</h3>
+        <ol>
+            <li>Ordered list item number one.</li>
+            <li>Ordered list item number two.
+                <ol>
+                    <li>Nested ordered list item.</li>
+                    <li>Another nested ordered list item.</li>
+                </ol>
+            </li>
+            <li>Ordered list item number three.</li>
+        </ol>
+
+        <h3>Description List</h3>
+        <dl>
+            <dt>Definition Title 1</dt>
+            <dd>Definition Description 1. Lorem ipsum dolor sit amet.</dd>
+            <dt>Definition Title 2</dt>
+            <dd>Definition Description 2. Consectetur adipiscing elit.</dd>
+        </dl>
+    </section>
+
+    <hr />
+
+    <!-- Blockquotes & Figures -->
+    <section>
+        <Button class="section-title small">Blockquotes & Figures</Button>
+        <blockquote>
+            <p>“The details are not the details. They make the design.”</p>
+            <cite>— Charles Eames</cite>
+        </blockquote>
+
+        <figure>
+            <div style="background-color: var(--color-background-light); height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                <span style="color: var(--color-foreground-dark);">Placeholder Image (Figure)</span>
+            </div>
+            <figcaption>Figure 1: Figure caption describing the image above.</figcaption>
+        </figure>
+    </section>
+
+    <hr />
+
+    <!-- Tables -->
+    <section>
+        <Button class="section-title small">Tables</Button>
+        <table>
+            <caption>Monthly Design & Engineering Metrics</caption>
+            <thead>
+                <tr>
+                    <th>Technology</th>
+                    <th>Metric Type</th>
+                    <th>Status</th>
+                    <th>Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Astro</td>
+                    <td>Build Time</td>
+                    <td><mark style="background-color: var(--color-green); color: var(--color-background-dark)">Excellent</mark></td>
+                    <td>109ms (Static)</td>
+                </tr>
+                <tr>
+                    <td>Vite</td>
+                    <td>HMR Speed</td>
+                    <td><mark style="background-color: var(--color-green); color: var(--color-background-dark)">Excellent</mark></td>
+                    <td>Instant</td>
+                </tr>
+                <tr>
+                    <td>Bootstrap</td>
+                    <td>Utility Overhead</td>
+                    <td><mark style="background-color: var(--color-accent); color: var(--color-foreground-light)">Moderate</mark></td>
+                    <td>Responsive CSS</td>
+                </tr>
+                <tr>
+                    <td>Vanilla CSS</td>
+                    <td>Execution Speed</td>
+                    <td><mark style="background-color: var(--color-green); color: var(--color-background-dark)">Perfect</mark></td>
+                    <td>Zero Runtime</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr />
+
+    <!-- Code Blocks -->
+    <section>
+        <Button class="section-title small">Code Blocks</Button>
+        <p>A multi-line code snippet wrapper:</p>
+        <pre><code>// Example JavaScript Function
+function calculatePerformance(time) {'{'}
+    const threshold = 150; // ms
+    return time &lt;= threshold ? 'Passed' : 'Failed';
+{'}'}
+
+console.log(calculatePerformance(109)); // Output: Passed</code></pre>
+    </section>
+
+    <hr />
+
+    <!-- Buttons -->
+    <section>
+        <Button class="section-title small">Buttons</Button>
+        <div class="buttons" style="flex-wrap: wrap; margin-bottom: 2rem;">
+            <Button>Standard Button</Button>
+            <Button class="alt">Alt Button</Button>
+            <Button class="small">Small Button</Button>
+            <Button class="small alt">Small Alt Button</Button>
+            <Button class="prev-btn">Previous</Button>
+            <Button class="next-btn">Next</Button>
+            <Button class="alt next-btn">Alt Next Button</Button>
+            <Button href="#" class="next-btn">Link Button</Button>
+        </div>
+    </section>
+
+    <hr />
+
+    <!-- Tabs -->
+    <section>
+        <Button class="section-title small">Tabs</Button>
+        <Tabs id="services">
+            <Tab name="services-tab">Services</Tab>
+            <Tab name="projects-tab">Projects</Tab>
+            <Tab name="pricing-tab">Pricing</Tab>
+            <Tab name="about-tab">About</Tab>
+            <Tab name="testimonials-tab">Testimonials</Tab>
+            <Tab name="contact-tab">Contact</Tab>
+        </Tabs>
+        <TabbedContent for="services-tab">
+            <h3>Our Services</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </TabbedContent>
+        <TabbedContent for="projects-tab">
+            <h3>Our Projects</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+        </TabbedContent>
+        <TabbedContent for="pricing-tab">
+            <h3>Our Pricing</h3>
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollit anim id est laborum et dolorum.</p>
+        </TabbedContent>
+        <TabbedContent for="about-tab">
+            <h3>About Us</h3>
+            <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi.</p>
+        </TabbedContent>
+        <TabbedContent for="testimonials-tab">
+            <h3>Testimonials</h3>
+            <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus.</p>
+        </TabbedContent>
+        <TabbedContent for="contact-tab">
+            <h3>Contact Us</h3>
+            <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis.</p>
+        </TabbedContent>
+    </section>
+
+    <hr />
+
+    <!-- Addresses -->
+    <section>
+        <Button class="section-title small">Addresses</Button>
+        <address>
+            <strong>STIMS Design Headquarters</strong><br />
+            123 Main Street, Suite 100<br />
+            Phoenix, AZ 85001<br />
+            <a href="tel:5555555555" title="555-555-5555">555-555-5555</a>
+            <a href="mailto:stimsdesign@gmail.com" title="Email address">stimsdesign@gmail.com</a>
+        </address>
+    </section>
+</div>
+
+<style is:global>
+    .dev-html-elements {
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+            margin-bottom: 1.5em;
+            position: relative;
+            z-index: 1;
+        } 
+
+        /* Toggle arrow indicator */
+        .section-title::after {
+            content: "▼";
+            font-size: 0.6rem;
+            transition: transform 0.2s ease;
+        }
+
+        section.collapsed .section-title::after {
+            transform: rotate(-90deg);
+        }
+
+        section.collapsed > *:not(.section-title) {
+            display: none !important;
+        }
+
+        section.collapsed .section-title {
+            margin-bottom: 0;
+        }
+
+        .swatches-grid {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content:flex-start
+        }
+
+        .swatch-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .swatch-preview {
+            height: 80px;
+            width: 80px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            
+        }
+
+        .swatch-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            width: 100%;
+        }
+
+        .swatch-name {
+            font-family: monospace;
+            font-size: var(--size-xs);
+            color: var(--color-foreground);
+            white-space: nowrap
+        }
+
+        .swatch-value {
+            font-size: var(--size-xs);
+            color: var(--color-foreground-dark);
+            text-transform: uppercase;
+            font-family: monospace;
+        }
+
+        .fonts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .font-test-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .font-preview {
+            font-size: var(--size-2xl);
+            line-height: 1.4;
+            color: var(--color-foreground);
+            word-break: break-word;
+            cursor: pointer;
+            user-select: none;
+        }
+        .font-test-input {
+            background-color :transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: var(--color-foreground-light);
+            padding: 0.75rem 1rem;
+            font-size: var(--size-sm);
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .font-test-input:focus {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    .copied-tooltip {
+        position: absolute;
+        background-color: var(--color-primary);
+        color: var(--color-foreground-light);
+        padding: 0.25rem 0.5rem;
+        font-size: var(--size-xs);
+        border-radius: 4px;
+        pointer-events: none;
+        transform: translate(-50%, -100%) scale(0.9);
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 9999;
+        font-family: var(--font-body);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .copied-tooltip.visible {
+        opacity: 1;
+        transform: translate(-50%, -100%) scale(1);
+    }
+</style>
+
+<script>
+    function rgbToHex(rgbStr: string): string {
+        if (!rgbStr) return "";
+        const match = rgbStr.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/);
+        if (!match) return rgbStr;
+        const r = parseInt(match[1]).toString(16).padStart(2, '0');
+        const g = parseInt(match[2]).toString(16).padStart(2, '0');
+        const b = parseInt(match[3]).toString(16).padStart(2, '0');
+        return `#${r}${g}${b}`.toUpperCase();
+    }
+
+    function copyToClipboard(text: string): Promise<void> {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(text);
+        } else {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.style.position = "fixed";
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand("copy");
+            } catch (err) {
+                console.error("Fallback copy failed", err);
+            }
+            document.body.removeChild(textarea);
+            return Promise.resolve();
+        }
+    }
+
+    function showTooltip(element: HTMLElement, text: string) {
+        const existing = document.querySelectorAll('.copied-tooltip');
+        existing.forEach(t => t.remove());
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'copied-tooltip';
+        tooltip.textContent = text;
+        
+        document.body.appendChild(tooltip);
+
+        const rect = element.getBoundingClientRect();
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        tooltip.style.left = `${rect.left + rect.width / 2 + scrollLeft}px`;
+        tooltip.style.top = `${rect.top - 10 + scrollTop}px`;
+
+        requestAnimationFrame(() => {
+            tooltip.classList.add('visible');
+        });
+
+        setTimeout(() => {
+            tooltip.classList.remove('visible');
+            tooltip.addEventListener('transitionend', () => {
+                tooltip.remove();
+            }, { once: true });
+        }, 1000);
+    }
+
+    // Scans page stylesheets to find and resolve custom variables (--color-* and --font-*)
+    function getCSSVariables() {
+        const variables = {
+            colors: [] as Array<{ name: string; value: string }>,
+            fonts: [] as Array<{ name: string; value: string }>
+        };
+        const computedStyles = getComputedStyle(document.documentElement);
+        const seen = new Set<string>();
+
+        // Loop through all stylesheets accessible in document
+        for (const sheet of Array.from(document.styleSheets)) {
+            try {
+                const rules = Array.from(sheet.cssRules || sheet.rules || []);
+                for (const rule of rules) {
+                    if (rule.cssText) {
+                        // Regex search for declared variable names (e.g. --color-primary: ...)
+                        const varRegex = /(--[\w-]+)\s*:/g;
+                        let match;
+                        while ((match = varRegex.exec(rule.cssText)) !== null) {
+                            const prop = match[1];
+                            if (seen.has(prop)) continue;
+                            seen.add(prop);
+
+                            // Retrieve browser-resolved computed value of CSS custom variable
+                            const val = computedStyles.getPropertyValue(prop).trim();
+                            if (prop.startsWith('--color-')) {
+                                variables.colors.push({ name: prop, value: val });
+                            } else if (prop.startsWith('--font-')) {
+                                variables.fonts.push({ name: prop, value: val });
+                            }
+                        }
+                    }
+                }
+            } catch (e) {
+                // CORS or loading errors, ignore
+            }
+        }
+        return variables;
+    }
+
+    // Standardizes color output value formatting (e.g., adding spaces after commas, color-mix values)
+    function formatValueDisplay(val: string): string {
+        if (!val) return "";
+        return val
+            .replace(/,/g, ", ")
+            .replace(/color-mix\(insrgb/g, "color-mix(in srgb")
+            .replace(/transparent/g, "transparent ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function renderThemeCalibration() {
+        const swatchesGrid = document.getElementById("auto-swatches-grid");
+        const fontsList = document.getElementById("auto-fonts-list");
+        if (!swatchesGrid || !fontsList) return;
+
+        const vars = getCSSVariables();
+
+        // Deduplicate fonts by computed value (retaining the first matching declaration order, e.g. heading/body/accent)
+        const fontValueSeen = new Set<string>();
+        const uniqueFonts: Array<{ name: string; value: string }> = [];
+        vars.fonts.forEach(font => {
+            const normalizedValue = font.value.replace(/['"]/g, "").toLowerCase();
+            if (!fontValueSeen.has(normalizedValue)) {
+                fontValueSeen.add(normalizedValue);
+                uniqueFonts.push(font);
+            }
+        });
+
+        // 1. Render Swatches
+        if (vars.colors.length > 0) {
+            swatchesGrid.innerHTML = "";
+            vars.colors.forEach(color => {
+                const card = document.createElement("div");
+                card.className = "swatch-card";
+                
+                const preview = document.createElement("div");
+                preview.className = "swatch-preview";
+                preview.style.backgroundColor = `var(${color.name})`;
+                
+                const info = document.createElement("div");
+                info.className = "swatch-info";
+                
+                const nameSpan = document.createElement("span");
+                nameSpan.className = "swatch-name";
+                nameSpan.textContent = color.name;
+                
+                const valSpan = document.createElement("span");
+                valSpan.className = "swatch-value";
+                valSpan.textContent = formatValueDisplay(color.value);
+                
+                info.appendChild(nameSpan);
+                info.appendChild(valSpan);
+                card.appendChild(preview);
+                card.appendChild(info);
+                
+                card.addEventListener("click", (e) => {
+                    const isAltOrCtrl = e.ctrlKey || e.altKey || e.metaKey;
+                    let textToCopy = color.name;
+                    let tooltipText = "Copied Var!";
+
+                    if (isAltOrCtrl) {
+                        const computedColor = getComputedStyle(preview).backgroundColor;
+                        textToCopy = rgbToHex(computedColor);
+                        tooltipText = `Copied Hex: ${textToCopy}`;
+                    }
+
+                    copyToClipboard(textToCopy).then(() => {
+                        showTooltip(card, tooltipText);
+                    });
+                });
+                
+                swatchesGrid.appendChild(card);
+            });
+        } else {
+            swatchesGrid.innerHTML = '<p class="xsmall" style="color: var(--color-red);">No --color-* variables found in style sheets.</p>';
+        }
+
+        // 2. Render Font Testers
+        if (uniqueFonts.length > 0) {
+            fontsList.innerHTML = "";
+            uniqueFonts.forEach(font => {
+                // Remove quotes and fallbacks to extract main display name
+                let cleanFontName = font.value.replace(/['"]/g, "").split(",")[0].trim();
+                // Strip Vite/Astro hash suffixes (e.g. "-b4c0cc156864eee1")
+                cleanFontName = cleanFontName.replace(/-[a-f0-9]{16}$/i, "");
+                
+                const card = document.createElement("div");
+                card.className = "font-test-card";
+                
+                const preview = document.createElement("div");
+                preview.className = "font-preview";
+                preview.style.fontFamily = `var(${font.name})`;
+                
+                const suffix = ` ${font.name}`;
+                const defaultText = `${cleanFontName}${suffix}`;
+                preview.textContent = defaultText;
+                
+                const input = document.createElement("input");
+                input.type = "text";
+                input.placeholder = `Type to test ${cleanFontName}...`;
+                input.className = "font-test-input";
+                input.setAttribute("data-default", defaultText);
+                
+                input.addEventListener("input", (e) => {
+                    const target = e.target as HTMLInputElement;
+                    const val = target.value.trim();
+                    preview.textContent = val ? `${val}${suffix}` : defaultText;
+                });
+                
+                preview.addEventListener("click", () => {
+                    const textToCopy = font.name;
+                    copyToClipboard(textToCopy).then(() => {
+                        showTooltip(preview, "Copied Var!");
+                    });
+                });
+                
+                card.appendChild(preview);
+                card.appendChild(input);
+                fontsList.appendChild(card);
+            });
+        } else {
+            fontsList.innerHTML = '<p class="xsmall" style="color: var(--color-red);">No --font-* variables found in style sheets.</p>';
+        }
+    }
+
+    function setupCollapsibleSections() {
+        const titles = document.querySelectorAll(".dev-html-elements .section-title");
+        titles.forEach(title => {
+            const section = title.closest("section");
+            if (!section) return;
+
+            const titleText = title.textContent || "";
+            const storageKey = "section-collapsed-" + titleText.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+            try {
+                if (typeof localStorage !== "undefined") {
+                    const isCollapsed = localStorage.getItem(storageKey);
+                    if (isCollapsed === "true") {
+                        section.classList.add("collapsed");
+                    } else if (isCollapsed === "false") {
+                        section.classList.remove("collapsed");
+                    }
+                }
+            } catch (e) {
+                console.warn("Could not read from localStorage", e);
+            }
+
+            title.addEventListener("click", () => {
+                const nowCollapsed = section.classList.toggle("collapsed");
+                try {
+                    if (typeof localStorage !== "undefined") {
+                        localStorage.setItem(storageKey, nowCollapsed ? "true" : "false");
+                    }
+                } catch (e) {
+                    console.warn("Could not write to localStorage", e);
+                }
+            });
+        });
+    }
+
+    // Run calibration and setups on load and transitions
+    document.addEventListener("astro:page-load", () => {
+        renderThemeCalibration();
+        setupCollapsibleSections();
+    });
+</script>

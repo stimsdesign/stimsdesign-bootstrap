@@ -1,16 +1,26 @@
 ---
 /*************************************************************************
  * @elements/SVGsprite.astro
+ * -----------------------------------------------------------------------
  * 
- * Consumption component for general images/illustrations.
- * Uses the #sprite- prefix for symbols in SpriteSheet.
+ * Description: 
+ *   Consumption component for general images/illustrations. Resolves individual 
+ *   SVG files at build time and references them via a global SVG sprite sheet (SVGspriteSheet).
+ *   Supports subdirectories and auto-stripping of the .svg extension.
+ * 
+ * Usage:
+ *   <SVGsprite name="illustration-hero" class="sprite-class" />
+ *   <SVGsprite name="brands/Orenda.svg" class="sprite-class" />
  * 
  *************************************************************************/
 
 // Props
 interface Props {
+  /** Optional HTML identifier for the SVG element. */
   id?: string;
+  /** Name of the sprite SVG file in `src/assets/images/sprites/` */
   name: string;
+  /** Additional CSS classes. */
   class?: string;
   [key: string]: any;
 }
@@ -18,18 +28,21 @@ interface Props {
 // Props Destructuring
 const { id, name, class: className, ...rest } = Astro.props;
 
-// Imports
-const spriteFiles = import.meta.glob("@images/sprites/*.svg", {
+// Strip .svg extension if present
+const cleanName = name.replace(/\.svg$/, "");
+
+// Glob SVG Files recursively
+const spriteFiles = import.meta.glob("@images/sprites/**/*.svg", {
     query: "?raw",
     eager: true,
 });
 
 // Add sprite to registry
 if (!Astro.locals.spriteRegistry) Astro.locals.spriteRegistry = new Set();
-Astro.locals.spriteRegistry.add(name);
+Astro.locals.spriteRegistry.add(cleanName);
 
-// Import SVG file
-const spritePath = Object.keys(spriteFiles).find(path => path.endsWith(`/${name}.svg`));
+// Import SVG Markup
+const spritePath = Object.keys(spriteFiles).find(path => path.endsWith(`/sprites/${cleanName}.svg`));
 const raw = spritePath ? (spriteFiles[spritePath] as any)?.default : null;
 
 // Extract and normalize viewBox (shift origin to 0,0)
@@ -42,12 +55,19 @@ if (viewBoxRaw) {
     }
 }
 
-// Warning if sprite not found
-if (!raw && import.meta.env.DEV) {
-    console.warn(`[Sprite] Sprite "${name}" not found in src/assets/images/sprites/`);
+// Warning if sprite not found or has incompatible format
+if (import.meta.env.DEV) {
+    if (!raw) {
+        console.warn(`[Sprite] Sprite "${name}" not found in src/assets/images/sprites/`);
+    } else {
+        const svgMatch = raw.match(/<svg([^>]*)>([\s\S]*)<\/svg>/i);
+        if (!svgMatch) {
+            console.warn(`[Sprite] Sprite "${name}" in src/assets/images/sprites/ is not a compatible SVG file format.`);
+        }
+    }
 }
 ---
 
 <svg id={id} class={className} viewBox={viewBox} {...rest}>
-  <use href={`#sprite-${name}`} />
+  <use href={`#sprite-${cleanName}`} />
 </svg>

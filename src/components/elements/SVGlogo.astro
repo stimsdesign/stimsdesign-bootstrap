@@ -1,16 +1,26 @@
 ---
 /*************************************************************************
  * @elements/SVGlogo.astro
+ * -----------------------------------------------------------------------
  * 
- * Consumption component for brand logos.
- * Uses the #logo- prefix for symbols in LogoSheet.
+ * Description: 
+ *   Consumption component for brand logos. Resolves individual SVG files 
+ *   at build time and references them via a global SVG logo sheet (SVGlogoSheet).
+ *   Supports subdirectories and auto-stripping of the .svg extension.
+ * 
+ * Usage:
+ *   <SVGlogo name="company-logo" class="logo-class" />
+ *   <SVGlogo name="brands/company-logo.svg" class="logo-class" />
  * 
  *************************************************************************/
 
 // Props
 interface Props {
+    /** Optional HTML identifier for the SVG element. */
     id?: string;
+    /** Name of the logo SVG file in `src/assets/images/logo/` */
     name: string;
+    /** Additional CSS classes. */
     class?: string;
     [key: string]: any;
 }
@@ -18,18 +28,21 @@ interface Props {
 // Props Destructuring
 const { id, name, class: className, ...rest } = Astro.props;
 
-// Imports
-const logoFiles = import.meta.glob("../../assets/images/logo/*.svg", {
+// Strip .svg extension if present
+const cleanName = name.replace(/\.svg$/, "");
+
+// Glob SVG Files recursively
+const logoFiles = import.meta.glob("@images/logo/**/*.svg", {
     query: "?raw",
     eager: true,
 });
 
 // Add logo to registry
 if (!Astro.locals.logoRegistry) Astro.locals.logoRegistry = new Set();
-Astro.locals.logoRegistry.add(name);
+Astro.locals.logoRegistry.add(cleanName);
 
-// Import SVG file
-const logoPath = Object.keys(logoFiles).find(path => path.endsWith(`/${name}.svg`));
+// Import SVG Markup
+const logoPath = Object.keys(logoFiles).find(path => path.endsWith(`/logo/${cleanName}.svg`));
 const raw = logoPath ? (logoFiles[logoPath] as any)?.default : null;
 
 // Extract and normalize viewBox (shift origin to 0,0)
@@ -42,12 +55,19 @@ if (viewBoxRaw) {
     }
 }
 
-// Warning if logo not found
-if (!raw && import.meta.env.DEV) {
-    console.warn(`[Logo] Logo "${name}" not found in src/assets/images/logo/`);
+// Warning if logo not found or has incompatible format
+if (import.meta.env.DEV) {
+    if (!raw) {
+        console.warn(`[Logo] Logo "${name}" not found in src/assets/images/logo/`);
+    } else {
+        const svgMatch = raw.match(/<svg([^>]*)>([\s\S]*)<\/svg>/i);
+        if (!svgMatch) {
+            console.warn(`[Logo] Logo "${name}" in src/assets/images/logo/ is not a compatible SVG file format.`);
+        }
+    }
 }
 ---
 
 <svg id={id} class={className} viewBox={viewBox} {...rest}>
-  <use href={`#logo-${name}`} />
+  <use href={`#logo-${cleanName}`} />
 </svg>

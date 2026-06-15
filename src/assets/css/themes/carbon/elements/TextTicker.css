@@ -1,0 +1,54 @@
+text-ticker {
+    display: block;
+}
+
+.text-ticker__wrapper {
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+}
+
+.text-ticker {
+    overflow: hidden;
+    margin: 0 auto 0;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.text-ticker .text-ticker__runner {
+    display: flex;
+    width: max-content;
+    animation: text-ticker-scroll var(--ticker-duration, 90s) linear infinite;
+    will-change: transform;
+}
+
+/* Pause on hover functionality */
+.text-ticker__wrapper[data-pause-on-hover] .text-ticker:hover .text-ticker__runner {
+    animation-play-state: paused;
+}
+
+/* Reverse direction functionality */
+.text-ticker__wrapper[data-direction="right"] .text-ticker__runner {
+    animation-direction: reverse;
+}
+
+.text-ticker__item {
+    white-space: nowrap;
+}
+
+.text-ticker__item span {
+    display: inline-block;
+    position: relative;
+    margin: 0 var(--ticker-gap, 0.5ch);
+}
+
+@keyframes text-ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

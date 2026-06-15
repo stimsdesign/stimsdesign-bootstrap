@@ -5,6 +5,7 @@ import "@theme/elements/PageHeading.css";
 // Assets
 import Logo from "@elements/SVGlogo.astro";
 import FuzzyImage from "@elements/FuzzyImage.astro";
+import { Site } from "@site.config";
 
 // Props
 interface Props {
@@ -37,11 +38,7 @@ const { fuzzy, background, width, height, text, color = "dark", class: className
         </div>
         <h1 class={color}>{text}</h1>
     </div>
-    <a href="/" aria-label="Return to Quality Pool and Spa home">
-        <Logo id="page-logo" name="stimsdesign" />
+    <a href="/" aria-label={"Return to " + Site.Brand + " home"}>
+        <Logo id="page-logo" name={Site.Logo} />
     </a>
 </div>
-
-<!-- <style>
-    @import "@theme/elements/PageHeading.css";
-</style> -->

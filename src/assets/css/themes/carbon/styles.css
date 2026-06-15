@@ -1,9 +1,11 @@
 /* Globally Scope */
 :root {
     /* Font Faces */
-    --font-heading: var(--font-raleway);
-    --font-body: var(--font-quicksand);
-    --font-accent: var(--font-roboto-condensed);
+    --font-heading: var(--face-raleway);
+    --font-body: var(--face-quicksand);
+    --font-accent: var(--face-roboto-condensed);
+    --font-special: var(--face-le-havre);
+    --font-script: var(--face-thirsty-script);
     
     /* Font Sizes */
     /* Set this to 1 for standard, 1.2 for large, 0.8 for compact */
@@ -186,7 +188,7 @@
 
     h6 {
         font-size: var(--size-med);
-        /* font-family: var(--font-roboto-condensed);
+        /* font-family: var(--face-roboto-condensed);
         text-transform: capitalize; */
     }
 
@@ -230,6 +232,156 @@
 
     small {
         font-size: var(--size-sm);
+    }
+
+    /* Lists */
+    ul, ol {
+        margin-bottom: 1em;
+        padding-left: 1.5em;
+    }
+    ul {
+        list-style-type: disc;
+    }
+    ol {
+        list-style-type: decimal;
+    }
+    li {
+        margin-bottom: 0.25em;
+    }
+    dl {
+        margin-bottom: 1em;
+    }
+    dt {
+        font-weight: 700;
+        color: var(--color-foreground-light);
+        margin-top: 0.5em;
+    }
+    dd {
+        margin-left: 1.5em;
+        margin-bottom: 0.5em;
+    }
+
+    /* Blockquotes */
+    blockquote {
+        border-left: 4px solid var(--color-accent);
+        padding-left: 1.25em;
+        margin: 1.5em 0;
+        font-style: italic;
+        color: var(--color-foreground-dark);
+    }
+    blockquote cite {
+        display: block;
+        font-size: var(--size-sm);
+        color: var(--color-foreground-dark);
+        margin-top: 0.5em;
+        font-style: normal;
+        font-weight: 700;
+    }
+
+    /* Tables */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5em;
+    }
+    caption {
+        text-align: left;
+        font-weight: 700;
+        margin-bottom: 0.5em;
+        font-size: var(--size-lg);
+        color: var(--color-foreground-light);
+        text-transform: uppercase;
+        font-family: var(--font-heading);
+    }
+    th, td {
+        padding: 0.75em 1em;
+        text-align: left;
+        border-bottom: 1px solid var(--color-background-light);
+    }
+    th {
+        font-weight: 700;
+        color: var(--color-foreground-light);
+        background-color: var(--color-background-dark);
+        font-family: var(--font-accent);
+        text-transform: uppercase;
+    }
+    tr:hover {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Monospaced / Code Blocks */
+    pre, code, kbd, samp {
+        font-family: monospace, monospace;
+        font-size: var(--size-sm);
+        background-color: var(--color-background-light);
+        border-radius: 4px;
+    }
+    code, kbd, samp {
+        padding: 0.15em 0.35em;
+        color: var(--color-foreground-light);
+    }
+    pre {
+        display: block;
+        padding: 1.25em;
+        overflow-x: auto;
+        margin-bottom: 1.5em;
+        border: 1px solid var(--color-background-light);
+    }
+    pre code {
+        padding: 0;
+        background-color: transparent;
+        border-radius: 0;
+        color: inherit;
+        white-space: pre;
+    }
+
+    /* Horizontal Rules */
+    hr {
+        border: 0;
+        height: 1px;
+        background-color: var(--color-background-light);
+        margin: 2em 0;
+    }
+
+    /* Addresses */
+    address {
+        font-style: normal;
+        line-height: 1.5em;
+        margin-bottom: 1.5em;
+    }
+    address a {
+        display: inline-block;
+        margin-right: 1.5em;
+    }
+
+    /* Miscellaneous Inline Styles */
+    mark {
+        background-color: var(--color-accent);
+        color: var(--color-foreground-light);
+        padding: 0.1em 0.3em;
+        border-radius: 2px;
+    }
+    abbr[title] {
+        text-decoration: underline dotted;
+        cursor: help;
+    }
+    ins, u {
+        text-decoration: underline;
+    }
+    del, s {
+        text-decoration: line-through;
+    }
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
     }
 }
 

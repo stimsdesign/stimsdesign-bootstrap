@@ -2,11 +2,17 @@
 /** Enables TypeScript type checking for this JavaScript configuration file */
 
 // Import necessary modules
-import { fontProviders } from "astro/config";
 import { defineConfig } from 'astro/config';
 import netlify from '@astrojs/netlify';
 import { Site } from "./src/site.config";
 import path from "path";
+import { getResolvedFonts } from "./src/utils/auto/font-loader.js";
+
+// Resolve the configuration arrays dynamically
+const resolvedFonts = await getResolvedFonts();
+
+
+/** EXPORTS ************************************************************************ */
 
 // Export the Astro configuration https://astro.build/config
 export default defineConfig({
@@ -39,28 +45,7 @@ export default defineConfig({
   // Disable "Pretty URLs" in Netlify Dashboard.
   trailingSlash: 'never',
   // Import Fonts
-  fonts: [
-      {
-          provider: fontProviders.google(),
-          name: 'Raleway',
-          cssVariable: '--font-raleway',
-          // weights: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
-          weights: ['900']
-      },
-      {
-          provider: fontProviders.google(),
-          name: 'Quicksand',
-          cssVariable: '--font-quicksand',
-          // weights: ['300', '400', '500', '600', '700']
-          weights: ['400', '700']
-      },
-      {
-          provider: fontProviders.google(),
-          name: 'Roboto Condensed',
-          cssVariable: '--font-roboto-condensed',
-          weights: ['500','900']
-      },
-  ], 
+  fonts: /** @type {any} */ (resolvedFonts), 
   // Prefetch Settings  
   prefetch: {
     defaultStrategy: 'viewport'

@@ -7,7 +7,7 @@
  *   A reusable modal component.
  * 
  * Usage:
- *   <Modal data-modal-id="unique-id">
+ *   <Modal id="unique-id">
  *      <div class="content">Your Content</div>
  *   </Modal>
  * 
@@ -25,7 +25,9 @@ import Button from "@elements/Button.astro";
 
 // Props
 interface Props {
+    /** The unique identifier for the modal, targeted by trigger elements via `data-modal-id`. */
     id: string;
+    /** Additional CSS classes. */
     class?: string;
     [key: string]: any;
 }

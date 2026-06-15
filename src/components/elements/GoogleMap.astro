@@ -1,29 +1,67 @@
 ---
 /*************************************************************************
  * @elements/GoogleMap.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description: 
+ *   A custom Google Map embed component that lazily loads an iframe on 
+ *   screens wider than 768px (tablets/desktops) to optimize performance.
+ *   Uses a custom element to work seamlessly with Astro's View Transitions.
+ * 
+ * Usage:
+ *   - Default (Uses site configuration address):
+ *       <GoogleMap />
+ * 
+ *   - Custom Location & Satellite Style:
+ *       <GoogleMap query="Grand Canyon, AZ" zoom={14} mapType="satellite" />
  * 
  *************************************************************************/
 
+// Import → Site Config
 import { Site } from "@site.config";
 
-// Construct the full address from site configuration
-const address = `${Site.AddressLine1}, ${Site.City}, ${Site.State} ${Site.PostalCode}`;
+// Import → Styles
+import "@theme/elements/GoogleMap.css";
 
-// Encode the address and brand name for the URL query
-const encodedQuery = encodeURIComponent(`${Site.Brand}, ${address}`);
-
-// Google Maps Embed URL (No API key required for basic embed)
-// Using z=10 provides a regional zoom level that nicely encompasses the Wasatch Front
-const mapUrl = `https://maps.google.com/maps?width=100%25&height=100%25&hl=en&q=${encodedQuery}&t=&z=10&ie=UTF8&iwloc=B&output=embed`;
+// Interface Props
 interface Props {
+    /** Custom query (e.g., address, coordinates "40.7128,-74.006", or place name). Defaults to Site Brand + Address config. */
+    query?: string;
+    /** Zoom level (1 to 21). Default: 10 (regional view). */
+    zoom?: number | string;
+    /** The style of map display. Options: "roadmap", "satellite", "hybrid", "terrain". Default: "roadmap". */
+    mapType?: "roadmap" | "satellite" | "hybrid" | "terrain";
+    /** Map UI and label language (e.g., "en", "es", "fr"). Default: "en". */
+    lang?: string;
+    /** Additional CSS classes. */
     class?: string;
     [key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
----
+// Destructuring Props with Default Values
+const { 
+    query = `${Site.Brand}, ${Site.AddressLine1}, ${Site.City}, ${Site.State} ${Site.PostalCode}`,
+    zoom = 10,
+    mapType = "roadmap",
+    lang = "en",
+    class: className, 
+    ...rest 
+} = Astro.props;
 
-<div class:list={["google-map-container", className]} id="google-map-wrapper" {...rest}>
+// Map mapType to Google Maps URL parameters
+const typeMap = {
+    roadmap: "",
+    satellite: "k",
+    hybrid: "h",
+    terrain: "p"
+};
+const t = typeMap[mapType] ?? "";
+
+// Construct final Map Embed URL (No API key required for basic embed)
+const encodedQuery = encodeURIComponent(query);
+const mapUrl = `https://maps.google.com/maps?width=100%25&height=100%25&hl=${lang}&q=${encodedQuery}&t=${t}&z=${zoom}&ie=UTF8&iwloc=B&output=embed`;
+---
+<google-map class:list={["google-map-container", className]} {...rest}>
     <iframe 
         data-src={mapUrl}
         width="100%" 
@@ -33,61 +71,9 @@ const { class: className, ...rest } = Astro.props;
         loading="lazy" 
         referrerpolicy="no-referrer-when-downgrade"
         title={`Google Map showing service area for ${Site.Brand}`}
-        id="google-map-iframe"
     ></iframe>
-</div>
+</google-map>
 
-<script is:inline>
-    (function() {
-        const wrapper = document.getElementById('google-map-wrapper');
-        const iframe = document.getElementById('google-map-iframe');
-        
-        function loadMap() {
-            if (window.innerWidth > 768) {
-                if (iframe && iframe.dataset.src && !iframe.src) {
-                    iframe.src = iframe.dataset.src;
-                }
-            } else {
-                // On mobile, we might want to hide it or keep it as a placeholder
-                // For now, let's just not load the heavy iframe
-                if (wrapper) {
-                     wrapper.style.display = 'none';
-                     // Notify parent to hide the container if needed
-                     const parent = wrapper.closest('#service-area__map');
-                     if (parent) parent.style.display = 'none';
-                }
-            }
-        }
-
-        loadMap();
-        // Optional: reload on resize if needed, but usually once is enough for perf
-    })();
+<script>
+    import "@scripts/GoogleMap.js";
 </script>
-
-<style>
-    .google-map-container {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-color: #e0e0e0;
-        position: relative;
-        z-index: 500;
-    }
-
-    @media (max-width: 769px) {
-        .google-map-container {
-            display: none;
-        }
-    }
-
-    iframe {
-        border: none;
-        width: 100%;
-        height: 100%;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: transparent;
-    }
-</style>

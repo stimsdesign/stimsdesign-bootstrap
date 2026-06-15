@@ -1,12 +1,77 @@
 ---
+/*************************************************************************
+ * @elements/TextTicker.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description: 
+ *   An infinite scrolling text ticker component. Loops through its
+ *   child elements (spans) and clones them for seamless horizontal scrolling.
+ *   Automatically assigns clean, lowercase, hyphenated CSS classes to
+ *   internal spans matching their text content.
+ *   Uses a custom element to work cleanly with Astro's View Transitions.
+ * 
+ * Usage:
+ *   - Default Setup:
+ *       <TextTicker>
+ *           <span>Shopify</span>
+ *           <span>Astro</span>
+ *       </TextTicker>
+ * 
+ *   - Custom configurations (Speed, Direction, Spacing):
+ *       <TextTicker 
+ *           speed="medium" 
+ *           direction="left" 
+ *           gap="0.5ch" 
+ *           pauseOnHover={false}
+ *       >
+ *           ...
+ *       </TextTicker>
+ * 
+ *************************************************************************/
+
+// Import → Styles
+import "@theme/elements/TextTicker.css";
+
 interface Props {
+    /** Pause scrolling on mouse hover. Default: false */
+    pauseOnHover?: boolean;
+    /** Animation scroll duration in seconds (e.g. 60) or preset ("slow", "medium", "fast"). Default: "medium" (90s) */
+    speed?: "slow" | "medium" | "fast" | number;
+    /** Direction of scroll. Options: "left" | "right". Default: "left" */
+    direction?: "left" | "right";
+    /** Spacing between items. Default: "0.5ch" */
+    gap?: string;
     class?: string;
     [key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { 
+    pauseOnHover = false,
+    speed = "medium",
+    direction = "left",
+    gap = "0.5ch",
+    class: className, 
+    ...rest 
+} = Astro.props;
+
+// Speed presets mapping
+const speedMap = {
+    slow: "120s",
+    medium: "90s",
+    fast: "45s"
+};
+const duration = typeof speed === "number" ? `${speed}s` : (speedMap[speed] || "90s");
 ---
-<div class:list={["text-ticker__wrapper", className]} {...rest}>
+<text-ticker 
+    class:list={["text-ticker__wrapper", className]} 
+    data-pause-on-hover={pauseOnHover ? "" : undefined}
+    data-direction={direction}
+    style={{
+        "--ticker-duration": duration,
+        "--ticker-gap": gap
+    }}
+    {...rest}
+>
     <div class="text-ticker">
         <div class="text-ticker__runner">
             <div class="text-ticker__item">
@@ -14,78 +79,8 @@ const { class: className, ...rest } = Astro.props;
             </div>
         </div>
     </div>
-</div>
-
-<style is:global>
-    .text-ticker__wrapper {
-        container-type: inline-size;
-        position: relative;
-        width: 100%;
-    }
-    .text-ticker {
-        overflow: hidden;
-        margin: 0 auto 0;
-        user-select: none;
-        -webkit-touch-callout: none;
-        -webkit-user-drag: none;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-
-    .text-ticker .text-ticker__runner {
-        display: flex;
-        width: max-content;
-        animation: text-ticker-scroll 90s linear infinite;
-    }
-
-    .text-ticker__item {
-        white-space: nowrap;
-    }
-
-    .text-ticker__item span {
-        display: inline-block;
-        margin: 0 .5ch;
-        position: relative;
-    }
-
-
-
-
-    @keyframes text-ticker-scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-</style>
+</text-ticker>
 
 <script>
-    class Ticker {
-        runner: HTMLElement | null;
-        item: HTMLElement | null;
-
-        constructor(root: Element) {
-            this.runner = root.querySelector(".text-ticker__runner");
-            this.item = this.runner?.querySelector(".text-ticker__item") || null;
-            if (!this.runner || !this.item) return;
-            this.cloneItems();
-        }
-        cloneItems() {
-            if (!this.runner || !this.item) return;
-            for (let i = 0; i < 3; i++) {
-                this.runner.appendChild(this.item.cloneNode(true));
-            }
-        }
-    }
-
-    document.addEventListener(
-        "astro:page-load",
-        () => {
-            const tickers = document.querySelectorAll(".text-ticker");
-            tickers.forEach((ticker) => new Ticker(ticker));
-        },
-        { passive: true },
-    );
+    import "@scripts/TextTicker.js";
 </script>

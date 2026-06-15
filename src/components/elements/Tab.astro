@@ -1,2 +1,55 @@
-<input type="radio" name="tabs">
-<label><slot /></label>
+---
+/*************************************************************************
+ * @elements/Tab.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  An individual tab trigger component, utilizing a radio input and label.
+ *  Uses the unique name prop as the input ID, and parent group name for grouping.
+ * 
+ * Usage:
+ *  <Tab name="services-tab">Services</Tab>
+ * 
+ *************************************************************************/
+
+interface Props {
+    /** The unique identifier for this tab (matches TabContent's 'for') */
+    name: string;  
+    /** Makes tab selected (default first tab) */
+    checked?: boolean; 
+    class?: string;
+    [key: string]: any;
+}
+
+const {
+    name,
+    checked,
+    class: className = "",
+    ...rest
+} = Astro.props;
+
+// Auto-activate the first tab if no explicit checked is defined
+const locals = Astro.locals as any;
+const index = locals.tabIndex || 0;
+const tabGroup = locals.currentTabGroup || "default-tabs-group";
+
+const isFirst = index === 0;
+if (locals.tabIndex !== undefined) {
+    locals.tabIndex++;
+}
+
+const isChecked = checked !== undefined ? checked : isFirst;
+---
+
+<div class:list={["tab-item", className]} {...rest}>
+    <input 
+        type="radio" 
+        id={name} 
+        name={tabGroup} 
+        checked={isChecked} 
+        class="tab-input" 
+    />
+    <label for={name} class="tab-label" role="tab">
+        <slot />
+    </label>
+</div>

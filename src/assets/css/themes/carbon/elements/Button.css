@@ -63,3 +63,25 @@
 .button:hover svg {
     filter: drop-shadow(0 0 10px var(--color-primary-light));
 }
+
+.button.alt {
+    color: var(--color-secondary-light);
+    background-color: var(--color-secondary);
+}
+
+.button.small {
+    text-transform: uppercase;
+    font-size: var(--size-sm);
+    color: var(--color-foreground-light);
+    font-family: var(--font-heading);
+    background-color: var(--color-secondary);
+    height: 2rem;
+    line-height: 2rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    padding: 0 1rem;
+}
+
+.button.small:hover  {
+    background-color: var(--color-foreground-light);
+    color: var(--color-background);
+}

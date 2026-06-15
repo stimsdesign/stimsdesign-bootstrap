@@ -1,12 +1,80 @@
 ---
+/*************************************************************************
+ * @elements/ImageTicker.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description: 
+ *   An infinite scrolling image/logo ticker component. Loops through its
+ *   child elements and clones them for seamless horizontal scrolling.
+ *   Uses a custom element to work cleanly with Astro's View Transitions.
+ * 
+ * Usage:
+ *   - Default Setup:
+ *       <ImageTicker>
+ *           <img src="/image1.png" alt="1" />
+ *           <img src="/image2.png" alt="2" />
+ *       </ImageTicker>
+ * 
+ *   - Custom configuration defaults (Speed, Direction, Spacing, Height):
+ *       <ImageTicker 
+ *           speed="medium" 
+ *           direction="left" 
+ *           itemHeight="5cqi" 
+ *           gap="2cqi" 
+ *           pauseOnHover={false}
+ *       >
+ *           ...
+ *       </ImageTicker>
+ * 
+ *************************************************************************/
+
+// Import → Styles
+import "@theme/elements/ImageTicker.css";
+
 interface Props {
+    /** Pause scrolling on mouse hover. Default: true */
+    pauseOnHover?: boolean;
+    /** Animation scroll duration in seconds (e.g. 60) or preset ("slow", "medium", "fast"). Default: "medium" (90s) */
+    speed?: "slow" | "medium" | "fast" | number;
+    /** Direction of scroll. Options: "left" | "right". Default: "left" */
+    direction?: "left" | "right";
+    /** Spacing between items. Default: "2cqi" */
+    gap?: string;
+    /** Height of items. Default: "5cqi" */
+    itemHeight?: string;
     class?: string;
     [key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { 
+    pauseOnHover = false,
+    speed = "medium",
+    direction = "left",
+    gap = "2cqi",
+    itemHeight = "5cqi",
+    class: className, 
+    ...rest 
+} = Astro.props;
+
+// Speed presets mapping
+const speedMap = {
+    slow: "120s",
+    medium: "90s",
+    fast: "45s"
+};
+const duration = typeof speed === "number" ? `${speed}s` : (speedMap[speed] || "90s");
 ---
-<div class:list={["image-ticker__wrapper", className]} {...rest}>
+<image-ticker 
+    class:list={["image-ticker__wrapper", className]} 
+    data-pause-on-hover={pauseOnHover ? "" : undefined}
+    data-direction={direction}
+    style={{
+        "--ticker-duration": duration,
+        "--ticker-gap": gap,
+        "--ticker-height": itemHeight
+    }}
+    {...rest}
+>
     <div class="image-ticker">
         <div class="image-ticker__runner">
             <div class="image-ticker__img">
@@ -14,82 +82,8 @@ const { class: className, ...rest } = Astro.props;
             </div>
         </div>
     </div>
-</div>
-
-<style is:global>
-    .image-ticker__wrapper {
-        container-type: inline-size;
-        position: relative;
-        width: 100%;
-    }
-
-    @media (max-width: 769px) {
-        .image-ticker__wrapper {
-            margin: 2rem 0;
-        }
-    }   
-    .image-ticker {
-        overflow: hidden;
-        margin: 0 auto 0;
-        user-select: none;
-        -webkit-touch-callout: none;
-        -webkit-user-drag: none;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-
-    .image-ticker .image-ticker__runner {
-        display: flex;
-        width: max-content;
-        animation: image-ticker-scroll 90s linear infinite;
-        will-change: transform;
-    }
-
-    .image-ticker__img > * {
-        display: inline-block;
-        margin: 0 .5ch;
-        position: relative;
-        height: 5cqi;
-        width: auto;
-        margin: 0 2cqi;
-    }
-
-
-    @keyframes image-ticker-scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-</style>
+</image-ticker>
 
 <script>
-    class ImageTickerAnim {
-        runner: HTMLElement | null;
-        item: HTMLElement | null;
-
-        constructor(root: Element) {
-            this.runner = root.querySelector(".image-ticker__runner");
-            this.item = this.runner?.querySelector(".image-ticker__img") || null;
-            if (!this.runner || !this.item) return;
-            this.cloneItems();
-        }
-        cloneItems() {
-            if (!this.runner || !this.item) return;
-            for (let i = 0; i < 3; i++) {
-                this.runner.appendChild(this.item.cloneNode(true));
-            }
-        }
-    }
-
-    document.addEventListener(
-        "astro:page-load",
-        () => {
-            const Imagetickers = document.querySelectorAll(".image-ticker");
-            Imagetickers.forEach((Imageticker) => new ImageTickerAnim(Imageticker));
-        },
-        { passive: true },
-    );
+    import "@scripts/ImageTicker.js";
 </script>

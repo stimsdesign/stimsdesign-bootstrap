@@ -1,0 +1,31 @@
+{
+  "kit": {
+    "id": "yif6wle",
+    "families": [
+      {
+        "id": "nwxv",
+        "name": "Le Havre ",
+        "slug": "le-havre",
+        "css_names": [
+          "le-havre"
+        ],
+        "css_stack": "\"le-havre\",sans-serif",
+        "variations": [
+          "n7"
+        ]
+      },
+      {
+        "id": "qbnn",
+        "name": "Thirsty Script",
+        "slug": "thirsty-script",
+        "css_names": [
+          "thirsty-script"
+        ],
+        "css_stack": "\"thirsty-script\",sans-serif",
+        "variations": [
+          "n7"
+        ]
+      }
+    ]
+  }
+}

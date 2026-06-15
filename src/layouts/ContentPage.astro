@@ -16,10 +16,10 @@ import MobileNav from "@navigation/MobileNav.astro";
 // Elements
 import ConfirmationBox from "@elements/ConfirmationBox.astro";
 
-// SVG Sheets
-Astro.locals.iconRegistry = new Set(); // Initialize Icon Registry
-Astro.locals.spriteRegistry = new Set(); // Initialize Sprite Registry
-Astro.locals.logoRegistry = new Set(); // Initialize Logo Registry
+// SVG Sheets & Registries
+if (!Astro.locals.iconRegistry) Astro.locals.iconRegistry = new Set();
+if (!Astro.locals.spriteRegistry) Astro.locals.spriteRegistry = new Set();
+if (!Astro.locals.logoRegistry) Astro.locals.logoRegistry = new Set();
 import IconSheet from "@elements/SVGiconSheet.astro";
 import LogoSheet from "@elements/SVGlogoSheet.astro";
 import SpriteSheet from "@elements/SVGspriteSheet.astro";

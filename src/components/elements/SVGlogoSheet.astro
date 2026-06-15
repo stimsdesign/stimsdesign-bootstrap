@@ -1,17 +1,24 @@
 ---
 /*************************************************************************
  * @elements/SVGlogoSheet.astro
+ * -----------------------------------------------------------------------
  * 
- * Generates an SVG sprite sheet for brand logos.
- * Usage: <LogoSheet />
+ * Description: 
+ *   Generates a global SVG sprite sheet for brand logos by scanning the 
+ *   `logoRegistry` populated by SVGlogo components during SSR.
+ *   Supports subdirectories under src/assets/images/logo/.
+ * 
+ * Usage:
+ *   Include this component once in your main layout (typically at the bottom of the body):
+ *   <SVGlogoSheet />
  * 
  *************************************************************************/
 
 // Get registered logos
 const registered = Astro.locals.logoRegistry || new Set();
 
-// Import all SVGs as raw strings from the logos directory
-const logoFiles = import.meta.glob("@images/logo/*.svg", {
+// Glob all SVGs as raw strings recursively from the logos directory
+const logoFiles = import.meta.glob("@images/logo/**/*.svg", {
     query: "?raw",
     eager: true,
 });
@@ -21,8 +28,14 @@ const allDefs: string[] = [];
 
 // Process each SVG
 function processSvg(raw: any, path: string) {
-    const filename = path.split("/").pop() || "";
-    const name = filename.replace(".svg", "");
+    const baseSegment = "/logo/";
+    const index = path.indexOf(baseSegment);
+    let name = "";
+    if (index !== -1) {
+        name = path.substring(index + baseSegment.length).replace(/\.svg$/, "");
+    } else {
+        name = path.split("/").pop()?.replace(/\.svg$/, "") || "";
+    }
     
     // Only process if it was registered
     if (!registered.has(name)) return null;

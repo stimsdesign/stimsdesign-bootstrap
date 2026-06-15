@@ -1,33 +1,54 @@
 ---
 /*************************************************************************
  * @elements/FuzzyImage.astro
+ * -----------------------------------------------------------------------
  * 
- * Responsive image component with smooth blurred loading transition.
- * Supports automatic placeholder generation, smart widths, and 
- * layout-based sizes.
+ * Description: 
+ *   Responsive image component with a smooth blurred loading transition.
+ *   Supports automatic placeholder generation, smart widths, and layout-based sizes.
+ * 
+ * Usage:
+ *   <FuzzyImage 
+ *      name="hero.jpg" 
+ *      alt="Hero banner" 
+ *      layout="full-width" 
+ *      eager={true} 
+ *   />
  * 
  *************************************************************************/
 
- // Assets
+// Import → Assets
 import { Image, getImage } from "astro:assets";
 
-// Imports
+// Import → Styles
 import "@theme/elements/FuzzyImage.css";
 
 // Props
 interface Props {
-  name: string; // File name under src/assets/images (e.g. 'carbon-hero.webp') or a remote URL
-  placeholder?: string; // Optional manual override for the placeholder image (URL or path)
-  alt?: string; // Alt text for accessibility
-  width?: number; // Optional override for image width
-  height?: number; // Optional override for image height
-  eager?: boolean; // Set to true for images above the fold
-  widths?: number[]; // Custom responsive widths
-  sizes?: string; // Custom sizes attribute
-  layout?: "full-width" | "half-width" | "grid-2" | "grid-3" | "grid-4" | "content"; // Preset for smart responsive sizes
-  orientation?: "landscape" | "portrait" | "square"; // Override for resizing logic
-  class?: string; // CSS class for the .fuzzy-image wrapper div
-  imageClass?: string; // CSS class for the actual img tag
+  /** File name under `src/assets/images` (e.g., 'carbon-hero.webp') or a remote URL. */
+  name: string;
+  /** Optional manual override for the placeholder image (URL or path). */
+  placeholder?: string;
+  /** Alt text for accessibility. */
+  alt?: string;
+  /** Optional override for image width in pixels. */
+  width?: number;
+  /** Optional override for image height in pixels. */
+  height?: number;
+  /** Set to true for images above the fold (disables lazy-loading, sets high fetch priority). Default: false. */
+  eager?: boolean;
+  /** Custom responsive widths for srcset generation. */
+  widths?: number[];
+  /** Custom sizes attribute for responsive image selection. */
+  sizes?: string;
+  /** Preset for smart responsive sizes based on layout position. Default: "full-width". */
+  layout?: "full-width" | "half-width" | "grid-2" | "grid-3" | "grid-4" | "content";
+  /** Override for resizing aspect ratio/orientation logic. */
+  orientation?: "landscape" | "portrait" | "square";
+  /** CSS class for the outer `.fuzzy-image` wrapper div. */
+  class?: string;
+  /** CSS class for the actual `img` tag. */
+  imageClass?: string;
   [key: string]: any;
 }
 

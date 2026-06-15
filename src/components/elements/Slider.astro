@@ -4,9 +4,15 @@
  * -----------------------------------------------------------------------
  * 
  * Description: 
- *   
+ *   A responsive slider/carousel component supporting touch/swipe events,
+ *   autoplay, manual navigation arrows, and pagination bullets.
+ * 
  * Usage:
- *   
+ *   <Slider id="my-slider" arrows={true} pagination={true} bullets={3}>
+ *      <div class="slide">Slide 1</div>
+ *      <div class="slide">Slide 2</div>
+ *      <div class="slide">Slide 3</div>
+ *   </Slider>
  * 
  *************************************************************************/
 
@@ -18,13 +24,22 @@ import Icon from "@elements/SVGicon.astro";
 
 // Props
 interface Props {
+    /** The unique HTML identifier for the slider component. */
     id?: string;
+    /** Whether to show next/previous navigation arrows. Default: false. */
     arrows?: boolean;
+    /** Whether to show pagination bullets. Default: false. */
     pagination?: boolean;
+    /** The number of slides/bullets to generate in pagination. Default: 3. */
     bullets?: number;
+    /** CSS color for the pagination bullets. Default: "white". */
     bulletColor?: string;
+    /** Headers associated with slides for tab-like navigation. */
     headers?: string[];
+    /** Whether the slider should automatically cycle through slides. Default: false. */
     autoplay?: boolean;
+    /** Additional CSS classes. */
+    class?: string;
     [key: string]: any;
 }
 

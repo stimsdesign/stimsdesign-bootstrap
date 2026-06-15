@@ -1,3 +1,27 @@
-<div class="tabbed-content">
+---
+/*************************************************************************
+ * @elements/TabContent.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  Tabbed content pane that displays when the corresponding Tab is checked.
+ * 
+ * Usage:
+ *  <TabbedContent for="services-tab">
+ *      <p>Content goes here...</p>
+ *  </TabbedContent>
+ * 
+ *************************************************************************/
+
+interface Props {
+    for: string; // The name/id of the corresponding Tab trigger
+    class?: string;
+    [key: string]: any;
+}
+
+const { for: tabId, class: className = "", ...rest } = Astro.props;
+---
+
+<div class:list={["tab-content-pane", className]} data-for={tabId} role="tabpanel" {...rest}>
     <slot />
 </div>

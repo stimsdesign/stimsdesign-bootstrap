@@ -1,0 +1,12 @@
+---
+
+// Import → Elements
+import Modal from "@elements/Modal.astro";
+import Button from "@elements/Button.astro";
+
+---
+<Modal id="sample-modal">
+    <p>This is modal content</p>
+    <Button class="close-modal">Close Modal</Button>
+</Modal>
+<Button data-modal-id="sample-modal">Open Modal</Button>
