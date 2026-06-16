@@ -187,6 +187,11 @@ export class FormHandler {
             this.formatZipInput(target);
         }
 
+        // Email validation
+        if (target.tagName === 'INPUT' && (target.type === 'email' || target.getAttribute('type') === 'email')) {
+            this.validateEmailState(target);
+        }
+
         // 3. Password Requirements & Checking
         if (target.tagName === 'INPUT' && target.closest('.password-input-wrapper')) {
             const container = this.root.querySelector('.password-requirements');
@@ -374,6 +379,40 @@ export class FormHandler {
         return true;
     }
 
+    validateEmailState(input) {
+        input.setCustomValidity("");
+
+        const value = input.value.trim();
+        if (!value) {
+            return true;
+        }
+
+        // Email regex ensuring an @ symbol and a domain suffix (dot and at least two letters)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        if (!emailRegex.test(value)) {
+            if (!value.includes('@')) {
+                input.setCustomValidity("Please include an '@' in the email address.");
+            } else {
+                const parts = value.split('@');
+                const domain = parts[1] || "";
+                if (!domain.includes('.')) {
+                    input.setCustomValidity("Please include a domain suffix (e.g. .com, .net) after the '@'.");
+                } else {
+                    const domainParts = domain.split('.');
+                    const lastPart = domainParts[domainParts.length - 1];
+                    if (lastPart.length < 2) {
+                        input.setCustomValidity("Please enter a valid domain suffix (e.g. .com, .net).");
+                    } else {
+                        input.setCustomValidity("Please enter a valid email address.");
+                    }
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
     updateDynamicDisplay(wrapper) {
         const triggerId = wrapper.dataset.trigger;
         const triggers = wrapper.querySelectorAll(`[id="${triggerId}"], [name="${triggerId}"]`);
@@ -491,6 +530,9 @@ export class FormHandler {
             if (input.tagName === 'INPUT' && input.closest('.password-input-wrapper')) {
                 this.validatePasswordState(input);
             }
+            if (input.tagName === 'INPUT' && (input.type === 'email' || input.getAttribute('type') === 'email')) {
+                this.validateEmailState(input);
+            }
         });
 
         const addressGroups = section.querySelectorAll('.valid-address-group');
@@ -549,6 +591,9 @@ export class FormHandler {
 
         const passwordInputs = Array.from(myForm.querySelectorAll('.password-input-wrapper input'));
         passwordInputs.forEach(input => this.validatePasswordState(input));
+
+        const emailInputs = Array.from(myForm.querySelectorAll('input[type="email"]'));
+        emailInputs.forEach(input => this.validateEmailState(input));
 
         if (!myForm.checkValidity()) {
             myForm.reportValidity();

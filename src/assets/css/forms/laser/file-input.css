@@ -1,0 +1,101 @@
+.file-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.file-group label {
+    cursor: pointer;
+    pointer-events: auto;
+    position: absolute;
+    left: 0;
+    padding-left: 1rem;
+    top: 2rem;
+    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--color-foreground-dark);
+}
+
+.file-group.file-active > label,
+.file-group:has(input.has-file) > label {
+    padding-left: 0;
+    top: -1rem;
+    font-size: var(--size-xs);
+    color: var(--color-primary-light);
+}
+
+.file-group:has(input.file-invalid) label {
+    color: var(--color-red);
+}
+
+.file-group input[type="file"] {
+    color: transparent;
+    position: relative;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.file-group input[type="file"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-primary);
+    -webkit-mask-image: url("/images/forms/dashed-border.svg");
+    mask-image: url("/images/forms/dashed-border.svg");
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.file-group:has(input:focus) input[type="file"]::before,
+.file-group:has(input.has-file) input[type="file"]::before {
+    background-color: var(--color-primary-light);
+}
+
+.file-group:has(input.file-invalid) input[type="file"]::before {
+    background-color: var(--color-error, red);
+}
+
+.file-group input[type="file"].has-file::after {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.file-group input[type="file"].has-file {
+    color: var(--color-foreground);
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    display: none;
+}
+.file-notation {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    font-size: var(--size-xs);
+    margin-top: 0.25rem;
+    justify-content: space-between;
+}
+.file-requirements {
+    color: var(--color-foreground-dark);
+}
+.file-type-warning,
+.file-size-warning {
+    color: var(--color-red);
+    display: none;
+}

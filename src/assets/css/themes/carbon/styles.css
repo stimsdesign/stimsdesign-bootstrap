@@ -88,6 +88,10 @@
     /* Utility Colors */
     --color-green: #00FF88;
     --color-red:   #FF0044;
+
+    /* Space Toggle for Display Mode (Default Dark) */
+    --dark: ;
+    --light: ;
 }
 
 /* Breakpoints
@@ -122,8 +126,19 @@
         font-size: var(--size-med);
         font-family: var(--font-body);
         color: var(--color-foreground);
-        background-color: var(--color-background-dark);
+        --light: ;
+        --dark: initial;
     }
+
+    body:has(input.display-mode:checked) {
+        --light: initial;
+        --dark: ;
+    }
+
+    body {
+        background-color: var(--light, var(--color-background-light)) var(--dark, var(--color-background-dark));
+    }
+
     @media (prefers-reduced-motion: reduce) {
         body {scroll-behavior: auto;}
     }
@@ -387,7 +402,7 @@
 
 /* Helper Styles */
 @layer global {
-    .is-wrapper {container: wrapper / inline-size; max-width: 2560px; padding: 0 5cqi; margin: 0 auto;}
+    .is-wrapper {container: wrapper / inline-size; max-width: 2560px; padding: 0 5cqi; margin: 0 auto 4rem;}
 
     .hidden {
         position: absolute;

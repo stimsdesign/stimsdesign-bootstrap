@@ -1,0 +1,77 @@
+.pill-group {
+    position: relative;
+}
+
+
+
+.pill-group input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.pill-group label {
+    display: grid;
+    grid-template-columns: 40px auto;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: var(--color-foreground-light);
+}
+
+.pill-group label:before,
+.pill-group label:after {
+    grid-area: 1 / 1;
+    content: "";
+    border-radius: 12px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 0 1px 1px var(--color-background-light);
+}
+
+.pill-group label:before {
+    box-sizing: border-box;
+    background-color: var(--color-background);
+    height: 24px;
+    width: 48px;
+}
+
+.pill-group label:after {
+    background: var(--color-primary);
+    height: 24px;
+    width: 24px;
+    transform: translateX(0);
+}
+
+.pill-group input:checked + label:before {
+    box-shadow: 0 0 1px 1px var(--color-primary-light);
+    background-color: var(--color-primary-dark);
+}
+
+.pill-group input:checked + label:after {
+    transform: translateX(24px);
+}
+
+.pill-group input:focus-visible + label:before {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+}
+
+.pill-group span.alt-label {
+    display: none;
+}
+
+.pill-group input:checked + label span.alt-label {
+    display: block;
+}
+
+.pill-group input:checked + label span:not(.alt-label) {
+    display: none;
+}

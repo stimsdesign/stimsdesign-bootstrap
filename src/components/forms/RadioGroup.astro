@@ -2,13 +2,17 @@
 /**
  * @prop {string} legend - Visual accessibility title for the fieldset
  * @prop {string} name - The shared name binding the radio input group
- * @prop {Array} options - Objects mapping { id, label, value, required?, target? }
+ * @prop {Array} options - Objects mapping { id, label, value, required?, target?, checked? }
  * @prop {boolean} list - Renders the options vertically if true
  */
+
+ // Import → CSS
+import "@form-styles/radios.css";
+
 interface Props {
     legend: string;
     name: string;
-    options: { id: string; label: string; value: string; required?: boolean; target?: string }[];
+    options: { id: string; label: string; value: string; required?: boolean; target?: string; checked?: boolean }[];
     list?: boolean;
     tabindex?: number;
 }
@@ -27,6 +31,7 @@ const { legend, name, options, list = false, tabindex } = Astro.props;
                 value={option.value} 
                 placeholder=" " 
                 required={option.required} 
+                checked={option.checked}
                 tabindex={tabindex}
                 {...(option.target ? { "data-target": option.target } : {})}
             />

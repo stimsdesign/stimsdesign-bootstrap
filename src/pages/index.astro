@@ -6,49 +6,16 @@ import Layout from "@layouts/HomePage.astro";
 // Hero
 import Hero from "@hero/SideBarHero.astro";
 
-// Sprites
-import Sprite from "@elements/SVGsprite.astro"
-
-// Text Ticker
-import TextTicker from "@elements/TextTicker.astro";
-
 // Sections
 import FooterContact from "@sections/FooterContact.astro";
+import SeasonalServices from "@sections/SeasonalServices.astro";
+import WhyChooseReviews from "@sections/WhyChooseReviews.astro";
+
 ---
 
 <Layout>
     <Hero />
-    <div style="width: 90%; background:#111; padding:2rem 0; overflow: hidden; margin:0 auto">
-        <TextTicker>
-            <span>Shopify</span>
-            <span>Astro</span>
-            <span>Eleventy</span>
-            <span>Netlify</span>
-            <span>Akamai</span>
-            <span>Illustrator</span>
-            <span>Photoshop</span>
-            <span>After Effects</span>
-            <span>Premiere Pro</span>
-            <span>Nginx</span>
-            <span>Apache</span>
-            <span>HTML5</span>
-            <span>CSS3</span>
-            <span>JavaScript</span>
-            <span>React</span>
-            <span>Node.js</span>
-            <span>PHP</span>
-            <span>MySQL</span>
-            <span>PostgreSQL</span>
-            <span>Google Analytics</span>
-            <span>OpenAI</span>
-            <span>Gemini</span>
-            <span>Salesforce</span>
-            <span>Slack</span>
-            <span>Jira</span>
-            <span>Facebook Business</span>
-            <span>Google Ads</span>
-            <span>Mailchimp</span>
-        </TextTicker>
-    </div>
+    <SeasonalServices />
+    <WhyChooseReviews />
     <FooterContact />
 </Layout>

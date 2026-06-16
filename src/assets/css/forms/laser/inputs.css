@@ -1,0 +1,61 @@
+.input-group > label {
+    cursor: text;
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                left 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--color-foreground-dark);
+    padding: 0 1rem;
+}
+
+.input-group:focus-within > label,
+.input-group:has(> input:not(:placeholder-shown)) > label,
+.input-group:has(.password-input-wrapper > input:not(:placeholder-shown)) > label,
+.input-group:has(> textarea:not(:placeholder-shown)) > label,
+/* .input-group:has(> select:not(:placeholder-shown)) > label, */
+.input-group:has(> input:placeholder-shown:not([placeholder=" "])) > label,
+.input-group:has(> textarea:placeholder-shown:not([placeholder=" "])) > label {
+    top: -0.5rem;
+    left: -1rem;
+    font-size: var(--size-xs);
+    color: var(--color-primary-light);
+}
+
+.input-group:has(> input:placeholder-shown:not([placeholder=" "])) > label,
+.input-group:has(> textarea:placeholder-shown:not([placeholder=" "])) > label {
+    color: var(--color-foreground-dark);
+}
+
+.input-group:has(> input:not(:placeholder-shown)) > label,
+.input-group:has(.password-input-wrapper > input:not(:placeholder-shown)) > label,
+.input-group:has(> textarea:not(:placeholder-shown)) > label {
+    color: var(--color-primary-light);
+}
+
+
+.input-group > :is(input:not([type="radio"]):not([type="checkbox"]), textarea),
+.password-input-wrapper > input {
+    width: 100%;
+    padding: calc(1rem - 2px) 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-secondary-dark);
+    color: var(--color-foreground);
+    font-size: var(--size-lg);
+    transition: border-color 0.1s ease, color 0.1s ease;
+    border-radius: 0;
+    outline: none;
+}
+
+.input-group > :is(input:not([type="radio"]):not([type="checkbox"]), textarea):is(:-webkit-autofill, :-webkit-autofill:hover, :-webkit-autofill:focus) {
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-background-dark) inset !important;
+    -webkit-text-fill-color: var(--color-foreground) !important;
+    color: var(--color-foreground) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--color-secondary-dark) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+

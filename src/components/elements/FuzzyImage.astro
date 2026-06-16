@@ -100,13 +100,16 @@ if (!isRemote) {
   }
 
   const imageKey = `/src/assets/images/${normalizedPath}`;
+  const aliasImageKey = `@images/${normalizedPath}`;
   
-  if (localImages[imageKey]) {
-    const imageModule = (await localImages[imageKey]()) as any;
+  const imagePath = Object.keys(localImages).find(k => k === imageKey || k === aliasImageKey);
+  
+  if (imagePath) {
+    const imageModule = (await localImages[imagePath]()) as any;
     srcImage = imageModule.default;
   } else {
     if (import.meta.env.DEV) {
-      console.warn(`[FuzzyImage] Local image not found in src/assets/images: "${name}" (looked for key: "${imageKey}")`);
+      console.warn(`[FuzzyImage] Local image not found in src/assets/images: "${name}" (looked for: "${imageKey}" or "${aliasImageKey}")`);
     }
   }
 
@@ -114,24 +117,83 @@ if (!isRemote) {
   if (!placeholder) {
     const lastDot = normalizedPath.lastIndexOf(".");
     const baseName = lastDot !== -1 ? normalizedPath.substring(0, lastDot) : normalizedPath;
-    const fuzzyKey = `@images/fuzzy-image/${baseName}.png`;
+    const fuzzyKey = `/src/assets/images/fuzzy-image/${baseName}.png`;
+    const aliasFuzzyKey = `@images/fuzzy-image/${baseName}.png`;
 
-    if (fuzzyGlob[fuzzyKey]) {
+    const fuzzyPath = Object.keys(fuzzyGlob).find(k => k === fuzzyKey || k === aliasFuzzyKey);
+
+    if (fuzzyPath) {
       // Use pre-generated PNG
-      const fuzzyModule = (await fuzzyGlob[fuzzyKey]()) as any;
+      const fuzzyModule = (await fuzzyGlob[fuzzyPath]()) as any;
       fuzzySrc = fuzzyModule.default.src;
     } else if (srcImage && typeof srcImage === "object") {
-      // Dynamic fallback: Generate placeholder on the fly
+      if (import.meta.env.DEV) {
+        // Dev fallback to prevent Astro's cold-boot getImage() race condition crash
+        fuzzySrc = srcImage.src;
+      } else {
+        // Dynamic fallback: Generate placeholder on the fly at build-time
+        try {
+          const imageWidth = srcImage.width || 0;
+          const imageHeight = srcImage.height || 0;
+          
+          let targetW = 20;
+          let targetH = 20;
+          const activeOrientation = orientation || (imageWidth >= imageHeight ? "landscape" : "portrait");
+
+          if (imageWidth > 0 && imageHeight > 0) {
+            const aspect = imageWidth / imageHeight;
+            if (activeOrientation === "square") {
+              targetW = 20;
+              targetH = 20;
+            } else if (activeOrientation === "portrait") {
+              targetW = 20;
+              targetH = Math.round(20 / aspect);
+            } else {
+              targetH = 20;
+              targetW = Math.round(20 * aspect);
+            }
+          } else {
+            if (activeOrientation === "portrait") {
+              targetW = 20;
+              targetH = 40;
+            } else if (activeOrientation === "landscape") {
+              targetH = 20;
+              targetW = 40;
+            }
+          }
+
+          const optimizedPlaceholder = await getImage({
+            src: srcImage,
+            width: targetW,
+            height: targetH,
+            quality: 10,
+            format: "png"
+          });
+          fuzzySrc = optimizedPlaceholder.src;
+        } catch (e: any) {
+          console.error(`[FuzzyImage] Failed to dynamically generate placeholder for local image: "${name}". Error: ${e?.message || e}`);
+          fuzzySrc = srcImage.src; // Fallback to full image
+        }
+      }
+    }
+  }
+} else {
+  // Remote image placeholder dynamic generation
+  if (!placeholder) {
+    if (import.meta.env.DEV) {
+      // Dev fallback to prevent Astro's cold-boot getImage() race condition crash
+      fuzzySrc = name;
+    } else {
       try {
-        const imageWidth = srcImage.width || 0;
-        const imageHeight = srcImage.height || 0;
+        const origW = width || 0;
+        const origH = height || 0;
         
         let targetW = 20;
         let targetH = 20;
-        const activeOrientation = orientation || (imageWidth >= imageHeight ? "landscape" : "portrait");
-
-        if (imageWidth > 0 && imageHeight > 0) {
-          const aspect = imageWidth / imageHeight;
+        const activeOrientation = orientation || (origW && origH && origW >= origH ? "landscape" : "portrait");
+        
+        if (origW > 0 && origH > 0) {
+          const aspect = origW / origH;
           if (activeOrientation === "square") {
             targetW = 20;
             targetH = 20;
@@ -153,7 +215,7 @@ if (!isRemote) {
         }
 
         const optimizedPlaceholder = await getImage({
-          src: srcImage,
+          src: name,
           width: targetW,
           height: targetH,
           quality: 10,
@@ -161,55 +223,9 @@ if (!isRemote) {
         });
         fuzzySrc = optimizedPlaceholder.src;
       } catch (e: any) {
-        console.error(`[FuzzyImage] Failed to dynamically generate placeholder for local image: "${name}". Error: ${e?.message || e}`);
-        fuzzySrc = srcImage.src; // Fallback to full image
+        console.warn(`[FuzzyImage] Remote image placeholder optimization failed for: "${name}". Domain may not be allowed in astro.config.mjs. Error: ${e?.message || e}`);
+        fuzzySrc = name; // Fallback to full remote image
       }
-    }
-  }
-} else {
-  // Remote image placeholder dynamic generation
-  if (!placeholder) {
-    try {
-      const origW = width || 0;
-      const origH = height || 0;
-      
-      let targetW = 20;
-      let targetH = 20;
-      const activeOrientation = orientation || (origW && origH && origW >= origH ? "landscape" : "portrait");
-      
-      if (origW > 0 && origH > 0) {
-        const aspect = origW / origH;
-        if (activeOrientation === "square") {
-          targetW = 20;
-          targetH = 20;
-        } else if (activeOrientation === "portrait") {
-          targetW = 20;
-          targetH = Math.round(20 / aspect);
-        } else {
-          targetH = 20;
-          targetW = Math.round(20 * aspect);
-        }
-      } else {
-        if (activeOrientation === "portrait") {
-          targetW = 20;
-          targetH = 40;
-        } else if (activeOrientation === "landscape") {
-          targetH = 20;
-          targetW = 40;
-        }
-      }
-
-      const optimizedPlaceholder = await getImage({
-        src: name,
-        width: targetW,
-        height: targetH,
-        quality: 10,
-        format: "png"
-      });
-      fuzzySrc = optimizedPlaceholder.src;
-    } catch (e: any) {
-      console.warn(`[FuzzyImage] Remote image placeholder optimization failed for: "${name}". Domain may not be allowed in astro.config.mjs. Error: ${e?.message || e}`);
-      fuzzySrc = name; // Fallback to full remote image
     }
   }
 }
@@ -253,16 +269,28 @@ if (!finalSizes) {
 ---
 
 <div class:list={["fuzzy-image", className]} style={`background-image: url('${fuzzySrc}');`} {...rest}></div>
-<Image
-  src={srcImage}
-  alt={alt}
-  width={finalWidth}
-  height={finalHeight}
-  loading={loading}
-  fetchpriority={fetchpriority}
-  widths={finalWidths}
-  sizes={finalSizes}
-  class={imageClass}
-  style="opacity: 0;"
-/>
+{import.meta.env.DEV ? (
+  <img
+    src={isRemote ? name : (srcImage?.src || srcImage)}
+    alt={alt}
+    width={finalWidth}
+    height={finalHeight}
+    loading={loading}
+    class={imageClass}
+    style="opacity: 0;"
+  />
+) : (
+  <Image
+    src={srcImage}
+    alt={alt}
+    width={finalWidth}
+    height={finalHeight}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    widths={finalWidths}
+    sizes={finalSizes}
+    class={imageClass}
+    style="opacity: 0;"
+  />
+)}
 

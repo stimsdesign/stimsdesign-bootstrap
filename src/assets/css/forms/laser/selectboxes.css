@@ -1,0 +1,90 @@
+.select-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.select-group label {
+    visibility: hidden;
+    opacity: 0;
+    cursor: text;
+    position: absolute;
+    top: -1.5rem;
+    left: -1rem;
+    font-size: var(--size-xs);
+    color: var(--color-primary-light);
+    transition: opacity 0.3s ease;
+    padding: 0 1rem;
+}
+
+.select-group label::after {
+    visibility: visible;
+    position: absolute;
+    top: 6px   ;
+    right: -4px;
+    z-index: 100;
+}
+
+.select-group select {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: solid 1px var(--color-secondary-dark);
+    color: var(--color-foreground-dark);
+    font-size: var(--size-md);
+    transition: border-color 0.1s ease, color 0.1s ease;
+    border-radius: 0;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select-group select.has-value {
+    color: var(--color-foreground);
+}
+
+.select-group.has-value label {
+    visibility: visible;
+    opacity: 1;
+}
+
+.select-group select:focus {
+    color: var(--color-foreground);
+    border-color: var(--color-primary);
+}
+
+.select-group select option {
+    background-color: white;
+    color: black;
+}
+
+.select-group select option[value=""] {
+    display: none;
+}
+
+.select-group::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-primary); 
+    -webkit-mask-image: url("/images/forms/arrow-down.svg");
+    mask-image: url("/images/forms/arrow-down.svg");
+    -webkit-mask-size: 20px 20px;
+    mask-size: 20px 20px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+}
+
+.select-group:has(select:focus)::after {
+    transform: translateY(-50%) rotate(180deg);
+}

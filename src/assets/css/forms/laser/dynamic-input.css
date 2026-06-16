@@ -1,0 +1,33 @@
+.dynamic-input:not(:has(.form-row)) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: start;
+    width: 100%;
+}
+
+.dynamic-input:not(:has(.form-row)) > div {
+    display:none;
+}
+
+.dynamic-input:has(.form-row) > div.form-row > div {
+    display:none;
+}
+
+.dynamic-input:has(.form-row) > div.form-row > div:first-child,
+.dynamic-input:has(.form-row) > div.form-row > div.active {
+    display:block;
+}
+
+/* Force dynamic input form-rows to always be a static 2-column grid so inputs don't stretch */
+.dynamic-input > div.form-row,
+.dynamic-input > div.form-row:has(> :nth-child(2)),
+.dynamic-input > div.form-row:has(> :nth-child(3)),
+.dynamic-input > div.form-row:has(> :nth-child(4)) {
+    grid-template-columns: 1fr 1fr;
+}
+
+.dynamic-input:not(:has(.form-row)) > div:first-child,
+.dynamic-input:not(:has(.form-row)) > div.active {
+    display:block;
+}

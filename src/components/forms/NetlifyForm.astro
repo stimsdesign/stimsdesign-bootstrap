@@ -1,0 +1,60 @@
+---
+// Import → Site Config
+import { Site } from "@site.config";
+
+// Import → CSS
+import "@form-styles/forms.css";
+import "@form-styles/required.css";
+
+// Import → Elements
+import Honeypot from "@forms/Honeypot.astro"
+
+interface Props {
+    id: string;
+    name: string;
+    class?: string;
+    subject: string;
+    modalHeader: string;
+    modalParagraph: string;
+    modalButton: string;
+    multiPart?: boolean;
+    sectionIds?: string;
+}
+
+// Props
+const { 
+    id,
+    name,
+    class: className = "",
+    subject,
+    modalHeader,
+    modalParagraph,
+    modalButton,
+    multiPart = false,
+    sectionIds,
+    ...rest
+} = Astro.props;
+
+---
+
+<div class="form-wrapper">
+    <div class="form-card">
+        <form 
+            id={id}
+            class:list={["contact-form", className, multiPart && "multi-part-form"]}
+            name={name}
+            data-netlify="true"
+            netlify-honeypot="question-field"
+            data-modal-header={modalHeader}
+            data-modal-paragraph={modalParagraph}
+            data-modal-button={modalButton}
+            data-multi-part={multiPart}
+            data-section-ids={sectionIds}
+        >
+            <input type="hidden" name="form-name" value={name} />
+            <input type="hidden" name="subject" value={`${subject} from ${Site.PrettyUrl}`} />
+            <Honeypot />
+            <slot />
+        </form>
+    </div>
+</div>

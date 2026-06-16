@@ -14,7 +14,7 @@
 }
 
 #dropdown .dropdown__content {
-    background: var(--color-background-dark);
+        background: linear-gradient(90deg, var(--color-background-dark) 0%, var(--color-background) 30%, var(--color-background) 70%, var(--color-background-dark) 100%);
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 0.3s ease;

@@ -3,15 +3,21 @@
  * @prop {string} id - The standard HTML id acting as the value token
  * @prop {boolean} required - Standard HTML required attribute that renders a visual asteroid
  */
+
+// Import → CSS
+import "@form-styles/pill-option.css";
+
 interface Props {
     id: string;
     name?: string;
     label: string;
+    altLabel?: string;
+    checked?: boolean;
     required?: boolean;
     [key: string]: any;
 }
 
-const { id, name = id, label, required = false, ...rest } = Astro.props;
+const { id, name = id, label, altLabel, checked = false, required = false, ...rest } = Astro.props;
 ---
 
 <div class="pill-group">
@@ -20,10 +26,12 @@ const { id, name = id, label, required = false, ...rest } = Astro.props;
         id={id} 
         name={name} 
         required={required} 
+        checked={checked}
         {...rest}
     />
     <label for={id}>
         <span>{label}</span>
+        {altLabel && <span class="alt-label">{altLabel}</span>}
     </label>
 </div>
 

@@ -1,0 +1,41 @@
+label:has(+ input:not([type="radio"]):not([type="checkbox"]):required)::after,
+label:has(+ [class*="-input"] input:required)::after,
+label:has(+ textarea:required)::after,
+label:has(+ select:required)::after,
+.pill-group input:required + label span::after {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: 0.25rem;
+    margin-top: -.5em;
+    vertical-align: middle;
+    background-color: var(--color-accent);
+    -webkit-mask-image: url("/images/forms/asterisk.svg");
+    mask-image: url("/images/forms/asterisk.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+fieldset:has(input:required) legend::after {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: 0.25rem;
+    margin-top: -.5em;
+    vertical-align: middle;
+    background-color: var(--color-accent);
+    -webkit-mask-image: url("/images/forms/asterisk.svg");
+    mask-image: url("/images/forms/asterisk.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}

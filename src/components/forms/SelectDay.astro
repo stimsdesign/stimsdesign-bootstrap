@@ -1,5 +1,4 @@
 ---
-import Icon from "../elements/SVGicon.astro";
 /**
  * @prop {string} days - Comma-separated list of active days (e.g., "mon,tue,wed")
  * @prop {boolean} weekends - Toggle weekend availability
@@ -10,6 +9,13 @@ import Icon from "../elements/SVGicon.astro";
  * @prop {boolean} weekView - Only displays one selectable week at a time
  * @prop {boolean} disableHistory - Prevents backwards historic navigation
  */
+
+// Import → CSS
+import "@form-styles/select-day.css";
+
+// Import → Elements
+import Icon from "../elements/SVGicon.astro";
+
 interface Props {
     id: string;
     label?: string;

@@ -1,0 +1,49 @@
+---
+/*************************************************************************
+ * @elements/DisplayMode.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A Display Mode component for switching light/dark color modes.
+ * 
+ * Usage:
+ *  - Body:has(input.display-mode:checked) { ...styles... }
+ * 
+ *      :root {
+ *          --dark: ;
+ *          --light: ;
+ *      }
+ *      body:has(input.display-mode:checked) {
+ *          --light: initial;
+ *          --dark: ;
+ *      }
+ *      body {
+ *          background-color: var(--light, var(--color-background-light)) var(--dark, var(--color-background-dark));
+ *      }
+ * 
+ *  - Input: <DisplayMode id="display-mode" checked={false} />
+ * 
+ *************************************************************************/
+
+import Switch from "@forms/PillOption.astro"
+
+interface Props {
+    /** The ID for the component. */
+    id?: string;
+    /** The label for the component. */
+    label?: string;
+    /** Initial checked state of the switch. */
+    checked?: boolean;
+    /** Text to display in light mode. */
+    lightText?: string;
+    /** Text to display in dark mode. */
+    darkText?: string;
+}
+
+const { id, label, checked, lightText = "Light Mode", darkText = "Dark Mode", ...rest } = Astro.props;
+
+---
+
+<div id={id} class="display-mode__wrapper">
+    <Switch id={`${id}-display-mode`} label={lightText} altLabel={darkText} checked={checked} class="display-mode" />    
+</div>

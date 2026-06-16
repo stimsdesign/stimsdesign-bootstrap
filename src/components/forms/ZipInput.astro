@@ -1,6 +1,8 @@
 ---
-// Custom TextInput Component
+// Import → CSS
+import "@form-styles/inputs.css";
 
+// Import → Elements
 import TextInput from "./TextInput.astro";
 
 const { id = "zip", label = "Zip / Postal Code", ...rest } = Astro.props;

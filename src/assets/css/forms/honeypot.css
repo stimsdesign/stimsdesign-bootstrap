@@ -1,0 +1,10 @@
+input[name="question-field"] {
+    position: absolute;
+    top: -10000px;
+    left: -10000px;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    z-index: -1;
+}

@@ -1,0 +1,28 @@
+---
+// Import → Styles
+import "@theme/sections/WhyChooseReviews.css";
+
+// Import → Elements
+import FuzzyImage from "@elements/FuzzyImage.astro";
+import Button from "@elements/Button.astro";
+import ElfSightGoogleReviews from "@elements/ElfSightGoogleReviews.astro";
+
+---
+
+<section id="why-choose" class="is-wrapper">
+    <div id="why-choose__wrapper">
+        <div id="why-choose__pitch">
+            <h2>Why Choose Quality?</h2>
+            <figure class="why-choose__img">
+                <FuzzyImage name="https://unsplash.it/600/600?image=171" width={600} height={600} />
+            </figure>
+            <p>As a Salt Lake area business, we understand the unique needs of the <strong>Pools and Spas</strong> in our community. We're proud to serve our neighbors with the same care and attention to detail that we'd give our own families.</p>
+            <p>We take pride in our work and stand behind every job we do. Our commitment to excellence is reflected in the satisfaction of our customers.</p>
+            <Button type="switch" switchTarget="lead-overlay" name="lead-overlay__switch">Request Form</Button> <Button href="/about.html" class="wave">About Us</Button>
+        </div>
+        <div id="why-choose__reviews">
+            <h3>What Our Customers Say&hellip;</h3>
+            <ElfSightGoogleReviews widgetId="5ac11a78-4723-4049-aae4-d0ba9a2f8305" />
+        </div>
+    </div>
+</section>

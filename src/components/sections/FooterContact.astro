@@ -12,7 +12,7 @@ import Button from "@elements/Button.astro";
 import Icon from "@elements/SVGicon.astro";
 
 // Inputs
-import Honeypot from "@forms/Honeypot.astro";
+import NetlifyForm from "@forms/NetlifyForm.astro";
 import NameInput from "@forms/NameInput.astro";
 import EmailInput from "@forms/EmailInput.astro";
 import PhoneInput from "@forms/PhoneInput.astro";
@@ -47,33 +47,25 @@ import FormHandler from "@forms/FormHandler.astro";
                 </div>
             </div>
         </div>
-        <div class="form-wrapper">
-            <div class="form-card">
-                <form 
-                    id="intake-form" 
-                    class="contact-form" 
-                    name="Footer Contact Form" 
-                    data-netlify="true" 
-                    netlify-honeypot="question-field"
-                    data-modal-header="Email Sent"
-                    data-modal-paragraph="Your message has been received. We will get back to you shortly."
-                    data-modal-button="Close"
-                >
-                    <input type="hidden" name="form-name" value="Footer Contact Form" />
-                    <input type="hidden" name="subject" value={`Footer Contact Submission from ${Site.PrettyUrl}`} />
-                    <Honeypot />
-                    <div class="form-row">
-                        <NameInput id="footer-contact__name" label="Your Name" tabindex={1} required />
-                        <EmailInput id="footer-contact__email" label="Email Address" tabindex={2} required />
-                    </div>
-                    <PhoneInput id="footer-contact__phone" label="Phone Number" tabindex={3} />
-                    <TextAreaInput id="footer-contact__message" label="Your Message" tabindex={4} required />
-                    <div class="button-group">
-                        <Button type="submit" tabindex={5}>Send Message</Button>
-                    </div>
-                </form>
+        <NetlifyForm
+            id="footer-contact-form"
+            class="contact-form"
+            name="Footer Contact Form"
+            subject="Footer Contact Submission"
+            modalHeader="Email Sent"
+            modalParagraph="Your message has been received. We will get back to you shortly."
+            modalButton="Close"
+        >
+            <div class="form-row">
+                <NameInput id="footer-contact__name" label="Your Name" tabindex={1} required />
+                <EmailInput id="footer-contact__email" label="Email Address" tabindex={2} required />
             </div>
-        </div>
+            <PhoneInput id="footer-contact__phone" label="Phone Number" tabindex={3} />
+            <TextAreaInput id="footer-contact__message" label="Your Message" tabindex={4} required />
+            <div class="button-group">
+                <Button type="submit" tabindex={5}>Send Message</Button>
+            </div>
+        </NetlifyForm>
     </div>
 </section>
 

@@ -1,11 +1,17 @@
 ---
-import { Site } from "@site.config";
 /**
  * @prop {string} accept - Standard HTML accept attribute (e.g. ".jpg,.png")
  * @prop {number} maxSize - Maximum allowed file size in MB
  * @prop {string} allowedTypes - Comma-separated MIME types for validation
  * @prop {string} requirements - Custom descriptive text overriding auto-generator
  */
+
+// Import → Site Config
+import { Site } from "@site.config";
+
+// Import → CSS
+import "@form-styles/file-input.css";
+
 interface Props {
     id: string;
     name?: string;

@@ -1,5 +1,4 @@
 ---
-import Icon from "../elements/SVGicon.astro";
 /**
  * @prop {string} days - Comma-separated list of active days (e.g., "mon,tue,wed")
  * @prop {boolean} weekends - Toggle weekend availability
@@ -9,6 +8,13 @@ import Icon from "../elements/SVGicon.astro";
  * @prop {boolean} hideDays - Condenses the grid dynamically skipping disabled days
  * @prop {boolean} disableHistory - Prevents backwards historic navigation
  */
+
+// Import → CSS
+import "@form-styles/date-picker.css";
+
+// Import → Elements
+import Icon from "../elements/SVGicon.astro";
+
 interface Props {
     id: string;
     label?: string;

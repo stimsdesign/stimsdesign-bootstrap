@@ -1,7 +1,4 @@
 ---
-// Assets
-import { Site } from "@site.config";
-
 // Layout
 import Layout from "@layouts/ContentPage.astro";
 import Main from "@layout/Main.astro";
@@ -11,6 +8,7 @@ import PageHeading from "@layout/PageHeading.astro";
 import Button from "@elements/Button.astro";
 
 // Forms
+import NetlifyForm from "@forms/NetlifyForm.astro";
 import StepIndicator from "@forms/StepIndicator.astro";
 import TextInput from "@forms/TextInput.astro";
 import TextArea from "@forms/TextArea.astro";
@@ -21,7 +19,6 @@ import RadioGroup from "@forms/RadioGroup.astro";
 import PillOption from "@forms/PillOption.astro";
 import DynamicInputWrapper from "@forms/DynamicInputWrapper.astro";
 import Quantity from "@forms/Quantity.astro";
-import Honeypot from "@forms/Honeypot.astro";
 import NameInput from "@forms/NameInput.astro";
 import EmailInput from "@forms/EmailInput.astro";
 import PhoneInput from "@forms/PhoneInput.astro";
@@ -48,112 +45,102 @@ import FormHandler from "@forms/FormHandler.astro";
             height={1440}
             text="Form Examples"
         />
-        <div class="form-wrapper">
-            <div class="form-card">
-                <form 
-                    id="example-form" 
-                    class="contact-form multi-part-form" 
-                    name="Example Form" 
-                    data-netlify="true" 
-                    netlify-honeypot="question-field"
-                    data-modal-header="Email Sent"
-                    data-modal-paragraph="Your message has been received. We will get back to you shortly."
-                    data-modal-button="Close"
-                    data-multi-part="true"
-                    data-section-ids="section-1,section-2"
-                >
-                    <input type="hidden" name="form-name" value="Footer Contact Form" />
-                    <input type="hidden" name="subject" value={`Footer Contact Submission from ${Site.PrettyUrl}`} />
-                    <Honeypot />
-
-                    <StepIndicator stepTotal={2} />
-
-                    <div id="section-1" class="form-section">
-                        <div class="form-row">
-                            <NameInput id="example-name" label="Your Name" tabindex={1} />
-                            <CompanyInput id="example-company" tabindex={2} />
-                        </div>
-                        <div class="form-row">
-                            <EmailInput id="example-email" tabindex={3} />
-                            <PhoneInput id="example-phone" tabindex={4} />
-                        </div>
-                        <div class="form-row">
-                            <!-- <DatePicker id="example-date" label="Preferred Date" days="sun,Tues,wed,thurs,Saturday" weekends={false} startRange={7} endRange={30} /> -->
-                            <DatePicker id="example-date" label="Preferred Date" days="Monday, Tuesday, Wednesday, Thursday" endRange={90} excludedDates="05/07/26, 05/05/26" hideDays disableHistory tabindex={5} />
-                        </div>
-                        <div class="form-row">
-                            <SelectDay id="example-day" label="Select Day" days="Monday, Tuesday, Wednesday, Thursday" hideDays weekView disableHistory tabindex={6} />
-                        </div>
-                        <div class="buttons-group">
-                            <Button type="reset" tabindex="-1">Reset</Button>
-                            <Button class="next-btn" tabindex={7}>Next</Button>
-                        </div>
-                    </div>
-                    <div id="section-2" class="form-section">
-                        <ValidAddress id="test-address" provider="photon" tabindex={8} />
-                        <div class="form-row">
-                            <TextArea id="example-message" label="Your Message" tabindex={9} />
-                        </div>
-                        <div class="form-row">
-                            <Quantity id="example-quantity" label="Quantity" min="1" max="10" tabindex={10} />
-                        </div>
-                        <CreatePassword form-row="true" tabindex={11} />
-                        <div class="form-row">
-                            <SelectTime id="example-time" label="Preferred Time" increment={15} startTime="10:00" endTime="12:00" format={12} tabindex={12} />
-                        </div>
-                        <div class="form-row">
-                            <FileInput id="example-file" label="Upload File" tabindex={13} />
-                        </div>
-                        <div class="form-row">
-                            <SelectInput id="service" label="Select Label" tabindex={14} options={[
-                                { label: "Web Design", value: "web-design" },
-                                { label: "Web Development", value: "web-development" },
-                                { label: "SEO", value: "seo" },
-                                { label: "Content Writing", value: "content-writing" }
-                            ]} />
-                            <SelectInput id="options" label="Select Label" tabindex={15} options={[
-                                { label: "Option 1", value: "option1" },
-                                { label: "Option 2", value: "option2" },
-                                { label: "Option 3", value: "option3" }
-                            ]} />
-                        </div>
-                        <div class="form-row">
-                            <CheckboxGroup legend="Checkboxes" tabindex={16} list options={[
-                                { id: "checkbox1", label: "Checkbox 1", value: "check1", required: true },
-                                { id: "checkbox2", label: "Checkbox 2", value: "check2", required: true },
-                                { id: "checkbox3", label: "Checkbox 3", value: "check3", required: true }
-                            ]} />
-                            <RadioGroup legend="Radios" tabindex={17} name="radio" options={[
-                                { id: "radio1", label: "Radio 1", value: "rad1", required: true },
-                                { id: "radio2", label: "Radio 2", value: "rad2", required: true },
-                                { id: "radio3", label: "Radio 3", value: "rad3", required: true }
-                            ]} />
-                        </div>
-                        <DynamicInputWrapper trigger="dynamic-example">
-                            <div class="form-row">
-                                <SelectInput id="dynamic-example" label="Select Label" tabindex={18} options={[
-                                    { label: "Show Text Field", value: "Picked Dynamic Text", target: "dynamic1" },
-                                    { label: "Show Select Field", value: "Picked Dynamic Select", target: "dynamic2" },
-                                ]} />
-                                <TextInput id="dynamic1" label="Dynamic Text" tabindex={18} />
-                                <SelectInput id="dynamic2" label="Dynamic Select" defaultValue="Dynamic Select" tabindex={18} options={[
-                                    { label: "Dynamic 1", value: "Dynamic 1" },
-                                    { label: "Dynamic 2", value: "Dynamic 2" },
-                                    { label: "Dynamic 3", value: "Dynamic 3" }
-                                ]} />
-                            </div>
-                        </DynamicInputWrapper>
-                        <div class="form-row">
-                            <PillOption id="pill" label="Join our mailing list for updates and special offers" name="mailing-list" tabindex={19} />
-                        </div>
-                        <div class="buttons-group">
-                            <Button class="prev-btn" tabindex="-1">Previous</Button>
-                            <Button type="submit" tabindex={20}>Submit</Button>
-                        </div>
-                    </div>
-                </form>
+        <NetlifyForm 
+            id="example-form" 
+            class="contact-form"
+            name="Example Form" 
+            subject="Contact Submission" 
+            modalHeader="Email Sent" 
+            modalParagraph="Your message has been received. We will get back to you shortly." 
+            modalButton="Close" 
+            multiPart={true}
+            sectionIds="section-1,section-2"
+        >
+            <StepIndicator stepTotal={2} />
+            <div id="section-1" class="form-section">
+                <div class="form-row">
+                    <NameInput id="example-name" label="Your Name" tabindex={1} />
+                    <CompanyInput id="example-company" tabindex={2} />
+                </div>
+                <div class="form-row">
+                    <EmailInput id="example-email" tabindex={3} />
+                    <PhoneInput id="example-phone" tabindex={4} />
+                </div>
+                <div class="form-row">
+                    <!-- <DatePicker id="example-date" label="Preferred Date" days="sun,Tues,wed,thurs,Saturday" weekends={false} startRange={7} endRange={30} /> -->
+                    <DatePicker id="example-date" label="Preferred Date" days="Monday, Tuesday, Wednesday, Thursday" endRange={90} excludedDates="05/07/26, 05/05/26" hideDays disableHistory tabindex={5} />
+                </div>
+                <div class="form-row">
+                    <SelectDay id="example-day" label="Select Day" days="Monday, Tuesday, Wednesday, Thursday" hideDays weekView disableHistory tabindex={6} />
+                </div>
+                <div class="buttons-group">
+                    <Button type="reset" tabindex="-1">Reset</Button>
+                    <Button class="next-btn" tabindex={7}>Next</Button>
+                </div>
             </div>
-        </div>
+            <div id="section-2" class="form-section">
+                <ValidAddress id="test-address" provider="photon" tabindex={8} />
+                <div class="form-row">
+                    <TextArea id="example-message" label="Your Message" tabindex={9} />
+                </div>
+                <div class="form-row">
+                    <Quantity id="example-quantity" label="Quantity" min="1" max="10" tabindex={10} />
+                </div>
+                <CreatePassword form-row="true" tabindex={11} />
+                <div class="form-row">
+                    <SelectTime id="example-time" label="Preferred Time" increment={15} startTime="10:00" endTime="12:00" format={12} tabindex={12} />
+                </div>
+                <div class="form-row">
+                    <FileInput id="example-file" label="Upload File" tabindex={13} />
+                </div>
+                <div class="form-row">
+                    <SelectInput id="service" label="Select Label" tabindex={14} options={[
+                        { label: "Web Design", value: "web-design" },
+                        { label: "Web Development", value: "web-development" },
+                        { label: "SEO", value: "seo" },
+                        { label: "Content Writing", value: "content-writing" }
+                    ]} />
+                    <SelectInput id="options" label="Select Label" tabindex={15} options={[
+                        { label: "Option 1", value: "option1" },
+                        { label: "Option 2", value: "option2" },
+                        { label: "Option 3", value: "option3" }
+                    ]} />
+                </div>
+                <div class="form-row">
+                    <CheckboxGroup legend="Checkboxes" tabindex={16} list options={[
+                        { id: "checkbox1", label: "Checkbox 1", value: "check1", required: true },
+                        { id: "checkbox2", label: "Checkbox 2", value: "check2", required: true },
+                        { id: "checkbox3", label: "Checkbox 3", value: "check3", required: true }
+                    ]} />
+                    <RadioGroup legend="Radios" tabindex={17} name="radio" options={[
+                        { id: "radio1", label: "Radio 1", value: "rad1", required: true },
+                        { id: "radio2", label: "Radio 2", value: "rad2", required: true },
+                        { id: "radio3", label: "Radio 3", value: "rad3", required: true }
+                    ]} />
+                </div>
+                <DynamicInputWrapper trigger="dynamic-example">
+                    <div class="form-row">
+                        <SelectInput id="dynamic-example" label="Select Label" tabindex={18} options={[
+                            { label: "Show Text Field", value: "Picked Dynamic Text", target: "dynamic1" },
+                            { label: "Show Select Field", value: "Picked Dynamic Select", target: "dynamic2" },
+                        ]} />
+                        <TextInput id="dynamic1" label="Dynamic Text" tabindex={18} />
+                        <SelectInput id="dynamic2" label="Dynamic Select" defaultValue="Dynamic Select" tabindex={18} options={[
+                            { label: "Dynamic 1", value: "Dynamic 1" },
+                            { label: "Dynamic 2", value: "Dynamic 2" },
+                            { label: "Dynamic 3", value: "Dynamic 3" }
+                        ]} />
+                    </div>
+                </DynamicInputWrapper>
+                <div class="form-row">
+                    <PillOption id="pill" label="Join our mailing list for updates and special offers" altLabel="Thanks for joining our mailing list!" name="mailing-list" tabindex={19} />
+                </div>
+                <div class="buttons-group">
+                    <Button class="prev-btn" tabindex="-1">Previous</Button>
+                    <Button type="submit" tabindex={20}>Submit</Button>
+                </div>
+            </div>
+        </NetlifyForm>
     </Main>
     <FormHandler className="contact-form" />
 </Layout>

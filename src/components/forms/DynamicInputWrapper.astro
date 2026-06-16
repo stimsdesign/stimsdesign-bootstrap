@@ -1,4 +1,7 @@
 ---
+// Import → CSS
+import "@form-styles/dynamic-input.css";
+
 interface Props {
     trigger: string;
 }
@@ -9,4 +12,4 @@ const { trigger } = Astro.props;
 <div class="dynamic-input" data-trigger={trigger}>
     <slot />
 </div>
-
+
