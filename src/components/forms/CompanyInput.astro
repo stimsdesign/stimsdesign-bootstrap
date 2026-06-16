@@ -1,10 +1,32 @@
 ---
+/*************************************************************************
+ * @forms/CompanyInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A text input specifically configured for company or organization names.
+ * 
+ * Usage:
+ *  <CompanyInput id="billing-company" tabindex={4} />
+ * 
+ *************************************************************************/
+
 // Import → CSS
 import "@form-styles/inputs.css";
 
 // Import → Elements
 import TextInput from "./TextInput.astro";
 
+// Props
+interface Props {
+    /** The unique identifier for the input element. Default is "company". */
+    id?: string;
+    /** The label text for the input. Default is "Company Name". */
+    label?: string;
+    [key: string]: any;
+}
+
+// Destructuring Props
 const { id = "company", label = "Company Name", ...rest } = Astro.props;
 ---
 <TextInput id={id} label={label} autocomplete="organization" {...rest} />

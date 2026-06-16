@@ -1,22 +1,37 @@
 ---
-/**
- * @prop {string} type - Standard HTML input type, overrides default 'text'
- * @prop {string} placeholder - Passed down to input, must be " " to trigger CSS float labels if using default CSS
- */
+/*************************************************************************
+ * @forms/TextInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A standard single-line text input field supporting float label layout.
+ * 
+ * Usage:
+ *  <TextInput id="first-name" label="First Name" required />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/inputs.css";
 
+// Props
 interface Props {
+    /** The unique identifier for the input element. */
     id: string;
+    /** The name attribute for the input element. Defaults to id. */
     name?: string;
+    /** The label text displayed above or inside the field. */
     label?: string;
+    /** The placeholder text. Default is a space (" ") to trigger floating labels. */
     placeholder?: string;
+    /** Whether the field is required. Default is false. */
     required?: boolean;
+    /** Standard HTML input type. Default is "text". */
     type?: "text" | "email" | "tel" | "password" | "url" | "number" | "search";
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
     id, 
     name = id,

@@ -1,24 +1,46 @@
 ---
-/**
- * @prop {Array} options - Objects mapping { label, value, target? }
- * @prop {string} defaultValue - Text for the first empty option
- * @prop {boolean} hideLabel - Hides the label visually but keeps it in the DOM for accessibility
- */
+/*************************************************************************
+ * @forms/SelectInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A custom styled dropdown selection element.
+ * 
+ * Usage:
+ *  <SelectInput 
+ *      id="budget" 
+ *      label="Your Budget" 
+ *      options={[
+ *          { label: "Under $5k", value: "5k" },
+ *          { label: "$5k - $10k", value: "10k" }
+ *      ]} 
+ *  />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/selectboxes.css";
 
+// Props
 interface Props {
+    /** The unique identifier for the select element. */
     id: string;
+    /** The name attribute for the select element. Defaults to id. */
     name?: string;
+    /** The label text displayed for the selection dropdown. */
     label?: string;
+    /** The list of options, each mapping { label, value, target? }. */
     options: { label: string; value: string; target?: string }[];
+    /** Whether selecting an option is required. Default is false. */
     required?: boolean;
-    defaultValue?: string; // Text for the first empty option
+    /** Text for the default empty disabled option. Default is "Select Option". */
+    defaultValue?: string;
+    /** If true, visually hides the label but keeps it available for screen readers. Default is false. */
     hideLabel?: boolean;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
     id, 
     name = id,

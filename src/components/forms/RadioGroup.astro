@@ -1,22 +1,42 @@
 ---
-/**
- * @prop {string} legend - Visual accessibility title for the fieldset
- * @prop {string} name - The shared name binding the radio input group
- * @prop {Array} options - Objects mapping { id, label, value, required?, target?, checked? }
- * @prop {boolean} list - Renders the options vertically if true
- */
+/*************************************************************************
+ * @forms/RadioGroup.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A fieldset grouping multiple radio inputs with standard layout, legend, 
+ *  and dynamic conditional target display.
+ * 
+ * Usage:
+ *  <RadioGroup 
+ *      legend="Contact Preference" 
+ *      name="pref" 
+ *      options={[
+ *          { id: "email-pref", label: "Email", value: "email", checked: true },
+ *          { id: "phone-pref", label: "Phone", value: "phone" }
+ *      ]} 
+ *  />
+ * 
+ *************************************************************************/
 
- // Import → CSS
+// Import → CSS
 import "@form-styles/radios.css";
 
+// Props
 interface Props {
+    /** Visual accessibility title for the fieldset group. */
     legend: string;
+    /** The shared name attribute binding the radio input group. */
     name: string;
+    /** Array of radio option objects: { id, label, value, required?, target?, checked? }. */
     options: { id: string; label: string; value: string; required?: boolean; target?: string; checked?: boolean }[];
+    /** If true, renders the radio options vertically in a list format. Default is false. */
     list?: boolean;
+    /** Tabindex offset for keyboard navigation. */
     tabindex?: number;
 }
 
+// Destructuring Props
 const { legend, name, options, list = false, tabindex } = Astro.props;
 ---
 

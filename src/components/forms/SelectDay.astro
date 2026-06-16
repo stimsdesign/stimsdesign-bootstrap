@@ -1,14 +1,23 @@
 ---
-/**
- * @prop {string} days - Comma-separated list of active days (e.g., "mon,tue,wed")
- * @prop {boolean} weekends - Toggle weekend availability
- * @prop {number} startRange - Offset for the first selectable date
- * @prop {number} endRange - Restricts calendar past this forward offset
- * @prop {string} excludedDates - Comma-separated MM/DD/YY dates to disable
- * @prop {boolean} hideDays - Condenses the grid dynamically skipping disabled days
- * @prop {boolean} weekView - Only displays one selectable week at a time
- * @prop {boolean} disableHistory - Prevents backwards historic navigation
- */
+/*************************************************************************
+ * @forms/SelectDay.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A custom day selection calendar widget that allows selection of a day 
+ *  in a calendar/week view format.
+ * 
+ * Usage:
+ *  <SelectDay 
+ *      id="appointment-day" 
+ *      label="Choose Day" 
+ *      days="Monday, Tuesday, Wednesday, Thursday" 
+ *      hideDays 
+ *      weekView 
+ *      required 
+ *  />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/select-day.css";
@@ -16,21 +25,35 @@ import "@form-styles/select-day.css";
 // Import → Elements
 import Icon from "../elements/SVGicon.astro";
 
+// Props
 interface Props {
+    /** The unique identifier for the hidden input element. */
     id: string;
+    /** The label text displayed above the calendar widget. Default is "Preferred Day". */
     label?: string;
+    /** Comma-separated list of active days of the week (e.g. "mon,tue,wed"). Default is all days. */
     days?: string;
+    /** If true, weekends are enabled for selection. Default is true. */
     weekends?: boolean;
+    /** Offset in days for the first selectable date. Default is 0. */
     startRange?: number;
+    /** Restricts the calendar past this forward offset in days. */
     endRange?: number;
+    /** Comma-separated MM/DD/YY dates to disable. */
     excludedDates?: string;
+    /** If true, condenses the calendar grid dynamically by skipping disabled days. Default is false. */
     hideDays?: boolean;
+    /** If true, only displays one selectable week at a time. Default is false. */
     weekView?: boolean;
+    /** If true, prevents backwards historical date selection. Default is false. */
     disableHistory?: boolean;
+    /** Whether selecting a day is required. Default is false. */
     required?: boolean;
+    /** Tabindex offset for keyboard navigation. */
     tabindex?: number;
 }
 
+// Destructuring Props
 const { 
     id, 
     label = "Preferred Day", 
@@ -44,7 +67,6 @@ const {
     disableHistory = false,
     required = false
 } = Astro.props;
-
 ---
 
 <div 

@@ -1,20 +1,40 @@
 ---
-/**
- * @prop {string} legend - Visual accessibility title for the fieldset
- * @prop {Array} options - Objects mapping { id, label, value, name?, required?, target?, checked? }
- * @prop {boolean} list - Renders the options vertically if true
- */
+/*************************************************************************
+ * @forms/CheckboxGroup.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A fieldset grouping multiple checkbox inputs with standard layout, legend, 
+ *  and dynamic conditional target display.
+ * 
+ * Usage:
+ *  <CheckboxGroup 
+ *      legend="Select Services" 
+ *      list={true} 
+ *      options={[
+ *          { id: "web", label: "Web Design", value: "web-design", checked: true },
+ *          { id: "seo", label: "SEO Services", value: "seo" }
+ *      ]} 
+ *  />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/checkboxes.css";
 
+// Props
 interface Props {
+    /** Visual accessibility title for the fieldset group. */
     legend: string;
+    /** Array of checkbox option objects: { id, label, value, name?, required?, target?, checked? }. */
     options: { id: string; label: string; value: string; name?: string; required?: boolean; target?: string; checked?: boolean }[];
+    /** If true, renders the checkbox options vertically in a list format. Default is false. */
     list?: boolean;
+    /** Tabindex offset for keyboard navigation. */
     tabindex?: number;
 }
 
+// Destructuring Props
 const { legend, options, list = false, tabindex } = Astro.props;
 ---
 

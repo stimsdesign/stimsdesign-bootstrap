@@ -1,10 +1,32 @@
 ---
+/*************************************************************************
+ * @forms/ZipInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A text input specifically configured for 5-digit zip or postal codes.
+ * 
+ * Usage:
+ *  <ZipInput id="shipping-zip" required tabindex={5} />
+ * 
+ *************************************************************************/
+
 // Import → CSS
 import "@form-styles/inputs.css";
 
 // Import → Elements
 import TextInput from "./TextInput.astro";
 
+// Props
+interface Props {
+    /** The unique identifier for the input element. Default is "zip". */
+    id?: string;
+    /** The label text for the input. Default is "Zip / Postal Code". */
+    label?: string;
+    [key: string]: any;
+}
+
+// Destructuring Props
 const { id = "zip", label = "Zip / Postal Code", ...rest } = Astro.props;
 ---
 <TextInput 
@@ -17,3 +39,4 @@ const { id = "zip", label = "Zip / Postal Code", ...rest } = Astro.props;
     maxlength={5} 
     {...rest} 
 />
+

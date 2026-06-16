@@ -1,18 +1,36 @@
 ---
+/*************************************************************************
+ * @forms/FirstNameInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A text input preconfigured for a user's first name.
+ * 
+ * Usage:
+ *  <FirstNameInput id="first-name" required tabindex={1} />
+ * 
+ *************************************************************************/
+
 // Import → CSS
 import "@form-styles/inputs.css";
 
 // Import → Elements
 import TextInput from "./TextInput.astro";
 
+// Props
 interface Props {
+    /** The unique identifier for the input element. */
     id: string;
+    /** The name attribute for the input element. Defaults to id. */
     name?: string;
+    /** The label text displayed for the input. Default is "First Name". */
     label?: string;
+    /** Whether the field is required. Default is false. */
     required?: boolean;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
     id, 
     name = id,

@@ -1,4 +1,26 @@
 ---
+/*************************************************************************
+ * @forms/NetlifyForm.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A form wrapper element configured for submission via Netlify Forms, 
+ *  including integrated spam honeypot and success confirmation modal settings.
+ * 
+ * Usage:
+ *  <NetlifyForm 
+ *      id="contact-form" 
+ *      name="Contact Form" 
+ *      subject="New Contact" 
+ *      modalHeader="Email Sent" 
+ *      modalParagraph="We will get back to you shortly." 
+ *      modalButton="Close"
+ *  >
+ *      <slot />
+ *  </NetlifyForm>
+ * 
+ *************************************************************************/
+
 // Import → Site Config
 import { Site } from "@site.config";
 
@@ -7,21 +29,32 @@ import "@form-styles/forms.css";
 import "@form-styles/required.css";
 
 // Import → Elements
-import Honeypot from "@forms/Honeypot.astro"
-
-interface Props {
-    id: string;
-    name: string;
-    class?: string;
-    subject: string;
-    modalHeader: string;
-    modalParagraph: string;
-    modalButton: string;
-    multiPart?: boolean;
-    sectionIds?: string;
-}
+import Honeypot from "@forms/Honeypot.astro";
 
 // Props
+interface Props {
+    /** The unique identifier for the form element. */
+    id: string;
+    /** The name of the form as tracked by Netlify Forms. */
+    name: string;
+    /** Additional CSS classes for custom styling. */
+    class?: string;
+    /** The email notification subject line for form submissions. */
+    subject: string;
+    /** Title text for the successful submission modal. */
+    modalHeader: string;
+    /** Body text for the successful submission modal. */
+    modalParagraph: string;
+    /** Button text to dismiss the successful submission modal. */
+    modalButton: string;
+    /** Set to true if the form includes file uploads or uses a multi-step layout. Default is false. */
+    multiPart?: boolean;
+    /** Comma-separated list of section IDs for multi-step form wizard navigation. */
+    sectionIds?: string;
+    [key: string]: any;
+}
+
+// Destructuring Props
 const { 
     id,
     name,
@@ -34,7 +67,6 @@ const {
     sectionIds,
     ...rest
 } = Astro.props;
-
 ---
 
 <div class="form-wrapper">
@@ -50,6 +82,7 @@ const {
             data-modal-button={modalButton}
             data-multi-part={multiPart}
             data-section-ids={sectionIds}
+            {...rest}
         >
             <input type="hidden" name="form-name" value={name} />
             <input type="hidden" name="subject" value={`${subject} from ${Site.PrettyUrl}`} />

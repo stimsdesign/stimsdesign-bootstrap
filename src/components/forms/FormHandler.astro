@@ -1,9 +1,24 @@
 ---
-// src/components/forms/FormHandler.astro
+/*************************************************************************
+ * @forms/FormHandler.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A helper script injector component that automatically binds forms of a 
+ *  given CSS class to the client-side FormHandler validator/handler script.
+ * 
+ * Usage:
+ *  <FormHandler className="contact-form" />
+ * 
+ *************************************************************************/
+
+// Props
 interface Props {
+    /** The CSS class name of the forms to bind to the client-side FormHandler validator. */
     className: string;
 }
 
+// Destructuring Props
 const { className } = Astro.props;
 ---
 

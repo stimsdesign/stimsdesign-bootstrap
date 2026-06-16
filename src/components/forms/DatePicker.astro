@@ -1,13 +1,24 @@
 ---
-/**
- * @prop {string} days - Comma-separated list of active days (e.g., "mon,tue,wed")
- * @prop {boolean} weekends - Toggle weekend availability
- * @prop {number} startRange - Offset for the first selectable date
- * @prop {number} endRange - Restricts calendar past this forward offset
- * @prop {string} excludedDates - Comma-separated MM/DD/YY dates to disable
- * @prop {boolean} hideDays - Condenses the grid dynamically skipping disabled days
- * @prop {boolean} disableHistory - Prevents backwards historic navigation
- */
+/*************************************************************************
+ * @forms/DatePicker.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A text input integrated with a custom popup date-picker calendar widget.
+ * 
+ * Usage:
+ *  <DatePicker 
+ *      id="booking-date" 
+ *      label="Choose Date" 
+ *      days="Monday, Tuesday, Wednesday, Thursday" 
+ *      endRange={90} 
+ *      excludedDates="05/07/26, 05/05/26" 
+ *      hideDays 
+ *      disableHistory 
+ *      tabindex={5} 
+ *  />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/date-picker.css";
@@ -15,20 +26,33 @@ import "@form-styles/date-picker.css";
 // Import → Elements
 import Icon from "../elements/SVGicon.astro";
 
+// Props
 interface Props {
+    /** The unique identifier for the date input. */
     id: string;
+    /** The label text displayed above the date picker input. Default is "Preferred Date". */
     label?: string;
+    /** Comma-separated list of active days of the week (e.g. "mon,tue,wed"). Default is all days. */
     days?: string;
+    /** If true, weekends are enabled for selection. Default is true. */
     weekends?: boolean;
+    /** Offset in days for the first selectable date. Default is 0. */
     startRange?: number;
+    /** Restricts the calendar past this forward offset in days. */
     endRange?: number;
+    /** Comma-separated MM/DD/YY dates to disable. */
     excludedDates?: string;
+    /** If true, condenses the calendar grid dynamically by skipping disabled days. Default is false. */
     hideDays?: boolean;
+    /** If true, prevents backwards historical date selection. Default is false. */
     disableHistory?: boolean;
+    /** Whether selecting a date is required. Default is false. */
     required?: boolean;
+    /** Tabindex offset for keyboard navigation. */
     tabindex?: number;
 }
 
+// Destructuring Props
 const { 
     id, 
     label = "Preferred Date", 

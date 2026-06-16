@@ -1,22 +1,44 @@
 ---
-/**
- * @prop {string} id - The standard HTML id acting as the value token
- * @prop {boolean} required - Standard HTML required attribute that renders a visual asteroid
- */
+/*************************************************************************
+ * @forms/PillOption.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A stylized toggle checkbox component rendered as a button-like pill 
+ *  with secondary text.
+ * 
+ * Usage:
+ *  <PillOption 
+ *      id="pill" 
+ *      label="Join our mailing list" 
+ *      altLabel="Thanks for joining!" 
+ *      name="mailing-list" 
+ *      tabindex={19} 
+ *  />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/pill-option.css";
 
+// Props
 interface Props {
+    /** The unique identifier for the checkbox input. */
     id: string;
+    /** The name attribute for the input element. Defaults to id. */
     name?: string;
+    /** The primary text label displayed on the pill. */
     label: string;
+    /** Secondary text label that appears after selection or underneath. */
     altLabel?: string;
+    /** Initial checked state of the checkbox. Default is false. */
     checked?: boolean;
+    /** Whether selecting the checkbox is required. Default is false. */
     required?: boolean;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { id, name = id, label, altLabel, checked = false, required = false, ...rest } = Astro.props;
 ---
 

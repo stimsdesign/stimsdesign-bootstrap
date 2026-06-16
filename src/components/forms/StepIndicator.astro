@@ -1,17 +1,33 @@
 ---
+/*************************************************************************
+ * @forms/StepIndicator.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A visual progress tracker and wizard indicator for multi-step forms.
+ * 
+ * Usage:
+ *  <StepIndicator stepTotal={3} />
+ * 
+ *************************************************************************/
+
 // Import → CSS
 import "@form-styles/step-indicator.css";
 
-
+// Props
 interface Props {
+    // **The label text for the current step. Defaults to "Step" */
+    stepLabel?: string;
+    /** The total number of steps in the multi-step form. */
     stepTotal: number;
 }
 
-const stepTotal = Astro.props.stepTotal;
+// Destructuring Props
+const { stepLabel = "Step", stepTotal } = Astro.props;
 ---
 
 <div class="step-indicator">
-    Step <span class="step-number">1</span> of <span class="step-total">{stepTotal}</span>
+    {stepLabel} <span class="step-number">1</span> of <span class="step-total">{stepTotal}</span>
 </div>
 
 <div class="progress-track" aria-hidden="true">

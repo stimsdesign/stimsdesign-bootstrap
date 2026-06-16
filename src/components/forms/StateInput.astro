@@ -1,10 +1,33 @@
 ---
+/*************************************************************************
+ * @forms/StateInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A text input specifically configured for state, region, or province names.
+ * 
+ * Usage:
+ *  <StateInput id="shipping-state" required tabindex={4} />
+ * 
+ *************************************************************************/
+
 // Import → CSS
 import "@form-styles/inputs.css";
 
 // Import → Elements
 import TextInput from "./TextInput.astro";
 
+// Props
+interface Props {
+    /** The unique identifier for the input element. Default is "state". */
+    id?: string;
+    /** The label text for the input. Default is "State / Province". */
+    label?: string;
+    [key: string]: any;
+}
+
+// Destructuring Props
 const { id = "state", label = "State / Province", ...rest } = Astro.props;
 ---
 <TextInput id={id} label={label} autocomplete="address-level1" {...rest} />
+

@@ -1,10 +1,33 @@
 ---
+/*************************************************************************
+ * @forms/CityInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A text input specifically configured for city or locality names.
+ * 
+ * Usage:
+ *  <CityInput id="shipping-city" required tabindex={3} />
+ * 
+ *************************************************************************/
+
 // Import → CSS
 import "@form-styles/inputs.css";
 
 // Import → Elements
 import TextInput from "./TextInput.astro";
 
+// Props
+interface Props {
+    /** The unique identifier for the input element. Default is "city". */
+    id?: string;
+    /** The label text for the input. Default is "City". */
+    label?: string;
+    [key: string]: any;
+}
+
+// Destructuring Props
 const { id = "city", label = "City", ...rest } = Astro.props;
 ---
 <TextInput id={id} label={label} autocomplete="address-level2" {...rest} />
+

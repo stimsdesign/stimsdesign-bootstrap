@@ -1,30 +1,53 @@
 ---
-/**
- * @prop {string} defaultValue - Text for the disabled first option
- * @prop {boolean} hideLabel - Visually hides label while keeping accessibility
- * @prop {12 | 24} format - Time format display
- * @prop {string} startTime - 24h format "HH:mm" start boundary
- * @prop {string} endTime - 24h format "HH:mm" end boundary
- * @prop {number} increment - Minutes between generated options
- */
+/*************************************************************************
+ * @forms/SelectTime.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A custom dropdown selection list filled with generated time slots 
+ *  based on configured boundaries and minute increments.
+ * 
+ * Usage:
+ *  <SelectTime 
+ *      id="appt-time" 
+ *      label="Time Slot" 
+ *      startTime="08:00" 
+ *      endTime="18:00" 
+ *      increment={45} 
+ *      required 
+ *  />
+ * 
+ *************************************************************************/
 
- // Import → CSS
+// Import → CSS
 import "@form-styles/selectboxes.css";
 
+// Props
 interface Props {
+    /** The unique identifier for the select element. */
     id: string;
+    /** The name attribute for the select element. Defaults to id. */
     name?: string;
+    /** The label text displayed for the selection dropdown. Default is "Preferred Time". */
     label?: string;
+    /** Whether selecting a time is required. Default is false. */
     required?: boolean;
+    /** Text for the default empty disabled option. Default is "Select a Time". */
     defaultValue?: string;
+    /** If true, visually hides the label but keeps it available for screen readers. Default is false. */
     hideLabel?: boolean;
+    /** Time format display (12-hour or 24-hour). Default is 12. */
     format?: 12 | 24;
+    /** The 24h format "HH:mm" start boundary. Default is "09:00". */
     startTime?: string;
+    /** The 24h format "HH:mm" end boundary. Default is "17:00". */
     endTime?: string;
+    /** The number of minutes between generated choices. Default is 30. */
     increment?: number;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
     id, 
     name = id,

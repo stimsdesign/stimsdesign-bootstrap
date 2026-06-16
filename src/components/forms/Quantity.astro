@@ -1,29 +1,46 @@
 ---
-/**
- * @prop {number|string} min - Minimum allowed number
- * @prop {number|string} max - Maximum allowed number
- * @prop {number|string} step - Legal numerical interval
- * @prop {number|string} value - Default preset value
- */
+/*************************************************************************
+ * @forms/Quantity.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A custom numerical counter input with decrement/increment plus and minus 
+ *  buttons.
+ * 
+ * Usage:
+ *  <Quantity id="ticket-count" label="Tickets" min={1} max={10} step={1} value={1} />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/quantity.css";
 
-
+// Props
 interface Props {
+    /** The unique identifier for the input element. */
     id: string;
+    /** The name attribute for the input element. Defaults to id. */
     name?: string;
+    /** The label text displayed for the input. */
     label?: string;
+    /** The minimum selectable numerical value. Default is 0. */
     min?: number | string;
+    /** The maximum selectable numerical value. */
     max?: number | string;
+    /** The legal numerical interval between choices. Default is 1. */
     step?: number | string;
+    /** The default preset value. Defaults to min. */
     value?: number | string;
+    /** Whether the field is required. Default is false. */
     required?: boolean;
+    /** Additional CSS classes. */
     class?: string;
+    /** Tabindex offset for keyboard navigation. */
     tabindex?: number;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
     id, 
     name = id,

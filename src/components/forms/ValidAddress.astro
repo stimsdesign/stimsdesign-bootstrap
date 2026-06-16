@@ -1,9 +1,16 @@
 ---
-/**
- * @prop {string} provider - Address verification API ("photon", "google", "mapbox", "none")
- * @prop {boolean} formRow - If true, groups City/State/Zip horizontally
- * @prop {boolean} verify - Enable strict address verification constraints
- */
+/*************************************************************************
+ * @forms/ValidAddress.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A grouped address component (Street, Apt, City, State, Zip) integrated 
+ *  with address suggestion APIs (photon/google/mapbox) and autocomplete.
+ * 
+ * Usage:
+ *  <ValidAddress id="billing" provider="photon" formRow={true} verify={false} required />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/valid-address.css";
@@ -15,15 +22,23 @@ import CityInput from "./CityInput.astro";
 import StateInput from "./StateInput.astro";
 import ZipInput from "./ZipInput.astro";
 
+// Props
 interface Props {
+    /** The base prefix ID for all child input fields. Default is "address". */
     id?: string;
+    /** The address suggestion provider API. Default is "photon". */
     provider?: "photon" | "google" | "mapbox" | "none";
+    /** If true, the address fields are marked as required. Default is false. */
     required?: boolean;
+    /** If true, groups City/State/Zip horizontally using the .form-row class. Default is true. */
     formRow?: boolean;
+    /** If true, enables strict validation constraints. Default is false. */
     verify?: boolean;
+    /** Tabindex offset for keyboard navigation. */
     tabindex?: number;
 }
 
+// Destructuring Props
 const { 
     id = "address", 
     provider = "photon", 

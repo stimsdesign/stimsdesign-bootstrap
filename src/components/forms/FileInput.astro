@@ -1,10 +1,16 @@
 ---
-/**
- * @prop {string} accept - Standard HTML accept attribute (e.g. ".jpg,.png")
- * @prop {number} maxSize - Maximum allowed file size in MB
- * @prop {string} allowedTypes - Comma-separated MIME types for validation
- * @prop {string} requirements - Custom descriptive text overriding auto-generator
- */
+/*************************************************************************
+ * @forms/FileInput.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A file upload input supporting custom validation of file size and 
+ *  MIME types, with error message indicators.
+ * 
+ * Usage:
+ *  <FileInput id="resume" label="Upload Resume" accept=".pdf,.doc" maxSize={5} required />
+ * 
+ *************************************************************************/
 
 // Import → Site Config
 import { Site } from "@site.config";
@@ -12,18 +18,28 @@ import { Site } from "@site.config";
 // Import → CSS
 import "@form-styles/file-input.css";
 
+// Props
 interface Props {
+    /** The unique identifier for the file input. */
     id: string;
+    /** The name attribute for the input element. Defaults to id. */
     name?: string;
+    /** The label text displayed for the input. Default is "Upload File". */
     label?: string;
+    /** Standard HTML accept attribute (e.g. ".jpg,.png"). Defaults to allowedTypes. */
     accept?: string;
+    /** Maximum allowed file size in MB. Defaults to Site.DefaultFileSize. */
     maxSize?: number;
+    /** Comma-separated MIME types allowed. Defaults to Site.DefaultFileTypes. */
     allowedTypes?: string;
+    /** Whether the file selection is required. Default is false. */
     required?: boolean;
+    /** Custom requirements text, overriding the auto-generator. */
     requirements?: string;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
     id, 
     name = id,

@@ -1,11 +1,29 @@
 ---
+/*************************************************************************
+ * @forms/DynamicInputWrapper.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A wrapper component that conditionally displays nested input fields 
+ *  based on the value of a triggering select element.
+ * 
+ * Usage:
+ *  <DynamicInputWrapper trigger="service-select">
+ *      <!-- nested fields -->
+ *  </DynamicInputWrapper>
+ * 
+ *************************************************************************/
+
 // Import → CSS
 import "@form-styles/dynamic-input.css";
 
+// Props
 interface Props {
+    /** The ID of the select input that triggers the visibility of nested elements. */
     trigger: string;
 }
 
+// Destructuring Props
 const { trigger } = Astro.props;
 ---
 

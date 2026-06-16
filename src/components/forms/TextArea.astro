@@ -1,22 +1,37 @@
 ---
-/**
- * @prop {string} placeholder - Passed down to textarea, must be " " to trigger CSS float labels if using default CSS
- * @prop {number|string} rows - Vertical height of the textarea
- */
+/*************************************************************************
+ * @forms/TextArea.astro
+ * -----------------------------------------------------------------------
+ * 
+ * Description:
+ *  A multi-line text input field supporting float label layout.
+ * 
+ * Usage:
+ *  <TextArea id="comments" label="Comments" rows={5} required />
+ * 
+ *************************************************************************/
 
 // Import → CSS
 import "@form-styles/inputs.css";
 
+// Props
 interface Props {
+    /** The unique identifier for the textarea element. */
     id: string;
+    /** The name attribute for the textarea element. Defaults to id. */
     name?: string;
+    /** The label text displayed above or inside the field. */
     label?: string;
+    /** The placeholder text. Default is a space (" ") to trigger floating labels. */
     placeholder?: string;
+    /** Whether the field is required. Default is false. */
     required?: boolean;
+    /** The number of visible text lines / height of the field. Default is 4. */
     rows?: number | string;
     [key: string]: any;
 }
 
+// Destructuring Props
 const { 
     id, 
     name = id,
